@@ -15,8 +15,9 @@ This collection currently includes implementations for:
 * **2. Linked Lists:**
     * `2a LinkedList.py`: Singly linked list.
     * `2b DoublyLinkedList.py`: Doubly linked list.
-* **3. Stacks & Queues:**
+* **3. Stacks:**
     * `3 Stack.py`: Stack implementation (includes discussion/examples using both Python lists and `collections.deque`).
+* **4. Queues:**
     * `4 Queue.py`: Queue implementation (includes discussion/examples using both Python lists and `collections.deque`).
 * **5. Trees, Heaps & Tries:**
     * `5a Tree.py`: A general-purpose tree (N-ary tree).
@@ -29,19 +30,17 @@ This collection currently includes implementations for:
     * `6b Dijkstra.py`: Dijkstra's algorithm for shortest paths (versions for Adjacency List and Adjacency Matrix).
 * **7. Searching Algorithms:**
     * `7 BinarySearch.py`: Binary Search (iterative and recursive versions), and Linear Search.
-* **8. Sorting Algorithms (Basic):**
-    * `8 SelectionSort.py`: Selection Sort.
-    * `9 BubbleSort.py`: Bubble Sort (with optimization).
-* **10. Sorting Algorithms (Intermediate):**
-    * `10a InsertionSort.py`: Insertion Sort.
-    * `10b ShellSort.py`: Shell Sort.
-* **11. Sorting Algorithms (Divide & Conquer):**
-    * `11 MergeSort.py`: Merge Sort (in-place modification version).
-    * `12 QuickSort.py`: Quick Sort (using Hoare partition scheme).
-* **13. Disjoint Set Union (DSU):**
-    * `13 UnionFind.py`: Union-Find data structure with path compression and union by rank optimizations.
-* **14. Minimum Spanning Tree (MST) Algorithms:**
-    * `14 Kruskal_And_Prim.py`: Implementations of Kruskal's algorithm (typically for sparse graphs) and Prim's algorithm (adjacency matrix version, suitable for dense graphs).
+* **8. Sorting Algorithms:**
+    * `8a SelectionSort.py`: Selection Sort.
+    * `8b BubbleSort.py`: Bubble Sort (with optimization).
+    * `8c InsertionSort.py`: Insertion Sort.
+    * `8d ShellSort.py`: Shell Sort.
+    * `8e MergeSort.py`: Merge Sort.
+    * `8f QuickSort.py`: Quick Sort (Lomuto and Hoare partition scheme).
+* **9. Disjoint Set Union (DSU):**
+    * `9 UnionFind.py`: Union-Find data structure with path compression and union by rank optimizations.
+* **10. Minimum Spanning Tree (MST) Algorithms:**
+    * `10 Kruskal_And_Prim.py`: Implementations of Kruskal's algorithm (typically for sparse graphs), Prim's algorithm using an adjacency matrix (suitable for dense graphs), and Prim's algorithm using an adjacency list (suitable for sparse graphs).
 
 *(Note: The file naming convention `1a, 1b, ...` is used to group related concepts or show a progression of implementations, though some names have been made more descriptive.)*
 
