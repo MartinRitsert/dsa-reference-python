@@ -9,40 +9,40 @@ This repository serves as my personal knowledge base and collection of Python im
 This collection currently includes implementations for:
 
 * **1. Hash Tables** 🗂️
-    * `1a HashTable_NoCollisionHandling.py`: A basic hash table implementation that **does not handle hash collisions**. This version is for illustrative purposes of basic hashing.
-    * `1b HashTable_SeparateChaining.py`: Hash table using separate chaining for collision resolution.
-    * `1c HashTable_LinearProbing.py`: Hash table using linear probing for collision resolution.
+    * `01a_HashTable_NoCollisionHandling.py`: A basic hash table implementation that **does not handle hash collisions**. This version is for illustrative purposes of basic hashing.
+    * `01b_HashTable_SeparateChaining.py`: Hash table using separate chaining for collision resolution.
+    * `01c_HashTable_LinearProbing.py`: Hash table using linear probing for collision resolution.
 * **2. Linked Lists** 🔗
-    * `2a LinkedList.py`: Singly linked list.
-    * `2b DoublyLinkedList.py`: Doubly linked list.
+    * `02a_LinkedList.py`: Singly linked list.
+    * `02b_DoublyLinkedList.py`: Doubly linked list.
 * **3. Stacks** 📚
-    * `3 Stack.py`: Stack implementation (includes discussion/examples using both Python lists and `collections.deque`).
+    * `03_Stack.py`: Stack implementation (includes discussion/examples using both Python lists and `collections.deque`).
 * **4. Queues** 
-    * `4 Queue.py`: Queue implementation (includes discussion/examples using both Python lists and `collections.deque`).
+    * `04_Queue.py`: Queue implementation (includes discussion/examples using both Python lists and `collections.deque`).
 * **5. Trees, Heaps & Tries** 🌳
-    * `5a Tree.py`: A general-purpose tree (N-ary tree).
-    * `5b BinarySearchTree.py`: Binary Search Tree (BST) with common operations including iterative traversals.
-    * `5c MinHeap.py`: Min-Heap implementation using an array.
-    * `5d MaxHeap.py`: Max-Heap implementation using an array.
-    * `5e Trie.py`: Trie (prefix tree) implementation.
+    * `05a_Tree.py`: A general-purpose tree (N-ary tree).
+    * `05b_BinarySearchTree.py`: Binary Search Tree (BST) with common operations including iterative traversals.
+    * `05c_MinHeap.py`: Min-Heap implementation using an array.
+    * `05d_MaxHeap.py`: Max-Heap implementation using an array.
+    * `05e_Trie.py`: Trie (prefix tree) implementation.
 * **6. Graphs** 
-    * `6a Graph.py`: Graph representations (Adjacency List and Adjacency Matrix) with various algorithms like BFS/DFS for pathfinding, connectivity checks, and topological sort (Kahn's algorithm).
-    * `6b Dijkstra.py`: Dijkstra's algorithm for shortest paths (versions for Adjacency List and Adjacency Matrix).
+    * `06a_Graph.py`: Graph representations (Adjacency List and Adjacency Matrix) with various algorithms like BFS/DFS for pathfinding, connectivity checks, and topological sort (Kahn's algorithm).
+    * `06b_Dijkstra.py`: Dijkstra's algorithm for shortest paths (versions for Adjacency List and Adjacency Matrix).
 * **7. Searching Algorithms** 🔍
-    * `7 BinarySearch.py`: Binary Search (iterative and recursive versions), and Linear Search.
+    * `07_BinarySearch.py`: Binary Search (iterative and recursive versions), and Linear Search.
 * **8. Sorting Algorithms** 🔢
-    * `8a SelectionSort.py`: Selection Sort.
-    * `8b BubbleSort.py`: Bubble Sort (with optimization).
-    * `8c InsertionSort.py`: Insertion Sort.
-    * `8d ShellSort.py`: Shell Sort.
-    * `8e MergeSort.py`: Merge Sort.
-    * `8f QuickSort.py`: Quick Sort (Lomuto and Hoare partition scheme).
+    * `08a_SelectionSort.py`: Selection Sort.
+    * `08b_BubbleSort.py`: Bubble Sort (with optimization).
+    * `08c_InsertionSort.py`: Insertion Sort.
+    * `08d_ShellSort.py`: Shell Sort.
+    * `08e_MergeSort.py`: Merge Sort.
+    * `08f_QuickSort.py`: Quick Sort (Lomuto and Hoare partition scheme).
 * **9. Disjoint Set Union (DSU)**
-    * `9 UnionFind.py`: Union-Find data structure with path compression and union by rank optimizations.
+    * `09_UnionFind.py`: Union-Find data structure with path compression and union by rank optimizations.
 * **10. Minimum Spanning Tree (MST) Algorithms**
-    * `10 Kruskal_And_Prim.py`: Implementations of Kruskal's algorithm (typically for sparse graphs), Prim's algorithm using an adjacency matrix (suitable for dense graphs), and Prim's algorithm using an adjacency list (suitable for sparse graphs).
+    * `10_Kruskal_And_Prim.py`: Implementations of Kruskal's algorithm (typically for sparse graphs), Prim's algorithm using an adjacency matrix (suitable for dense graphs), and Prim's algorithm using an adjacency list (suitable for sparse graphs).
 
-*(Note: The file naming convention `1a, 1b, ...` is used to group related concepts or show a progression of implementations, though some names have been made more descriptive.)*
+*(Note: The file naming convention `01a, 01b, ...` is used to group related concepts or show a progression of implementations, though some names have been made more descriptive.)*
 
 ## 💡 My Approach
 
