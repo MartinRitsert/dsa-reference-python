@@ -29,7 +29,7 @@ This collection currently includes implementations for:
     * `06a_Graph.py`: Graph representations (Adjacency List and Adjacency Matrix) with various algorithms like BFS/DFS for pathfinding, connectivity checks, and topological sort (Kahn's algorithm).
     * `06b_Dijkstra.py`: Dijkstra's algorithm for shortest paths (versions for Adjacency List and Adjacency Matrix).
 * **7. Searching Algorithms** 🔍
-    * `07_BinarySearch.py`: Binary Search (iterative and recursive versions), and Linear Search.
+    * `07_BinarySearch.py`: Binary Search (iterative and recursive versions).
 * **8. Sorting Algorithms** 🔢
     * `08a_SelectionSort.py`: Selection Sort.
     * `08b_BubbleSort.py`: Bubble Sort (with optimization).
