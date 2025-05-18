@@ -26,8 +26,8 @@ This collection currently includes implementations for:
     * `05d_MaxHeap.py`: Max-Heap implementation using an array.
     * `05e_Trie.py`: Trie (prefix tree) implementation.
 * **6. Graphs** 
-    * `06a_Graph.py`: Graph representations (Adjacency List and Adjacency Matrix) with various algorithms like BFS/DFS for pathfinding, connectivity checks, and topological sort (Kahn's algorithm).
-    * `06b_Dijkstra.py`: Dijkstra's algorithm for shortest paths (versions for Adjacency List and Adjacency Matrix).
+    * `06a_Graph.py`: Graph representations (adjacency list and adjacency matrix) with various algorithms like BFS/DFS for pathfinding, connectivity checks, and topological sort (Kahn's algorithm).
+    * `06b_Dijkstra.py`: Dijkstra's algorithm for shortest paths (versions for adjacency list and adjacency matrix).
 * **7. Searching Algorithms** 🔍
     * `07_BinarySearch.py`: Binary Search (iterative and recursive versions).
 * **8. Sorting Algorithms** 🔢
