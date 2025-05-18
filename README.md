@@ -37,7 +37,7 @@ This collection currently includes implementations for:
     * `08d_ShellSort.py`: Shell Sort.
     * `08e_MergeSort.py`: Merge Sort.
     * `08f_QuickSort.py`: Quick Sort (Lomuto and Hoare partition scheme).
-* **9. Disjoint Set Union (DSU)**
+* **9. Disjoint Set**
     * `09_UnionFind.py`: Union-Find data structure with path compression and union by rank optimizations.
 * **10. Minimum Spanning Tree (MST) Algorithms**
     * `10_Kruskal_And_Prim.py`: Implementations of Kruskal's algorithm (typically for sparse graphs), Prim's algorithm using an adjacency matrix (suitable for dense graphs), and Prim's algorithm using an adjacency list (suitable for sparse graphs).
