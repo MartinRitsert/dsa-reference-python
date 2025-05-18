@@ -1,3 +1,8 @@
+# Note: The pre_order, in_order, and post_order algorithms are
+# valid not only for BSTs but for any binary tree. For BSTs,
+# the outputs of in-order traversal will always be sorted.
+
+
 class BinarySearchTreeNode:
     def __init__(self, data, left=None, right=None):
         self.data = data
