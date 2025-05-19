@@ -1,4 +1,4 @@
-
+# # In case that only one argument "elements" is passed to the function
 # def qsort(elements):
 #     n = len(elements)
 #     quick_sort(elements, 0, n - 1)
@@ -28,8 +28,8 @@ def quick_sort(elements, start, end):
 #     return pivot_index
 
 # Hoare partition scheme
-    # Note: In practice, you try to choose a pivot that is close to 
-    # the median value to achieve O(n log(n))
+# Note: In practice, you try to choose a pivot that is close to 
+# the median value to achieve O(n log(n))
 def partition(elements, initial_start, initial_end):
     pivot_index = initial_start
     pivot = elements[pivot_index]
