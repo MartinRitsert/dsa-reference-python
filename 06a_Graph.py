@@ -1,5 +1,4 @@
 from collections import deque
-from heapq import heappop, heappush
 
 
 # Option 1: Using adjacency list

@@ -1,4 +1,5 @@
-# Does not handle hash collisions
+# IMPORTANT: Does not handle hash collisions
+
 
 class HashTable:
     def __init__(self):

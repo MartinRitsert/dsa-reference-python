@@ -1,3 +1,6 @@
+from collections import deque
+
+
 # # USING A LIST
 # # This approach has a disadvantage: A list is a dynamic array. Thus, 
 # # for large stacks, it would copy many elements regularly
@@ -28,8 +31,6 @@
 # USING DEQUE
 # This is implemented using doubly linked lists and thus resolves 
 # the issue above (no copying of elements needed)
-from collections import deque
-
 class Stack:
     def __init__(self):
         self.container = deque()
