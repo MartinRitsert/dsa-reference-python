@@ -8,6 +8,7 @@ class Graph_AdjacencyList:
         self.free_ids = []
         
         # Initialize adjacency list
+        # Consider `defaultdict(list)` if node labels are arbitrary
         self.adjacency_list = {i: [] for i in range(num_vertices)}
         
         # Print the graph
@@ -22,6 +23,7 @@ class Graph_AdjacencyList:
             raise ValueError("Vertices are out of bounds")
 
         if end not in self.adjacency_list[start]:
+            # For weighted graphs, store each edge as a tuple: (neighbor, weight)
             self.adjacency_list[start].append(end)
 
         # Uncomment for undirected graph (but be aware that methods like topological_sort will not work)
@@ -224,7 +226,7 @@ class Graph_AdjacencyList:
             return False
         
         visited = set()
-        stack = [start] # Note: Could be implemented with deque for better performance
+        stack = [start] # Could be implemented with deque for better performance
         
         while stack:
             vertex = stack.pop()
@@ -273,6 +275,8 @@ class Graph_AdjacencyMatrix:
         self.num_vertices = num_vertices
 
         # Initialize adjacency matrix
+        # `self.adjacency_matrix[i][j]`: Stores weight of edge from node `i` to node `j`
+        # No Edge: Use `float('inf')`, `-1`, or `0` (select based on your use case)
         self.adjacency_matrix = [[0] * num_vertices for _ in range(num_vertices)]
         
         # Print the graph
@@ -485,7 +489,7 @@ class Graph_AdjacencyMatrix:
             return False
         
         visited = set()
-        stack = [start] # Note: Could be implemented with deque for better performance
+        stack = [start] # Could be implemented with deque for better performance
         
         while stack:
             vertex = stack.pop()

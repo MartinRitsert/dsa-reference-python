@@ -9,8 +9,8 @@ class TreeNode:
         self.children.append(child)
 
     def get_level(self):
-        # Note: Inefficient for deep trees. In these cases, it's more efficient to store the level
-        # in each tree node during construction
+        # Inefficient for deep trees. In these cases, it's more efficient to
+        # store the level in each tree node during construction
         level = 0
         p = self.parent
         while p:
@@ -38,7 +38,8 @@ class TreeNode:
         return None
     
     def insert(self, parent_value, child_value):
-        # If you already know the parent_node, you can skip find() and reduce insert() from O(n) to O(1)
+        # If you already know the parent_node, you can skip find() and 
+        # reduce insert() from O(n) to O(1)
         parent_node = self.find(parent_value)
 
         if parent_node:

@@ -23,10 +23,10 @@ class MaxHeap:
         index = self.real_size
 
         # Parent node of the newly added element
-        # Note: Root is stored at node with index 1
-        # Note: Index of the parent of any node is [index // 2]
-        # Note: Index of the left child is [index * 2]
-        # Note: Index of the right child is [index * 2 + 1]
+        # Root is stored at node with index 1
+        # Index of the parent of any node is [index // 2]
+        # Index of the left child is [index * 2]
+        # Index of the right child is [index * 2 + 1]
         parent = index // 2
 
         # If the newly added element is larger than its parent node,

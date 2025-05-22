@@ -1,4 +1,4 @@
-# Note: The pre_order, in_order, and post_order algorithms are
+# The pre_order, in_order, and post_order algorithms are
 # valid not only for BSTs but for any binary tree. For BSTs,
 # the outputs of in-order traversal will always be sorted.
 
@@ -132,7 +132,8 @@ class BinarySearchTreeNode:
         return elements[::-1]
     
     # # Iterative approach (efficient for deep trees):
-    # # Alternative to previous post_order_traversal that uses a visited flag and prevents the need to reverse the list at the end:
+    # # Alternative to previous post_order_traversal that uses a visited 
+    # # flag and prevents the need to reverse the list at the end:
     # def post_order_traversal(self):
     #     elements = []
     #     stack = [(self, False)]

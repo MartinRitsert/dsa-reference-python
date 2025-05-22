@@ -28,7 +28,7 @@ def quick_sort(elements, start, end):
 #     return pivot_index
 
 # Hoare partition scheme
-# Note: In practice, you try to choose a pivot that is close to 
+# In practice, you try to choose a pivot that is close to 
 # the median value to achieve O(n log(n))
 def partition(elements, initial_start, initial_end):
     pivot_index = initial_start

@@ -1,7 +1,7 @@
 from collections import deque
 
 
-# # USING A LIST
+# # Option 1: Using a list
 # # This approach has a disadvantage: A list is a dynamic array. Thus, 
 # # for large queues, it would copy many elements regularly
 # class Queue:
@@ -28,7 +28,7 @@ from collections import deque
 #         return len(self.container)
     
 
-# USING DEQUE
+# # Option 2: Using a deque
 # This is implemented using doubly linked lists and thus resolves
 # the issue above (no copying of elements needed)
 class Queue:

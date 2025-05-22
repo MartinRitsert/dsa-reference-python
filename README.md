@@ -42,7 +42,7 @@ This collection currently includes implementations for:
 * **10. Minimum Spanning Tree (MST) Algorithms**
     * `10_Kruskal_And_Prim.py`: Implementations of Kruskal's algorithm (typically for sparse graphs), Prim's algorithm using an adjacency matrix (suitable for dense graphs), and Prim's algorithm using an adjacency list (suitable for sparse graphs).
 
-*(Note: The file naming convention `01a, 01b, ...` is used to group related concepts or show a progression of implementations, though some names have been made more descriptive.)*
+*(The file naming convention `01a, 01b, ...` is used to group related concepts or show a progression of implementations, though some names have been made more descriptive.)*
 
 ## 💡 My Approach
 
