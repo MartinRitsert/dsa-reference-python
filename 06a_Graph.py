@@ -142,7 +142,7 @@ class Graph_AdjacencyList:
             return []
         
         paths = []
-        queue = deque([(start, [start])]) # (current_vertex, current_path)
+        queue = deque([(start, [start])])  # (current_vertex, current_path)
         
         while queue:
             vertex, path = queue.popleft()
@@ -226,7 +226,7 @@ class Graph_AdjacencyList:
             return False
         
         visited = set()
-        stack = [start] # Could be implemented with deque for better performance
+        stack = deque([start])
         
         while stack:
             vertex = stack.pop()

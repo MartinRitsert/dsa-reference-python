@@ -114,7 +114,7 @@ def prim_adj_mat(n, edges, start_vertex=0):
     for u, v, weight in edges:
         if 0 <= u < n and 0 <= v < n:
             adj_matrix[u][v] = weight
-            adj_matrix[v][u] = weight # Undirected graph
+            adj_matrix[v][u] = weight  # Undirected graph
 
     # min_cost[i] will hold the minimum weight edge to connect vertex i to the MST
     min_cost = [float('inf')] * n
@@ -133,7 +133,7 @@ def prim_adj_mat(n, edges, start_vertex=0):
     for _ in range(n):
         # Find the unvisited vertex with the minimum cost
         min_val = float('inf')
-        u = -1 # Current vertex to add to MST
+        u = -1  # Current vertex to add to MST
 
         for v_idx in range(n):
             if not visited[v_idx] and min_cost[v_idx] < min_val:
@@ -161,7 +161,7 @@ def prim_adj_mat(n, edges, start_vertex=0):
 
 
 if __name__ == '__main__':
-    edges = [(0, 1, 10), (0, 2, 6), (0, 3, 5), (1, 3, 15), (2, 3, 4)]   # Example edges (u, v, weight)
+    edges = [(0, 1, 10), (0, 2, 6), (0, 3, 5), (1, 3, 15), (2, 3, 4)]  # Example edges (u, v, weight)
     n = 4  # Number of vertices
     mst = kruskal(n, edges)
 
