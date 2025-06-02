@@ -17,7 +17,7 @@ This collection currently includes implementations for:
     * `02b_DoublyLinkedList.py`: Doubly linked list.
 * **3. Stacks** 📚
     * `03_Stack.py`: Stack implementation (includes discussion/examples using both Python lists and `collections.deque`).
-* **4. Queues** 
+* **4. Queues** 🚶‍♀️🚶‍♂️🚶
     * `04_Queue.py`: Queue implementation (includes discussion/examples using both Python lists and `collections.deque`).
 * **5. Trees, Heaps & Tries** 🌳
     * `05a_Tree.py`: A general-purpose tree (N-ary tree).
@@ -25,21 +25,21 @@ This collection currently includes implementations for:
     * `05c_MinHeap.py`: Min-Heap implementation using an array.
     * `05d_MaxHeap.py`: Max-Heap implementation using an array.
     * `05e_Trie.py`: Trie (prefix tree) implementation.
-* **6. Graphs** 
+* **6. Graphs** 📍➖📍➖📍
     * `06a_Graph.py`: Graph representations (adjacency list and adjacency matrix) with various algorithms like BFS/DFS for pathfinding, connectivity checks, and topological sort (Kahn's algorithm).
     * `06b_Dijkstra.py`: Dijkstra's algorithm for shortest paths (versions for adjacency list and adjacency matrix).
 * **7. Searching Algorithms** 🔍
     * `07_BinarySearch.py`: Binary Search (iterative and recursive versions).
-* **8. Sorting Algorithms** 🔢
+* **8. Sorting Algorithms** 1️⃣2️⃣3️⃣
     * `08a_SelectionSort.py`: Selection Sort.
     * `08b_BubbleSort.py`: Bubble Sort (with optimization).
     * `08c_InsertionSort.py`: Insertion Sort.
     * `08d_ShellSort.py`: Shell Sort.
     * `08e_MergeSort.py`: Merge Sort.
     * `08f_QuickSort.py`: Quick Sort (Lomuto and Hoare partition scheme).
-* **9. Disjoint Set**
+* **9. Disjoint Set** 📦📦 🍎🍎 📚📚
     * `09_UnionFind.py`: Union-Find data structure with path compression and union by rank optimizations.
-* **10. Minimum Spanning Tree (MST) Algorithms**
+* **10. Minimum Spanning Tree (MST) Algorithms** 🌳✨
     * `10_Kruskal_And_Prim.py`: Implementations of Kruskal's algorithm (typically for sparse graphs), Prim's algorithm using an adjacency matrix (suitable for dense graphs), and Prim's algorithm using an adjacency list (suitable for sparse graphs).
 
 *(The file naming convention `01a, 01b, ...` is used to group related concepts or show a progression of implementations, though some names have been made more descriptive.)*
