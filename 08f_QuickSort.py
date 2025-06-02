@@ -1,9 +1,12 @@
+from typing import Any
+
+
 # # In case that only one argument "elements" is passed to the function
-# def qsort(elements):
+# def qsort(elements: list[Any]) -> None:
 #     n = len(elements)
 #     quick_sort(elements, 0, n - 1)
     
-def quick_sort(elements, start, end):
+def quick_sort(elements: list[Any], start: int, end: int) -> None:
     if start < end:
         pi = partition(elements, start, end)
 
@@ -14,7 +17,7 @@ def quick_sort(elements, start, end):
         quick_sort(elements, pi + 1, end)
         
 # # Lomuto partition scheme
-# def partition(elements, start, end):
+# def partition(elements: list[Any], start: int, end: int) -> int:
 #     pivot = elements[end]
 #     pivot_index = start
 
@@ -30,7 +33,7 @@ def quick_sort(elements, start, end):
 # Hoare partition scheme
 # In practice, you try to choose a pivot that is close to 
 # the median value to achieve O(n log(n))
-def partition(elements, initial_start, initial_end):
+def partition(elements: list[Any], initial_start: int, initial_end: int) -> int:
     pivot_index = initial_start
     pivot = elements[pivot_index]
 
@@ -49,7 +52,6 @@ def partition(elements, initial_start, initial_end):
 
     elements[pivot_index], elements[end] = elements[end], elements[pivot_index]
     return end
-
 
 
 if __name__ == '__main__':

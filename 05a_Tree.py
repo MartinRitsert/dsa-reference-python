@@ -1,14 +1,17 @@
+from typing import Optional, Any
+
+
 class TreeNode:
-    def __init__(self, data):
+    def __init__(self, data: Any) -> None:
         self.data = data
         self.children = []
         self.parent = None
 
-    def add_child(self, child):
+    def add_child(self, child: 'TreeNode') -> None:
         child.parent = self
         self.children.append(child)
 
-    def get_level(self):
+    def get_level(self) -> int:
         # Inefficient for deep trees. In these cases, it's more efficient to
         # store the level in each tree node during construction
         level = 0
@@ -19,7 +22,7 @@ class TreeNode:
 
         return level
 
-    def print_tree(self):
+    def print_tree(self) -> None:
         spaces = 3 * ' ' * self.get_level()
         prefix = spaces + "|__" if self.parent else ""
 
@@ -28,7 +31,7 @@ class TreeNode:
             for child in self.children:
                 child.print_tree()
 
-    def find(self, value):
+    def find(self, value: Any) -> Optional['TreeNode']:
         if self.data == value:
             return self
         for child in self.children:
@@ -37,7 +40,7 @@ class TreeNode:
                 return found
         return None
     
-    def insert(self, parent_value, child_value):
+    def insert(self, parent_value: Any, child_value: Any) -> bool:
         # If you already know the parent_node, you can skip find() and 
         # reduce insert() from O(n) to O(1)
         parent_node = self.find(parent_value)
@@ -49,7 +52,7 @@ class TreeNode:
         
         return False
     
-    def delete(self, value):
+    def delete(self, value: Any) -> bool:
         node_to_delete = self.find(value)
 
         if node_to_delete and node_to_delete.parent:
@@ -62,7 +65,7 @@ class TreeNode:
         return False
         
 
-def build_product_tree():
+def build_product_tree() -> TreeNode:
     root = TreeNode("Electronics")
 
     laptop = TreeNode("Laptop")

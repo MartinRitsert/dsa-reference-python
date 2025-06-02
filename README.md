@@ -57,6 +57,10 @@ The implementations in this collection reflect an ongoing effort to:
 
 These implementations are intended for **educational, illustrative, and personal reference purposes only**. They should not be considered production-ready or used in critical applications without further rigorous testing and potential refinement.
 
+## 🛠️ Prerequisites 
+
+* This collection requires **Python 3.9 or newer** due to the use of modern type hinting features (e.g., `list[int]` instead of `typing.List[int]`).
+
 ## 🚀 How to Use
 
 Most files contain an `if __name__ == '__main__':` block with example usage. You can typically run these Python files directly to see a basic demonstration of the data structure or algorithm in action.

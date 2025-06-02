@@ -1,15 +1,22 @@
+from typing import Optional, Any
+
+# NOTE: For simplicity in this manual implementation, we assume keys are strings
+# to demonstrate a basic hashing algorithm. In a real-world hash table (like Python's dict),
+# keys can be any hashable type (using Python's built-in hash() function).
+
+
 class HashTable:
-    def __init__(self):
+    def __init__(self) -> None:
         self.MAX = 100
         self.arr = [None for _ in range(self.MAX)]
 
-    def get_hash(self, key):
+    def get_hash(self, key: str) -> int:
         h = 0
         for char in key:
             h += ord(char)
         return h % self.MAX
     
-    def __setitem__(self, key, val):
+    def __setitem__(self, key: str, val: Any) -> None:
         h = self.get_hash(key)
         if self.arr[h] is None:
             self.arr[h] = (key, val)
@@ -17,7 +24,7 @@ class HashTable:
             new_h = self.find_slot(key, h)
             self.arr[new_h] = (key, val)
 
-    def __getitem__(self, key):
+    def __getitem__(self, key: str) -> Optional[Any]:
         h = self.get_hash(key)
         if self.arr[h] is None:
             return None
@@ -32,12 +39,12 @@ class HashTable:
             
         return None
             
-    def get_prob_range(self, index):
+    def get_prob_range(self, index: int) -> list[int]:
+        # The * operator unpacks the elements of the range object and 
+        # the [] brackets create a new list containing these elements
         return [*range(index, len(self.arr))] + [*range(0, index)]
-    # The * operator unpacks the elements of the range object and 
-    # the [] brackets create a new list containing these elements
 
-    def find_slot(self, key, index):
+    def find_slot(self, key: str, index: int) -> int:
         prob_range = self.get_prob_range(index)
 
         for prob_index in prob_range:
@@ -48,7 +55,7 @@ class HashTable:
             
         raise Exception("Hashmap full")
     
-    def __delitem__(self, key):
+    def __delitem__(self, key: str) -> None:
         h = self.get_hash(key)
         prob_range = self.get_prob_range(h)
 

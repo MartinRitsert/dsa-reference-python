@@ -1,3 +1,6 @@
+from typing import Any
+
+
 class MinHeap:
     def __init__(self, heap_size: int) -> None:
         # Create a complete binary tree using an array
@@ -7,7 +10,7 @@ class MinHeap:
         # real_size records the number of elements in the heap
         self.real_size = 0
 
-    def add(self, element: int) -> None:
+    def add(self, element: Any) -> None:
         self.real_size += 1
 
         # Print error message if number of elements in Heap > preset heap_size
@@ -37,10 +40,10 @@ class MinHeap:
             index = parent
             parent = index // 2
 
-    def peek(self) -> int:
+    def peek(self) -> Any:
         return self.minheap[1]
 
-    def pop(self) -> int:
+    def pop(self) -> Any:
         if self.real_size < 1:
             raise IndexError("Heap is empty!")
 
@@ -102,5 +105,3 @@ if __name__ == "__main__":
     minHeap.add(5)
     print(minHeap)
     # [4,5]
-
-    

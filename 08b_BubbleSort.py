@@ -1,4 +1,7 @@
-def bubble_sort(elements):
+from typing import Any
+
+
+def bubble_sort(elements: list[Any]) -> None:
     size = len(elements)
 
     for i in range(size - 1):

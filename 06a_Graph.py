@@ -1,9 +1,10 @@
+from typing import Optional
 from collections import deque
 
 
 # Option 1: Using adjacency list
 class Graph_AdjacencyList:
-    def __init__(self, num_vertices):
+    def __init__(self, num_vertices: int) -> None:
         self.num_vertices = num_vertices
         self.free_ids = []
         
@@ -14,11 +15,11 @@ class Graph_AdjacencyList:
         # Print the graph
         self.display()
 
-    def display(self):
+    def display(self) -> None:
         for vertex in self.adjacency_list:
             print(vertex, ":", self.adjacency_list[vertex])
     
-    def add_edge(self, start, end):
+    def add_edge(self, start: int, end: int) -> None:
         if start not in self.adjacency_list or end not in self.adjacency_list:
             raise ValueError("Vertices are out of bounds")
 
@@ -30,7 +31,7 @@ class Graph_AdjacencyList:
         # if start not in self.adjacency_list[end]:
         #     self.adjacency_list[end].append(start)
 
-    def remove_edge(self, start, end):
+    def remove_edge(self, start: int, end: int) -> None:
         if start not in self.adjacency_list or end not in self.adjacency_list:
             raise ValueError("Vertices are out of bounds")
         
@@ -41,7 +42,7 @@ class Graph_AdjacencyList:
         # if start in self.adjacency_list[end]:
         #     self.adjacency_list[end].remove(start)
 
-    def add_vertex(self):
+    def add_vertex(self) -> None:
         if self.free_ids:
             new_id = self.free_ids.pop()
         else:
@@ -49,7 +50,7 @@ class Graph_AdjacencyList:
         self.adjacency_list[new_id] = []
         self.num_vertices += 1
 
-    def remove_vertex(self, vertex):
+    def remove_vertex(self, vertex: int) -> None:
         if vertex not in self.adjacency_list:
             raise ValueError("Vertex does not exist")
         
@@ -62,7 +63,7 @@ class Graph_AdjacencyList:
                 self.adjacency_list[key].remove(vertex)
 
     # # Recursive DFS approach
-    # def topological_sort_dfs_rec(self):
+    # def topological_sort_dfs_rec(self) -> list[int]:
     #     visited = set()
     #     rec_stack = set()  # Only needed if we want to detect cycles  
     #     stack = []
@@ -87,7 +88,7 @@ class Graph_AdjacencyList:
     #     return stack[::-1]
 
     # Iterative BFS approach -> Kahn's Algorithm
-    def topological_sort_bfs_it(self):
+    def topological_sort_bfs_it(self) -> list[int]:
         in_degree = {vertex: 0 for vertex in self.adjacency_list}
 
         # Calculate in-degree of each vertex
@@ -115,7 +116,7 @@ class Graph_AdjacencyList:
         return stack
 
     # # Recursive DFS approach
-    # def get_paths_dfs_rec(self, start, end, path=None):
+    # def get_paths_dfs_rec(self, start: int, end: int, path: Optional[list[int]] = None) -> list[list[int]]:
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return []
         
@@ -137,7 +138,7 @@ class Graph_AdjacencyList:
     #     return paths
     
     # Iteative BFS approach
-    def get_paths_bfs_it(self, start, end):
+    def get_paths_bfs_it(self, start: int, end: int) -> list[list[int]]:
         if start not in self.adjacency_list or end not in self.adjacency_list:
             return []
         
@@ -157,7 +158,7 @@ class Graph_AdjacencyList:
         return paths
 
     # # Recursive DFS approach
-    # def get_shortest_path_dfs_rec(self, start, end, path=None):
+    # def get_shortest_path_dfs_rec(self, start: int, end: int, path: Optional[list[int]] = None) -> list[int]:
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return []
 
@@ -180,7 +181,7 @@ class Graph_AdjacencyList:
     #     return shortest_path if shortest_path else []
     
     # Iterative BFS approach
-    def get_shortest_path_bfs_it(self, start, end):
+    def get_shortest_path_bfs_it(self, start: int, end: int) -> list[int]:
         if start not in self.adjacency_list or end not in self.adjacency_list:
             return []
 
@@ -202,7 +203,7 @@ class Graph_AdjacencyList:
         return []
 
     # # Recursive DFS approach
-    # def is_connected_dfs_rec(self, start, end, visited=None):
+    # def is_connected_dfs_rec(self, start: int, end: int, visited: Optional[set[int]] = None) -> bool:
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return False
 
@@ -221,7 +222,7 @@ class Graph_AdjacencyList:
     #     return False
 
     # Iterative DFS approach (preferred)
-    def is_connected_dfs_it(self, start, end):
+    def is_connected_dfs_it(self, start: int, end: int) -> bool:
         if start not in self.adjacency_list or end not in self.adjacency_list:
             return False
         
@@ -247,7 +248,7 @@ class Graph_AdjacencyList:
     # As iterative BFS is also more efficient, the recursive BFS is strongly not recommended
 
     # # Iterative BFS approach
-    # def is_connected_bfs_it(self, start, end):
+    # def is_connected_bfs_it(self, start: int, end: int) -> bool:
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return False
 
@@ -271,7 +272,7 @@ class Graph_AdjacencyList:
 
 # Option 2: Using adjacency matrix
 class Graph_AdjacencyMatrix:
-    def __init__(self, num_vertices):
+    def __init__(self, num_vertices: int) -> None:
         self.num_vertices = num_vertices
 
         # Initialize adjacency matrix
@@ -282,11 +283,11 @@ class Graph_AdjacencyMatrix:
         # Print the graph
         self.display()
 
-    def display(self):
+    def display(self) -> None:
         for row in self.adjacency_matrix:
             print(row)
 
-    def add_edge(self, start, end):
+    def add_edge(self, start: int, end: int) -> None:
         if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
             raise ValueError("Vertices are out of bounds")
 
@@ -295,7 +296,7 @@ class Graph_AdjacencyMatrix:
         # Uncomment for undirected graph (but be aware that methods like topological_sort will not work)
         # self.adjacency_matrix[end][start] = 1
 
-    def remove_edge(self, start, end):
+    def remove_edge(self, start: int, end: int) -> None:
         if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
             raise ValueError("Vertices are out of bounds")
         
@@ -304,14 +305,14 @@ class Graph_AdjacencyMatrix:
         # Uncomment for undirected graph (but be aware that methods like topological_sort will not work)
         # self.adjacency_matrix[end][start] = 0
 
-    def add_vertex(self):
+    def add_vertex(self) -> None:
         self.num_vertices += 1
 
         for row in self.adjacency_matrix:
             row.append(0)
         self.adjacency_matrix.append([0] * self.num_vertices)
 
-    def remove_vertex(self, vertex):
+    def remove_vertex(self, vertex: int) -> None:
         if vertex >= self.num_vertices or vertex < 0:
             raise ValueError("Vertex does not exist")
         
@@ -322,7 +323,7 @@ class Graph_AdjacencyMatrix:
         self.num_vertices -= 1
 
     # # Recursive DFS approach
-    # def topological_sort_dfs_rec(self):
+    # def topological_sort_dfs_rec(self) -> list[int]:
     #     visited = set()
     #     rec_stack = set()  # Only needed if we want to detect cycles  
     #     stack = []
@@ -347,7 +348,7 @@ class Graph_AdjacencyMatrix:
     #     return stack[::-1]
 
     # Iterative BFS approach -> Kahn's Algorithm
-    def topological_sort_bfs_it(self):
+    def topological_sort_bfs_it(self) -> list[int]:
         in_degree = {i: 0 for i in range(self.num_vertices)}
 
         # Calculate in-degree of each vertex
@@ -377,7 +378,7 @@ class Graph_AdjacencyMatrix:
         return stack
     
     # # Recursive DFS approach
-    # def get_paths_dfs_rec(self, start, end, path=None):
+    # def get_paths_dfs_rec(self, start: int, end: int, path: Optional[list[int]] = None) -> list[list[int]]:
     #     if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
     #         return []
         
@@ -399,7 +400,7 @@ class Graph_AdjacencyMatrix:
     #     return paths
     
     # Iteative BFS approach
-    def get_paths_bfs_it(self, start, end):
+    def get_paths_bfs_it(self, start: int, end: int) -> list[list[int]]:
         if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
             return []
         
@@ -419,7 +420,7 @@ class Graph_AdjacencyMatrix:
         return paths
     
     # # Recursive DFS approach
-    # def get_shortest_path_dfs_rec(self, start, end, path=None):
+    # def get_shortest_path_dfs_rec(self, start: int, end: int, path: Optional[list[int]] = None) -> list[int]:
     #     if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
     #         return []
         
@@ -442,7 +443,7 @@ class Graph_AdjacencyMatrix:
     #     return shortest_path if shortest_path else []
     
     # Iterative BFS approach
-    def get_shortest_path_bfs_it(self, start, end):
+    def get_shortest_path_bfs_it(self, start: int, end: int) -> list[int]:
         if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
             return []
 
@@ -464,7 +465,7 @@ class Graph_AdjacencyMatrix:
         return []    
 
     # # Recursive DFS approach
-    # def is_connected_dfs_rec(self, start, end, visited=None):
+    # def is_connected_dfs_rec(self, start: int, end: int, visited: Optional[set[int]] = None) -> bool:
     #     if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
     #         return False
     
@@ -484,7 +485,7 @@ class Graph_AdjacencyMatrix:
     #     return False
 
     # Iterative DFS approach (preferred)
-    def is_connected_dfs_it(self, start, end):
+    def is_connected_dfs_it(self, start: int, end: int) -> bool:
         if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
             return False
         
@@ -511,7 +512,7 @@ class Graph_AdjacencyMatrix:
     # As iterative BFS is also more efficient, the recursive BFS is strongly not recommended
 
     # # Iterative BFS approach
-    # def is_connected_bfs_it(self, start, end):
+    # def is_connected_bfs_it(self, start: int, end: int) -> bool:
     #     if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
     #         return False
 

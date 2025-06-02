@@ -1,3 +1,6 @@
+from typing import Any
+
+
 # # Linear search (as reference)
 # def linear_search(numbers_list, number_to_find):
 #     for index, element in enumerate(numbers_list):
@@ -5,8 +8,9 @@
 #             return index
 #     return -1
 
+
 # Iterative approach
-def binary_search(numbers_list, number_to_find):
+def binary_search(numbers_list: list[Any], number_to_find: Any) -> int:
     left_index = 0
     right_index = len(numbers_list) - 1
 
@@ -24,9 +28,8 @@ def binary_search(numbers_list, number_to_find):
 
     return -1
 
-
 # Recursive approach
-def binary_search_recursive(numbers_list, number_to_find, left_index, right_index):
+def binary_search_recursive(numbers_list: list[Any], number_to_find: Any, left_index: int, right_index: int) -> int:
     if right_index < left_index:
         return -1
     

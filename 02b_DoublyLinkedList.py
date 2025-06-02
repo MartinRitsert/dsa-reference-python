@@ -1,15 +1,19 @@
+from typing import Optional, Any
+
+
 class Node:
-    def __init__(self, data=None, next=None, prev=None):
+    def __init__(self, data: Any = None, next: Optional['Node'] = None, prev: Optional['Node'] = None) -> None:
         self.data = data
         self.next = next
         self.prev = prev
 
+
 class DoublyLinkedList:
-    def __init__(self):
+    def __init__(self) -> None:
         self.head = None
         self.tail = None
 
-    def find(self, data):
+    def find(self, data: Any) -> int:
         itr = self.head
 
         index = 0
@@ -22,10 +26,10 @@ class DoublyLinkedList:
 
         return -1
 
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return self.head is None
 
-    def insert_at_beginning(self, data):
+    def insert_at_beginning(self, data: Any) -> None:
         node = Node(data, self.head, None)
         if self.head is None:
             self.head = node
@@ -34,7 +38,7 @@ class DoublyLinkedList:
             self.head.prev = node
             self.head = node
 
-    def insert_at_end(self, data):
+    def insert_at_end(self, data: Any) -> None:
         if self.head is None:
             self.insert_at_beginning(data)
             return
@@ -43,7 +47,7 @@ class DoublyLinkedList:
         self.tail.next = node
         self.tail = node
 
-    def insert_at(self, index, data):
+    def insert_at(self, index: int, data: Any) -> None:
         if index < 0 or index > self.get_length():
             raise Exception("Invalid index")
         
@@ -68,7 +72,7 @@ class DoublyLinkedList:
             itr = itr.next
             count += 1
 
-    def insert_after_value(self, data_after, data_to_insert):
+    def insert_after_value(self, data_after: Any, data_to_insert: Any) -> None:
         if self.head is None:
             return
 
@@ -85,13 +89,13 @@ class DoublyLinkedList:
             itr = itr.next
         raise ValueError(f"Value {data_after} not found in the list")
 
-    def insert_values(self, data_list):
+    def insert_values(self, data_list: list[Any]) -> None:
         self.head = None
         self.tail = None
         for data in data_list:
             self.insert_at_end(data)
 
-    def remove_at(self, index):
+    def remove_at(self, index: int) -> None:
         if index < 0 or index >= self.get_length():
             raise Exception("Invalid index")
 
@@ -116,7 +120,7 @@ class DoublyLinkedList:
             itr = itr.next
             count += 1
 
-    def remove_by_value(self, data):
+    def remove_by_value(self, data: Any) -> None:
         if self.head is None:
             return
 
@@ -140,7 +144,7 @@ class DoublyLinkedList:
             itr = itr.next
         raise ValueError(f"Value {data} not found in the list")
 
-    def get_length(self):
+    def get_length(self) -> int:
         count = 0
         itr = self.head
         while itr:
@@ -149,7 +153,7 @@ class DoublyLinkedList:
 
         return count
 
-    def print_forward(self):
+    def print_forward(self) -> None:
         if self.head is None:
             print("Linked list is empty")
             return
@@ -163,7 +167,7 @@ class DoublyLinkedList:
 
         print(llstr)
 
-    def print_backward(self):
+    def print_backward(self) -> None:
         if self.head is None:
             print("Linked list is empty")
             return
@@ -180,4 +184,3 @@ class DoublyLinkedList:
 
 if __name__ == '__main__':
     ll = DoublyLinkedList()
-    

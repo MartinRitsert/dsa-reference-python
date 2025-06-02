@@ -1,5 +1,8 @@
+from typing import Any
+
+
 # Version 1: Sorting nums list in place and not returning the sorted nums list
-def merge_sort(nums):
+def merge_sort(nums: list[Any]) -> None:
     if len(nums) <= 1:
         return
 
@@ -12,7 +15,7 @@ def merge_sort(nums):
 
     merge(left_list, right_list, nums)
 
-def merge(a, b, nums):
+def merge(a: list[Any], b: list[Any], nums: list[Any]) -> None:
     len_a = len(a)
     len_b = len(b)
 
@@ -31,7 +34,7 @@ def merge(a, b, nums):
         
         
 # # Version 2: Not changing the original nums list, and returning a sorted copy of the nums list
-# def merge_sort(nums):
+# def merge_sort(nums: list[Any]) -> list[Any]:
 #     if len(nums) <= 1:
 #         return nums
 
@@ -42,7 +45,7 @@ def merge(a, b, nums):
 
 #     return merge(left_list, right_list)
 
-# def merge(a, b):
+# def merge(a: list[Any], b: list[Any]) -> list[Any]:
 #     len_a = len(a)
 #     len_b = len(b)
 

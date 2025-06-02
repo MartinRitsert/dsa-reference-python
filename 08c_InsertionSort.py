@@ -1,4 +1,7 @@
-def insertion_sort(elements):
+from typing import Any
+
+
+def insertion_sort(elements: list[Any]) -> None:
     for i in range(1, len(elements)):
         anchor = elements[i]
 

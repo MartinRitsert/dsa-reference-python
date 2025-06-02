@@ -4,19 +4,19 @@
 # Optimized Union Find
 # Combines Union by Rank and Path Compression
 class UnionFind:
-    def __init__(self, size):
+    def __init__(self, size: int) -> None:
         self.root = [i for i in range(size)]
         self.rank = [1] * size
 
     # Uses path compression
-    def find(self, x):
+    def find(self, x: int) -> int:
         if x == self.root[x]:
             return x
         self.root[x] = self.find(self.root[x])
         return self.root[x]
 
     # Uses union by rank
-    def union(self, x, y):
+    def union(self, x: int, y: int) -> None:
         rootX = self.find(x)
         rootY = self.find(y)
         if rootX != rootY:
@@ -28,13 +28,13 @@ class UnionFind:
                 self.root[rootY] = rootX
                 self.rank[rootX] += 1
 
-    def connected(self, x, y):
+    def connected(self, x: int, y: int) -> bool:
         return self.find(x) == self.find(y)
     
     
 # Kruskal's Algorithm (Minimum Spanning Tree) using the provided UnionFind class
 # Optimal for sparse graphs
-def kruskal(n, edges):
+def kruskal(n: int, edges: list[tuple[int, int, float]]) -> list[tuple[int, int, float]]:
     if n == 0:
         return []
 
@@ -57,7 +57,7 @@ def kruskal(n, edges):
 # # Prim's Algorithm (Minimum Spanning Tree) using adjacency list and heapq
 # # Optimal for sparse graphs with similar efficiency to Kruskal's
 # # However, Kruskal is easier to implement and thus preferred
-# def prim_adj_list(n, edges, start_vertex=0):
+# def prim_adj_list(n: int, edges: list[tuple[int, int, float]], start_vertex: int = 0) -> list[tuple[int, int, float]]:
 #     if n == 0:
 #         return []
 
@@ -104,7 +104,7 @@ def kruskal(n, edges):
 
 # Prim's Algorithm (Minimum Spanning Tree) using adjacency matrix
 # Optimal for dense graphs
-def prim_adj_mat(n, edges, start_vertex=0):
+def prim_adj_mat(n: int, edges: list[tuple[int, int, float]], start_vertex: int = 0) -> list[tuple[int, int, float]]:
     if n == 0:
         return []
 

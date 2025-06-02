@@ -1,4 +1,7 @@
-def shell_sort(arr):
+from typing import Any
+
+
+def shell_sort(arr: list[Any]) -> None:
     size = len(arr)
     gap = size // 2
 
@@ -12,7 +15,7 @@ def shell_sort(arr):
             arr[j] = anchor
         gap = gap // 2
 
-# def foo(arr):
+# def foo(arr: list[Any]) -> None:
 #     size = len(arr)
 #     gap = size // 2
 #     gap = 3
@@ -23,6 +26,7 @@ def shell_sort(arr):
 #             arr[j] = arr[j - gap]
 #             j -= gap
 #         arr[j] = anchor
+
 
 if __name__ == '__main__':
     tests = [
