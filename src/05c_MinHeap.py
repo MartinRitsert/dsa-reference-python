@@ -35,7 +35,7 @@ class MinHeap:
         # If the newly added element is smaller than its parent node,
         # its value will be exchanged with that of the parent node
         # This is called "heapify up"
-        while (self.minheap[index] < self.minheap[parent] and index > 1):
+        while self.minheap[index] < self.minheap[parent] and index > 1:
             self.minheap[parent], self.minheap[index] = self.minheap[index], self.minheap[parent]
             index = parent
             parent = index // 2
