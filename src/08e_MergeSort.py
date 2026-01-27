@@ -67,14 +67,20 @@ def merge(a: list[Any], b: list[Any], nums: list[Any]) -> None:
 
 
 if __name__ == '__main__':
-    test_cases = [
+    tests = [
         [10, 3, 15, 7, 8, 23, 98, 29],
         [],
         [3],
-        [9,8,7,2],
-        [1,2,3,4,5]
+        [9, 8, 7, 2],
+        [1, 2, 3, 4, 5],
+        [2, 1],
+        [3, 3, 3],
+        [5, 4, 3, 2, 1],  # Reverse sorted
     ]
 
-    for arr in test_cases:
-        merge_sort(arr)
-        print(arr)
+    for elements in tests:
+        expected = sorted(elements)
+        merge_sort(elements)
+        assert elements == expected, f"Expected {expected}, got {elements}"
+
+    print("All tests passed!")

@@ -537,35 +537,58 @@ class Graph_AdjacencyMatrix:
 
 
 if __name__ == '__main__':
-    # Test cases for adjacency list
+    # Test Adjacency List implementation
     graph_1 = Graph_AdjacencyList(5)
     graph_1.add_edge(0, 1)
     graph_1.add_edge(1, 2)
     graph_1.add_edge(2, 3)
     graph_1.add_edge(3, 4)
-    graph_1.display()
 
     # Test get_paths_bfs_it
-    print("Paths from 0 to 4:", graph_1.get_paths_bfs_it(0, 4))  # Expected paths: [[0, 1, 2, 3, 4]]
-    print("Paths from 0 to 2:", graph_1.get_paths_bfs_it(0, 2))  # Expected paths: [[0, 1, 2]]
+    assert graph_1.get_paths_bfs_it(0, 4) == [[0, 1, 2, 3, 4]], "Should find path 0->4"
+    assert graph_1.get_paths_bfs_it(0, 2) == [[0, 1, 2]], "Should find path 0->2"
+    assert graph_1.get_paths_bfs_it(4, 0) == [], "No path from 4 to 0 (directed)"
 
     # Test get_shortest_path_bfs_it
-    print("Shortest path from 0 to 4:", graph_1.get_shortest_path_bfs_it(0, 4))  # Expected: [0, 1, 2, 3, 4]
-    print("Shortest path from 0 to 2:", graph_1.get_shortest_path_bfs_it(0, 2), "\n")  # Expected: [0, 1, 2]
+    assert graph_1.get_shortest_path_bfs_it(0, 4) == [0, 1, 2, 3, 4], "Shortest path 0->4"
+    assert graph_1.get_shortest_path_bfs_it(0, 2) == [0, 1, 2], "Shortest path 0->2"
 
+    # Test is_connected_dfs_it
+    assert graph_1.is_connected_dfs_it(0, 4), "0 should be connected to 4"
+    assert not graph_1.is_connected_dfs_it(4, 0), "4 should not reach 0 (directed)"
 
-    # Test cases for adjacency matrix
+    # Test topological_sort_bfs_it
+    topo = graph_1.topological_sort_bfs_it()
+    assert topo == [0, 1, 2, 3, 4], "Topological order should be 0,1,2,3,4"
+
+    # Test error handling
+    try:
+        graph_1.add_edge(0, 10)
+        assert False, "Should raise ValueError for out of bounds"
+    except ValueError:
+        pass
+
+    # Test Adjacency Matrix implementation
     graph_2 = Graph_AdjacencyMatrix(5)
     graph_2.add_edge(0, 1)
     graph_2.add_edge(1, 2)
     graph_2.add_edge(2, 3)
     graph_2.add_edge(3, 4)
-    graph_2.display()
 
     # Test get_paths_bfs_it
-    print("Paths from 0 to 4:", graph_2.get_paths_bfs_it(0, 4))  # Expected paths: [[0, 1, 2, 3, 4]]
-    print("Paths from 0 to 2:", graph_2.get_paths_bfs_it(0, 2))  # Expected paths: [[0, 1, 2]]
+    assert graph_2.get_paths_bfs_it(0, 4) == [[0, 1, 2, 3, 4]], "Should find path 0->4"
+    assert graph_2.get_paths_bfs_it(0, 2) == [[0, 1, 2]], "Should find path 0->2"
 
     # Test get_shortest_path_bfs_it
-    print("Shortest path from 0 to 4:", graph_2.get_shortest_path_bfs_it(0, 4))  # Expected: [0, 1, 2, 3, 4]
-    print("Shortest path from 0 to 2:", graph_2.get_shortest_path_bfs_it(0, 2))  # Expected: [0, 1, 2]
+    assert graph_2.get_shortest_path_bfs_it(0, 4) == [0, 1, 2, 3, 4], "Shortest path 0->4"
+    assert graph_2.get_shortest_path_bfs_it(0, 2) == [0, 1, 2], "Shortest path 0->2"
+
+    # Test is_connected_dfs_it
+    assert graph_2.is_connected_dfs_it(0, 4), "0 should be connected to 4"
+    assert not graph_2.is_connected_dfs_it(4, 0), "4 should not reach 0 (directed)"
+
+    # Test topological_sort_bfs_it
+    topo2 = graph_2.topological_sort_bfs_it()
+    assert topo2 == [0, 1, 2, 3, 4], "Topological order should be 0,1,2,3,4"
+
+    print("All tests passed!")

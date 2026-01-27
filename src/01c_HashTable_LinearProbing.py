@@ -4,6 +4,12 @@ from typing import Optional, Any
 # to demonstrate a basic hashing algorithm. In a real-world hash table (like Python's dict),
 # keys can be any hashable type (using Python's built-in hash() function).
 
+# IMPORTANT: Linear probing with deletion has a subtle issue. When an element is deleted,
+# it leaves a None "hole" that can break retrieval of elements that were inserted after it
+# due to collision. This implementation attempts to fix this by rehashing subsequent elements
+# after deletion, but this adds complexity. An alternative approach is to use "tombstone"
+# markers instead of None for deleted slots.
+
 
 class HashTable:
     def __init__(self) -> None:
@@ -15,7 +21,7 @@ class HashTable:
         for char in key:
             h += ord(char)
         return h % self.MAX
-    
+
     def __setitem__(self, key: str, val: Any) -> None:
         h = self.get_hash(key)
         if self.arr[h] is None:
@@ -36,13 +42,21 @@ class HashTable:
                 return None
             if element[0] == key:
                 return element[1]
-            
+
         return None
-            
-    def get_prob_range(self, index: int) -> list[int]:
-        # The * operator unpacks the elements of the range object and 
-        # the [] brackets create a new list containing these elements
-        return [*range(index, len(self.arr))] + [*range(0, index)]
+
+    # # O(n) space and time - creates full list of MAX elements on every call
+    # def get_prob_range(self, index: int) -> list[int]:
+    #     # The * operator unpacks the elements of the range object and
+    #     # the [] brackets create a new list containing these elements
+    #     return [*range(index, len(self.arr))] + [*range(0, index)]
+
+    # O(1) space - generator yields indices one at a time, allowing early exit
+    def get_prob_range(self, index: int):
+        for i in range(index, self.MAX):
+            yield i
+        for i in range(0, index):
+            yield i
 
     def find_slot(self, key: str, index: int) -> int:
         prob_range = self.get_prob_range(index)
@@ -52,17 +66,17 @@ class HashTable:
                 return prob_index
             if self.arr[prob_index][0] == key:
                 return prob_index
-            
-        raise Exception("Hashmap full")
-    
+
+        raise OverflowError("Hashmap full")
+
     def __delitem__(self, key: str) -> None:
         h = self.get_hash(key)
         prob_range = self.get_prob_range(h)
 
         for prob_index in prob_range:
             if self.arr[prob_index] is None:
-                return
-            
+                raise KeyError(key)
+
             if self.arr[prob_index][0] == key:
                 self.arr[prob_index] = None
 
@@ -74,5 +88,49 @@ class HashTable:
                     self.arr[next_index] = None
                     self.__setitem__(rehash_key, rehash_val)
                     next_index = (next_index + 1) % self.MAX
-                    
+
                 return
+
+
+if __name__ == "__main__":
+    ht = HashTable()
+
+    # Basic operations
+    ht["apple"] = 100
+    ht["banana"] = 200
+    ht["orange"] = 300
+
+    assert ht["apple"] == 100, "Should retrieve apple"
+    assert ht["banana"] == 200, "Should retrieve banana"
+    assert ht["orange"] == 300, "Should retrieve orange"
+    assert ht["grape"] is None, "Non-existent key should return None"
+
+    # Test update
+    ht["apple"] = 150
+    assert ht["apple"] == 150, "Should update apple"
+
+    # Test delete
+    del ht["banana"]
+    assert ht["banana"] is None, "Deleted key should return None"
+
+    # Test collision handling with linear probing
+    # "ab" and "ba" have same hash but linear probing handles this
+    ht["ab"] = "first"
+    ht["ba"] = "second"
+    assert ht["ab"] == "first", "Should retrieve 'ab' despite collision"
+    assert ht["ba"] == "second", "Should retrieve 'ba' despite collision"
+
+    # Test deleting one colliding key doesn't affect the other
+    # (This tests the rehashing logic in __delitem__)
+    del ht["ab"]
+    assert ht["ab"] is None, "Deleted 'ab' should return None"
+    assert ht["ba"] == "second", "'ba' should still exist after deleting 'ab'"
+
+    # Test KeyError on deleting non-existent key
+    try:
+        del ht["nonexistent"]
+        assert False, "Should raise KeyError for non-existent key"
+    except KeyError:
+        pass  # Expected
+
+    print("All tests passed!")

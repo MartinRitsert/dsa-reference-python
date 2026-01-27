@@ -201,8 +201,41 @@ def build_tree(elements: list[Any]) -> BinarySearchTreeNode:
 if __name__ == '__main__':
     numbers = [17, 4, 1, 20, 9, 23, 18, 24]
     numbers_tree = build_tree(numbers)
-    print(numbers_tree.in_order_traversal())
-    print(numbers_tree.search(20))
-    print(numbers_tree.search(21))
-    numbers_tree.delete(20)
-    print(numbers_tree.in_order_traversal())
+
+    # Test in_order_traversal (should be sorted for BST)
+    in_order = numbers_tree.in_order_traversal()
+    assert in_order == sorted(numbers), "In-order traversal should be sorted"
+
+    # Test pre_order_traversal
+    pre_order = numbers_tree.pre_order_traversal()
+    assert pre_order[0] == 17, "Pre-order should start with root"
+    assert len(pre_order) == len(numbers), "Pre-order should have all elements"
+
+    # Test post_order_traversal
+    post_order = numbers_tree.post_order_traversal()
+    assert post_order[-1] == 17, "Post-order should end with root"
+    assert len(post_order) == len(numbers), "Post-order should have all elements"
+
+    # Test search
+    assert numbers_tree.search(20), "Should find 20"
+    assert numbers_tree.search(17), "Should find root 17"
+    assert not numbers_tree.search(21), "Should not find 21"
+    assert not numbers_tree.search(100), "Should not find 100"
+
+    # Test find_min and find_max
+    assert numbers_tree.find_min() == 1, "Min should be 1"
+    assert numbers_tree.find_max() == 24, "Max should be 24"
+
+    # Test calculate_sum
+    assert numbers_tree.calculate_sum() == sum(numbers), "Sum should match"
+
+    # Test delete
+    numbers_tree = numbers_tree.delete(20)
+    assert not numbers_tree.search(20), "Should not find deleted 20"
+    assert numbers_tree.search(23), "Should still find 23 after deleting 20"
+
+    # Test delete leaf
+    numbers_tree = numbers_tree.delete(1)
+    assert not numbers_tree.search(1), "Should not find deleted 1"
+
+    print("All tests passed!")

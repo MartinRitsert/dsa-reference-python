@@ -51,11 +51,27 @@ def binary_search_recursive(numbers_list: list[Any], number_to_find: Any, left_i
 
 
 if __name__ == '__main__':
-    numbers_list = [12, 15, 17, 19, 21, 24, 45, 67]
-    number_to_find = 21
+    # Test cases: (array, target, expected_result)
+    test_cases = [
+        ([12, 15, 17, 19, 21, 24, 45, 67], 21, 4),   # Found in middle
+        ([12, 15, 17, 19, 21, 24, 45, 67], 12, 0),   # Found at first
+        ([12, 15, 17, 19, 21, 24, 45, 67], 67, 7),   # Found at last
+        ([12, 15, 17, 19, 21, 24, 45, 67], 10, -1),  # Not found (before all)
+        ([12, 15, 17, 19, 21, 24, 45, 67], 70, -1),  # Not found (after all)
+        ([12, 15, 17, 19, 21, 24, 45, 67], 20, -1),  # Not found (between)
+        ([], 5, -1),                                  # Empty array
+        ([5], 5, 0),                                  # Single element (found)
+        ([5], 3, -1),                                 # Single element (not found)
+    ]
 
-    index = binary_search(numbers_list, number_to_find)
-    print(f"Number found at index {index} using binary search")
+    # Test iterative binary search
+    for arr, target, expected in test_cases:
+        result = binary_search(arr, target)
+        assert result == expected, f"Iterative: search {target} in {arr}, got {result}, expected {expected}"
 
-    index = binary_search_recursive(numbers_list, number_to_find, 0, len(numbers_list) - 1)
-    print(f"Number found at index {index} using recursive binary search")
+    # Test recursive binary search
+    for arr, target, expected in test_cases:
+        result = binary_search_recursive(arr, target, 0, len(arr) - 1)
+        assert result == expected, f"Recursive: search {target} in {arr}, got {result}, expected {expected}"
+
+    print("All tests passed!")

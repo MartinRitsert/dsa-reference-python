@@ -119,16 +119,39 @@ class UnionFind:
 
 if __name__ == '__main__':
     uf = UnionFind(10)
-    # 1-2-5-6-7 3-8-9 4
+
+    # Build component: 1-2-5-6-7
     uf.union(1, 2)
     uf.union(2, 5)
     uf.union(5, 6)
     uf.union(6, 7)
+
+    # Build component: 3-8-9
     uf.union(3, 8)
     uf.union(8, 9)
-    print(uf.connected(1, 5))  # true
-    print(uf.connected(5, 7))  # true
-    print(uf.connected(4, 9))  # false
-    # 1-2-5-6-7 3-8-9-4
+
+    # Element 4 remains solo (no union operations)
+
+    # Test connected within first component
+    assert uf.connected(1, 5), "1 and 5 should be connected"
+    assert uf.connected(5, 7), "5 and 7 should be connected"
+    assert uf.connected(1, 7), "1 and 7 should be connected"
+
+    # Test connected within second component
+    assert uf.connected(3, 9), "3 and 9 should be connected"
+
+    # Test solo element 4 is not connected to anyone
+    assert not uf.connected(4, 9), "4 (solo) should not be connected to 9"
+    assert not uf.connected(4, 1), "4 (solo) should not be connected to 1"
+    assert not uf.connected(1, 3), "Components 1-2-5-6-7 and 3-8-9 should not be connected"
+
+    # Test union: connect solo element 4 to component 3-8-9
     uf.union(9, 4)
-    print(uf.connected(4, 9))  # true
+    assert uf.connected(4, 9), "4 and 9 should now be connected"
+    assert uf.connected(3, 4), "3 and 4 should now be connected"
+
+    # Test find returns same root for connected elements
+    assert uf.find(1) == uf.find(7), "Connected elements should have same root"
+    assert uf.find(3) == uf.find(4), "Connected elements should have same root"
+
+    print("All tests passed!")

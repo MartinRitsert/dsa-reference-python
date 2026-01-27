@@ -49,7 +49,7 @@ class DoublyLinkedList:
 
     def insert_at(self, index: int, data: Any) -> None:
         if index < 0 or index > self.get_length():
-            raise Exception("Invalid index")
+            raise IndexError("Invalid index")
         
         if index == 0:
             self.insert_at_beginning(data)
@@ -74,7 +74,7 @@ class DoublyLinkedList:
 
     def insert_after_value(self, data_after: Any, data_to_insert: Any) -> None:
         if self.head is None:
-            return
+            raise ValueError(f"Value {data_after} not found in the list")
 
         itr = self.head
         while itr:
@@ -97,7 +97,7 @@ class DoublyLinkedList:
 
     def remove_at(self, index: int) -> None:
         if index < 0 or index >= self.get_length():
-            raise Exception("Invalid index")
+            raise IndexError("Invalid index")
 
         if index == 0:
             self.head = self.head.next
@@ -122,7 +122,7 @@ class DoublyLinkedList:
 
     def remove_by_value(self, data: Any) -> None:
         if self.head is None:
-            return
+            raise ValueError(f"Value {data} not found in the list")
 
         if self.head.data == data:
             self.head = self.head.next
@@ -184,3 +184,67 @@ class DoublyLinkedList:
 
 if __name__ == '__main__':
     ll = DoublyLinkedList()
+
+    # Test empty list
+    assert ll.is_empty(), "New list should be empty"
+    assert ll.get_length() == 0, "New list should have length 0"
+
+    # Test insert_at_beginning
+    ll.insert_at_beginning(1)
+    assert ll.get_length() == 1, "Length should be 1"
+    assert ll.find(1) == 0, "Should find 1 at index 0"
+    assert ll.head == ll.tail, "Head and tail should be same for single element"
+
+    # Test insert_at_end
+    ll.insert_at_end(3)
+    assert ll.get_length() == 2, "Length should be 2"
+    assert ll.find(3) == 1, "Should find 3 at index 1"
+    assert ll.tail.data == 3, "Tail should be 3"
+
+    # Test insert_at
+    ll.insert_at(1, 2)
+    assert ll.get_length() == 3, "Length should be 3"
+    assert ll.find(2) == 1, "Should find 2 at index 1"
+
+    # Test insert_after_value
+    ll.insert_after_value(2, 2.5)
+    assert ll.find(2.5) == 2, "Should find 2.5 at index 2"
+
+    # Test insert_values
+    ll.insert_values([10, 20, 30])
+    assert ll.get_length() == 3, "Length should be 3 after insert_values"
+    assert ll.find(20) == 1, "Should find 20 at index 1"
+    assert ll.head.data == 10, "Head should be 10"
+    assert ll.tail.data == 30, "Tail should be 30"
+
+    # Test remove_at
+    ll.remove_at(1)
+    assert ll.find(20) == -1, "20 should be removed"
+    assert ll.get_length() == 2, "Length should be 2"
+
+    # Test remove_by_value
+    ll.insert_at_end(40)
+    ll.remove_by_value(30)
+    assert ll.find(30) == -1, "30 should be removed"
+    assert ll.tail.data == 40, "Tail should be 40"
+
+    # Test error handling
+    try:
+        ll.insert_at(100, 999)
+        assert False, "Should raise IndexError for invalid index"
+    except IndexError:
+        pass
+
+    try:
+        ll.remove_at(-1)
+        assert False, "Should raise IndexError for negative index"
+    except IndexError:
+        pass
+
+    try:
+        ll.remove_by_value(999)
+        assert False, "Should raise ValueError for non-existent value"
+    except ValueError:
+        pass
+
+    print("All tests passed!")

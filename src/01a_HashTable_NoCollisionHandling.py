@@ -44,3 +44,33 @@ class HashTable:
     def __delitem__(self, key: str) -> None:
         h = self.get_hash(key)
         self.arr[h] = None
+
+
+if __name__ == "__main__":
+    ht = HashTable()
+
+    # Basic operations
+    ht["apple"] = 100
+    ht["banana"] = 200
+    ht["orange"] = 300
+
+    assert ht["apple"] == 100, "Should retrieve apple"
+    assert ht["banana"] == 200, "Should retrieve banana"
+    assert ht["orange"] == 300, "Should retrieve orange"
+    assert ht["grape"] is None, "Non-existent key should return None"
+
+    # Test update
+    ht["apple"] = 150
+    assert ht["apple"] == 150, "Should update apple"
+
+    # Test delete
+    del ht["banana"]
+    assert ht["banana"] is None, "Deleted key should return None"
+
+    # Demonstrate collision problem (WARNING: this is expected to fail!)
+    # "ab" and "ba" have same hash (ord('a') + ord('b') = ord('b') + ord('a'))
+    ht["ab"] = "first"
+    ht["ba"] = "second"  # This overwrites "ab" due to collision!
+    assert ht["ab"] == "second", "Collision: 'ab' was overwritten by 'ba'"
+
+    print("All tests passed!")

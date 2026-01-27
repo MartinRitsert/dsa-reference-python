@@ -13,11 +13,9 @@ class MinHeap:
     def add(self, element: Any) -> None:
         self.real_size += 1
 
-        # Print error message if number of elements in Heap > preset heap_size
         if self.real_size > self.heap_size:
-            print("Added too many elements!")
             self.real_size -= 1
-            return
+            raise OverflowError("Heap is full")
 
         # Add the element into the array
         self.minheap[self.real_size] = element
@@ -41,6 +39,8 @@ class MinHeap:
             parent = index // 2
 
     def peek(self) -> Any:
+        if self.real_size < 1:
+            raise IndexError("Heap is empty!")
         return self.minheap[1]
 
     def pop(self) -> Any:
@@ -86,22 +86,53 @@ class MinHeap:
 
 
 if __name__ == "__main__":
-    # Test cases
     minHeap = MinHeap(5)
+
+    # Test empty heap
+    assert minHeap.size() == 0, "New heap should have size 0"
+
+    # Test add and peek
     minHeap.add(3)
     minHeap.add(1)
     minHeap.add(2)
-    print(minHeap)
-    # [1,3,2]
-    print(minHeap.peek())
-    # 1
-    print(minHeap.pop())
-    # 1
-    print(minHeap.pop())
-    # 2
-    print(minHeap.pop())
-    # 3
+    assert minHeap.size() == 3, "Heap should have size 3"
+    assert minHeap.peek() == 1, "Min element should be 1"
+
+    # Test pop returns elements in ascending order
+    assert minHeap.pop() == 1, "First pop should return 1"
+    assert minHeap.pop() == 2, "Second pop should return 2"
+    assert minHeap.pop() == 3, "Third pop should return 3"
+    assert minHeap.size() == 0, "Heap should be empty after popping all"
+
+    # Test add after empty
     minHeap.add(4)
     minHeap.add(5)
-    print(minHeap)
-    # [4,5]
+    assert minHeap.peek() == 4, "Min should be 4"
+    assert minHeap.size() == 2, "Heap should have size 2"
+
+    # Test error on empty pop/peek
+    minHeap.pop()
+    minHeap.pop()
+    try:
+        minHeap.pop()
+        assert False, "Should raise IndexError on empty pop"
+    except IndexError:
+        pass
+
+    try:
+        minHeap.peek()
+        assert False, "Should raise IndexError on empty peek"
+    except IndexError:
+        pass
+
+    # Test overflow
+    fullHeap = MinHeap(2)
+    fullHeap.add(1)
+    fullHeap.add(2)
+    try:
+        fullHeap.add(3)
+        assert False, "Should raise OverflowError when heap is full"
+    except OverflowError:
+        pass
+
+    print("All tests passed!")

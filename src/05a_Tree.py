@@ -86,9 +86,29 @@ def build_product_tree() -> TreeNode:
 
 if __name__ == '__main__':
     root = build_product_tree()
-    root.print_tree()
 
-    print("\nFinding 'Mac':", root.find("Mac").data if root.find("Mac") else "Not found")
-    print("Inserting 'Asus' under 'Laptop':", root.insert("Laptop", "Asus"))
-    print("Deleting 'Surface':", root.delete("Surface"))
-    root.print_tree()
+    # Test find
+    assert root.find("Mac") is not None, "Should find 'Mac'"
+    assert root.find("Mac").data == "Mac", "Found node should have data 'Mac'"
+    assert root.find("NonExistent") is None, "Should not find 'NonExistent'"
+
+    # Test get_level
+    assert root.get_level() == 0, "Root should be at level 0"
+    assert root.find("Laptop").get_level() == 1, "Laptop should be at level 1"
+    assert root.find("Mac").get_level() == 2, "Mac should be at level 2"
+
+    # Test insert
+    assert root.insert("Laptop", "Asus"), "Should insert 'Asus' under 'Laptop'"
+    assert root.find("Asus") is not None, "Should find inserted 'Asus'"
+    assert root.find("Asus").parent.data == "Laptop", "Asus parent should be Laptop"
+    assert not root.insert("NonExistent", "Test"), "Should fail to insert under non-existent parent"
+
+    # Test delete
+    assert root.delete("Surface"), "Should delete 'Surface'"
+    assert root.find("Surface") is None, "Should not find deleted 'Surface'"
+    assert not root.delete("NonExistent"), "Should fail to delete non-existent node"
+
+    # Test cannot delete root (no parent)
+    assert not root.delete("Electronics"), "Should not be able to delete root"
+
+    print("All tests passed!")

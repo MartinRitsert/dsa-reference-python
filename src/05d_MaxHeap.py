@@ -13,11 +13,9 @@ class MaxHeap:
     def add(self, element: Any) -> None:
         self.real_size += 1
 
-        # Print error message if number of elements in Heap > preset heap_size
         if self.real_size > self.heap_size:
-            print("Added too many elements!")
             self.real_size -= 1
-            return
+            raise OverflowError("Heap is full")
 
         # Add the element into the array
         self.maxheap[self.real_size] = element
@@ -41,6 +39,8 @@ class MaxHeap:
             parent = index // 2
 
     def peek(self) -> Any:
+        if self.real_size < 1:
+            raise IndexError("Heap is empty!")
         return self.maxheap[1]
 
     def pop(self) -> Any:
@@ -72,7 +72,7 @@ class MaxHeap:
             if largest == index:
                 break
 
-            # Swap the current node with the smallest child
+            # Swap the current node with the largest child
             self.maxheap[index], self.maxheap[largest] = self.maxheap[largest], self.maxheap[index]
             index = largest
 
@@ -86,22 +86,53 @@ class MaxHeap:
 
 
 if __name__ == "__main__":
-    # Test cases
     maxHeap = MaxHeap(5)
+
+    # Test empty heap
+    assert maxHeap.size() == 0, "New heap should have size 0"
+
+    # Test add and peek
     maxHeap.add(3)
     maxHeap.add(1)
     maxHeap.add(2)
-    print(maxHeap)
-    # [3,1,2]
-    print(maxHeap.peek())
-    # 3
-    print(maxHeap.pop())
-    # 3
-    print(maxHeap.pop())
-    # 2
-    print(maxHeap.pop())
-    # 1
+    assert maxHeap.size() == 3, "Heap should have size 3"
+    assert maxHeap.peek() == 3, "Max element should be 3"
+
+    # Test pop returns elements in descending order
+    assert maxHeap.pop() == 3, "First pop should return 3"
+    assert maxHeap.pop() == 2, "Second pop should return 2"
+    assert maxHeap.pop() == 1, "Third pop should return 1"
+    assert maxHeap.size() == 0, "Heap should be empty after popping all"
+
+    # Test add after empty
     maxHeap.add(4)
     maxHeap.add(5)
-    print(maxHeap)
-    # [5,4]
+    assert maxHeap.peek() == 5, "Max should be 5"
+    assert maxHeap.size() == 2, "Heap should have size 2"
+
+    # Test error on empty pop/peek
+    maxHeap.pop()
+    maxHeap.pop()
+    try:
+        maxHeap.pop()
+        assert False, "Should raise IndexError on empty pop"
+    except IndexError:
+        pass
+
+    try:
+        maxHeap.peek()
+        assert False, "Should raise IndexError on empty peek"
+    except IndexError:
+        pass
+
+    # Test overflow
+    fullHeap = MaxHeap(2)
+    fullHeap.add(1)
+    fullHeap.add(2)
+    try:
+        fullHeap.add(3)
+        assert False, "Should raise OverflowError when heap is full"
+    except OverflowError:
+        pass
+
+    print("All tests passed!")

@@ -32,11 +32,17 @@ if __name__ == '__main__':
     tests = [
         [89, 78, 61, 53, 23, 21, 17, 12, 9, 7, 6, 2, 1],
         [],
-        [1,5,8,9],
-        [234,3,1,56,34,12,9,12,1300],
-        [5]
+        [1, 5, 8, 9],
+        [234, 3, 1, 56, 34, 12, 9, 12, 1300],
+        [5],
+        [2, 1],
+        [3, 3, 3],
+        [5, 4, 3, 2, 1],  # Reverse sorted
     ]
-    elements = [89,78,61,53,23,21,17,12,9,7,6,2,1]
+
     for elements in tests:
+        expected = sorted(elements)
         shell_sort(elements)
-        print(elements)
+        assert elements == expected, f"Expected {expected}, got {elements}"
+
+    print("All tests passed!")

@@ -160,10 +160,26 @@ def prim_adj_mat(n: int, edges: list[tuple[int, int, float]], start_vertex: int 
     return mst
 
 
-if __name__ == '__main__':
-    edges = [(0, 1, 10), (0, 2, 6), (0, 3, 5), (1, 3, 15), (2, 3, 4)]  # Example edges (u, v, weight)
-    n = 4  # Number of vertices
-    mst = kruskal(n, edges)
+if __name__ == "__main__":
+    edges = [(0, 1, 10), (0, 2, 6), (0, 3, 5), (1, 3, 15), (2, 3, 4)]
+    n = 4
 
-    # Print the resulting MST
-    print("Minimum Spanning Tree:", mst)
+    # Test Kruskal's algorithm
+    mst_kruskal = kruskal(n, edges)
+    kruskal_weight = sum(e[2] for e in mst_kruskal)
+    print(f"Kruskal's MST: {mst_kruskal}")
+    print(f"Kruskal's total weight: {kruskal_weight}")
+
+    # Test Prim's algorithm
+    mst_prim = prim_adj_mat(n, edges)
+    prim_weight = sum(e[2] for e in mst_prim)
+    print(f"Prim's MST: {mst_prim}")
+    print(f"Prim's total weight: {prim_weight}")
+
+    # Both should produce MST with same total weight
+    assert len(mst_kruskal) == n - 1, "Kruskal MST should have n-1 edges"
+    assert len(mst_prim) == n - 1, "Prim MST should have n-1 edges"
+    assert kruskal_weight == prim_weight, "Both algorithms should produce same total weight"
+    assert kruskal_weight == 19, "Expected MST weight is 19"
+
+    print("All tests passed!")

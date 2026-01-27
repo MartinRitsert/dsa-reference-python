@@ -17,13 +17,21 @@ def bubble_sort(elements: list[Any]) -> None:
 
 
 if __name__ == '__main__':
-    elements_1 = [5,9,2,1,67,34,88,34]
-    elements_2 = [1,2,3,4,2]
-    elements_3 = ["mona", "dhaval", "aamir", "tina", "chang"]
+    tests = [
+        [5, 9, 2, 1, 67, 34, 88, 34],
+        [1, 2, 3, 4, 2],
+        ["mona", "dhaval", "aamir", "tina", "chang"],
+        [],
+        [5],
+        [2, 1],
+        [3, 3, 3],
+        [1, 2, 3, 4, 5],  # Already sorted
+        [5, 4, 3, 2, 1],  # Reverse sorted
+    ]
 
-    bubble_sort(elements_1)
-    bubble_sort(elements_2)
-    bubble_sort(elements_3)
-    print(elements_1)
-    print(elements_2)
-    print(elements_3)
+    for elements in tests:
+        expected = sorted(elements)
+        bubble_sort(elements)
+        assert elements == expected, f"Expected {expected}, got {elements}"
+
+    print("All tests passed!")

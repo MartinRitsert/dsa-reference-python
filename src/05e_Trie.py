@@ -3,6 +3,7 @@ class TrieNode:
         self.children = {}
         self.is_end_of_word = False
 
+
 class Trie:
     def __init__(self) -> None:
         self.root = TrieNode()
@@ -33,3 +34,27 @@ class Trie:
                 return False
             node = node.children[char]
         return True
+
+
+if __name__ == "__main__":
+    trie = Trie()
+
+    # Insert words
+    for word in ["apple", "app", "application", "banana", "band"]:
+        trie.insert(word)
+
+    # Search tests
+    assert trie.search("apple"), "Should find 'apple'"
+    assert trie.search("app"), "Should find 'app'"
+    assert not trie.search("appl"), "Should not find incomplete word 'appl'"
+    assert trie.search("banana"), "Should find 'banana'"
+    assert not trie.search("ban"), "Should not find incomplete word 'ban'"
+    assert not trie.search("cat"), "Should not find 'cat'"
+
+    # Prefix tests
+    assert trie.starts_with("app"), "Should find prefix 'app'"
+    assert trie.starts_with("appl"), "Should find prefix 'appl'"
+    assert trie.starts_with("ban"), "Should find prefix 'ban'"
+    assert not trie.starts_with("cat"), "Should not find prefix 'cat'"
+
+    print("All tests passed!")

@@ -36,3 +36,40 @@ class HashTable:
         for idx, element in enumerate(self.arr[h]):
             if element[0] == key:
                 del self.arr[h][idx]
+                return
+
+
+if __name__ == "__main__":
+    ht = HashTable()
+
+    # Basic operations
+    ht["apple"] = 100
+    ht["banana"] = 200
+    ht["orange"] = 300
+
+    assert ht["apple"] == 100, "Should retrieve apple"
+    assert ht["banana"] == 200, "Should retrieve banana"
+    assert ht["orange"] == 300, "Should retrieve orange"
+    assert ht["grape"] is None, "Non-existent key should return None"
+
+    # Test update
+    ht["apple"] = 150
+    assert ht["apple"] == 150, "Should update apple"
+
+    # Test delete
+    del ht["banana"]
+    assert ht["banana"] is None, "Deleted key should return None"
+
+    # Test collision handling (unlike NoCollisionHandling, this should work!)
+    # "ab" and "ba" have same hash but separate chaining handles this
+    ht["ab"] = "first"
+    ht["ba"] = "second"
+    assert ht["ab"] == "first", "Should retrieve 'ab' despite collision"
+    assert ht["ba"] == "second", "Should retrieve 'ba' despite collision"
+
+    # Test deleting one colliding key doesn't affect the other
+    del ht["ab"]
+    assert ht["ab"] is None, "Deleted 'ab' should return None"
+    assert ht["ba"] == "second", "'ba' should still exist after deleting 'ab'"
+
+    print("All tests passed!")

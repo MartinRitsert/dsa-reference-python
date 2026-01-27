@@ -14,19 +14,21 @@ def insertion_sort(elements: list[Any]) -> None:
 
 
 if __name__ == '__main__':
-    elements = [11,9,29,7,2,15,28]
-    insertion_sort(elements)
-    print(elements)
-
     tests = [
-        [11,9,29,7,2,15,28],
+        [11, 9, 29, 7, 2, 15, 28],
         [3, 7, 9, 11],
         [25, 22, 21, 10],
         [29, 15, 28],
         [],
-        [6]
+        [6],
+        [2, 1],
+        [3, 3, 3],
+        [5, 4, 3, 2, 1],  # Reverse sorted
     ]
 
     for elements in tests:
+        expected = sorted(elements)
         insertion_sort(elements)
-        print(f'sorted array: {elements}')
+        assert elements == expected, f"Expected {expected}, got {elements}"
+
+    print("All tests passed!")

@@ -16,11 +16,17 @@ if __name__ == '__main__':
     tests = [
         [89, 78, 61, 53, 23, 21, 17, 12, 9, 7, 6, 2, 1],
         [],
-        [1,5,8,9],
-        [234,3,1,56,34,12,9,12,1300],
+        [1, 5, 8, 9],
+        [234, 3, 1, 56, 34, 12, 9, 12, 1300],
         [78, 12, 15, 8, 61, 53, 23, 27],
-        [5]
+        [5],
+        [3, 3, 3],  # All equal
+        [2, 1],     # Two elements
     ]
+
     for elements in tests:
+        expected = sorted(elements)
         selection_sort(elements)
-        print(elements)
+        assert elements == expected, f"Expected {expected}, got {elements}"
+
+    print("All tests passed!")
