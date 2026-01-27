@@ -51,11 +51,11 @@ The implementations in this collection reflect an ongoing effort to:
 * Explore and document different implementation strategies and their trade-offs (e.g., various hash table collision resolution techniques, different backends for stacks/queues)
 * Maintain clear, understandable, and well-commented Python code that serves as a reliable personal reference.
 
-## ⚠️ Testing Status & Disclaimer
+## ✅ Testing Status
 
-**Important:** While the core logic of these implementations has been developed and tested with basic examples (often found within `if __name__ == '__main__':` blocks in the respective files), this collection **does not currently include a comprehensive suite of formal unit tests.**
+All 23 implementations include unit tests within their `if __name__ == '__main__':` blocks using `assert` statements. Each file can be run directly to verify correctness - successful execution prints "All tests passed!".
 
-These implementations are intended for **educational, illustrative, and personal reference purposes only**. They should not be considered production-ready or used in critical applications without further rigorous testing and potential refinement.
+**Disclaimer:** These implementations are intended for **educational, illustrative, and personal reference purposes only**. They should not be considered production-ready or used in critical applications without further review.
 
 ## 🛠️ Prerequisites 
 
@@ -63,4 +63,9 @@ These implementations are intended for **educational, illustrative, and personal
 
 ## 🚀 How to Use
 
-Most files contain an `if __name__ == '__main__':` block with example usage. You can typically run these Python files directly to see a basic demonstration of the data structure or algorithm in action.
+Each file contains an `if __name__ == '__main__':` block with unit tests. Run any file directly to verify the implementation:
+
+```bash
+python src/01a_HashTable_NoCollisionHandling.py
+# Output: All tests passed!
+```
