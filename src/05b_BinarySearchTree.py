@@ -173,22 +173,43 @@ class BinarySearchTreeNode:
 
     #     return elements
 
+    # # Recursive approach (inefficient for deep trees):
+    # def find_min(self) -> Any:
+    #     if self.left is None:
+    #         return self.data
+    #     return self.left.find_min()
+
+    # Iterative approach (efficient for deep trees):
     def find_min(self) -> Any:
-        if self.left is None:
-            return self.data
-        return self.left.find_min()
+        current = self
+        while current.left:
+            current = current.left
+        return current.data
 
+    # # Recursive approach (inefficient for deep trees):
+    # def find_max(self) -> Any:
+    #     if self.right is None:
+    #         return self.data
+    #     return self.right.find_max()
+
+    # Iterative approach (efficient for deep trees):
     def find_max(self) -> Any:
-        if self.right is None:
-            return self.data
-        return self.right.find_max()
+        current = self
+        while current.right:
+            current = current.right
+        return current.data
 
+    # # Recursive approach (inefficient for deep trees):
+    # For deep trees, this can be optimized using the iterative
+    # [Pre-order/Post-order] traversal patterns documented above.
     def calculate_sum(self) -> Any:
         left_sum = self.left.calculate_sum() if self.left else 0
         right_sum = self.right.calculate_sum() if self.right else 0
         return left_sum + right_sum + self.data
 
     def delete(self, val: Any) -> Optional["BinarySearchTreeNode"]:
+        # IMPORTANT: This method does not mutate the caller's reference.
+        # Example: root = root.delete(value)
         if val < self.data:
             if self.left:
                 self.left = self.left.delete(val)
@@ -196,8 +217,6 @@ class BinarySearchTreeNode:
             if self.right:
                 self.right = self.right.delete(val)
         else:
-            if self.left is None and self.right is None:
-                return None
             if self.left is None:
                 return self.right
             if self.right is None:
