@@ -16,21 +16,43 @@ class BinarySearchTreeNode:
         self.left = left
         self.right = right
 
+    # # Recursive approach (inefficient for deep trees):
+    # def add_child(self, data: Any) -> None:
+    #     """Insert a value into the BST. O(h) time, O(h) space (call stack)."""
+    #     if data == self.data:
+    #         return
+    #
+    #     if data < self.data:
+    #         if self.left:
+    #             self.left.add_child(data)
+    #         else:
+    #             self.left = BinarySearchTreeNode(data)
+    #     else:
+    #         if self.right:
+    #             self.right.add_child(data)
+    #         else:
+    #             self.right = BinarySearchTreeNode(data)
+
+    # Iterative approach (efficient for deep trees):
     def add_child(self, data: Any) -> None:
         """Insert a value into the BST. O(h) time, where h is tree height."""
-        if data == self.data:
-            return
+        current = self
 
-        if data < self.data:
-            if self.left:
-                self.left.add_child(data)
+        while current:
+            if data == current.data:
+                return
+            elif data < current.data:
+                if current.left:
+                    current = current.left
+                else:
+                    current.left = BinarySearchTreeNode(data)
+                    return
             else:
-                self.left = BinarySearchTreeNode(data)
-        else:
-            if self.right:
-                self.right.add_child(data)
-            else:
-                self.right = BinarySearchTreeNode(data)
+                if current.right:
+                    current = current.right
+                else:
+                    current.right = BinarySearchTreeNode(data)
+                    return
 
     # # Recursive approach (inefficient for deep trees):
     # def search(self, val: Any) -> bool:

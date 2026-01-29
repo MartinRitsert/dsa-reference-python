@@ -17,6 +17,7 @@ def shell_sort(arr: list[Any]) -> None:
         gap = gap // 2
 
 # def foo(arr: list[Any]) -> None:
+#     """Sort in-place using fixed gap insertion sort. O(n^2) time, O(1) space."""
 #     size = len(arr)
 #     gap = size // 2
 #     gap = 3
