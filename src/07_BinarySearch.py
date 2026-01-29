@@ -10,7 +10,29 @@ from typing import Any
 #     return -1
 
 
-# Iterative approach
+# # Recursive approach:
+# def binary_search(numbers_list: list[Any], number_to_find: Any, left_index: int, right_index: int) -> int:
+#     """Search a sorted list recursively. O(log n) time, O(log n) space."""
+#     if right_index < left_index:
+#         return -1
+#
+#     mid_index = left_index + (right_index - left_index) // 2
+#     if mid_index >= len(numbers_list) or mid_index < 0:
+#         return -1
+#
+#     mid_number = numbers_list[mid_index]
+#
+#     if mid_number == number_to_find:
+#         return mid_index
+#
+#     elif mid_number < number_to_find:
+#         left_index = mid_index + 1
+#     else:
+#         right_index = mid_index - 1
+#
+#     return binary_search(numbers_list, number_to_find, left_index, right_index)
+
+# Iterative approach:
 def binary_search(numbers_list: list[Any], number_to_find: Any) -> int:
     """Search a sorted list iteratively. O(log n) time, O(1) space."""
     left_index = 0
@@ -22,35 +44,13 @@ def binary_search(numbers_list: list[Any], number_to_find: Any) -> int:
 
         if mid_number == number_to_find:
             return mid_index
-        
+
         elif mid_number < number_to_find:
             left_index = mid_index + 1
         else:
             right_index = mid_index - 1
 
     return -1
-
-# Recursive approach
-def binary_search_recursive(numbers_list: list[Any], number_to_find: Any, left_index: int, right_index: int) -> int:
-    """Search a sorted list recursively. O(log n) time, O(log n) space."""
-    if right_index < left_index:
-        return -1
-    
-    mid_index = left_index + (right_index - left_index) // 2
-    if mid_index >= len(numbers_list) or mid_index < 0:
-        return -1
-    
-    mid_number = numbers_list[mid_index]
-
-    if mid_number == number_to_find:
-        return mid_index
-    
-    elif mid_number < number_to_find:
-        left_index = mid_index + 1
-    else:
-        right_index = mid_index - 1
-
-    return binary_search_recursive(numbers_list, number_to_find, left_index, right_index)
 
 
 if __name__ == '__main__':
@@ -71,10 +71,5 @@ if __name__ == '__main__':
     for arr, target, expected in test_cases:
         result = binary_search(arr, target)
         assert result == expected, f"Iterative: search {target} in {arr}, got {result}, expected {expected}"
-
-    # Test recursive binary search
-    for arr, target, expected in test_cases:
-        result = binary_search_recursive(arr, target, 0, len(arr) - 1)
-        assert result == expected, f"Recursive: search {target} in {arr}, got {result}, expected {expected}"
 
     print("All tests passed!")
