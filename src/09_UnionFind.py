@@ -4,9 +4,11 @@
 #         self.root = [i for i in range(size)]
 
 #     def find(self, x: int) -> int:
+#         """Find the root of x. O(1) time."""
 #         return self.root[x]
-		
+
 #     def union(self, x: int, y: int) -> None:
+#         """Merge the sets containing x and y. O(n) time."""
 #         rootX = self.find(x)
 #         rootY = self.find(y)
 #         if rootX != rootY:
@@ -15,6 +17,7 @@
 #                     self.root[i] = rootX
 
 #     def connected(self, x: int, y: int) -> bool:
+#         """Check if x and y are in the same set. O(1) time."""
 #         return self.find(x) == self.find(y)
  
 # # 2. Quick Union
@@ -24,17 +27,20 @@
 #         self.root = [i for i in range(size)]
 
 #     def find(self, x: int) -> int:
+#         """Find the root of x by following parent pointers. O(n) worst case."""
 #         while x != self.root[x]:
 #             x = self.root[x]
 #         return x
-		
+
 #     def union(self, x: int, y: int) -> None:
+#         """Merge the sets containing x and y. O(n) worst case."""
 #         rootX = self.find(x)
 #         rootY = self.find(y)
 #         if rootX != rootY:
 #             self.root[rootY] = rootX
 
 #     def connected(self, x: int, y: int) -> bool:
+#         """Check if x and y are in the same set. O(n) worst case."""
 #         return self.find(x) == self.find(y)
     
 # # 3. Union by Rank
@@ -45,11 +51,13 @@
 #         self.rank = [1] * size
 
 #     def find(self, x: int) -> int:
+#         """Find the root of x by following parent pointers. O(log n) time."""
 #         while x != self.root[x]:
 #             x = self.root[x]
 #         return x
-		
+
 #     def union(self, x: int, y: int) -> None:
+#         """Merge sets by attaching smaller tree under larger. O(log n) time."""
 #         rootX = self.find(x)
 #         rootY = self.find(y)
 #         if rootX != rootY:
@@ -62,6 +70,7 @@
 #                 self.rank[rootX] += 1
 
 #     def connected(self, x: int, y: int) -> bool:
+#         """Check if x and y are in the same set. O(log n) time."""
 #         return self.find(x) == self.find(y)
     
 # # 4. Path Compression
@@ -71,18 +80,21 @@
 #         self.root = [i for i in range(size)]
 
 #     def find(self, x: int) -> int:
+#         """Find the root of x with path compression. O(log n) amortized."""
 #         if x == self.root[x]:
 #             return x
 #         self.root[x] = self.find(self.root[x])
 #         return self.root[x]
-		
+
 #     def union(self, x: int, y: int) -> None:
+#         """Merge the sets containing x and y. O(log n) amortized."""
 #         rootX = self.find(x)
 #         rootY = self.find(y)
 #         if rootX != rootY:
 #             self.root[rootY] = rootX
 
 #     def connected(self, x: int, y: int) -> bool:
+#         """Check if x and y are in the same set. O(log n) amortized."""
 #         return self.find(x) == self.find(y)
 
 
@@ -95,6 +107,7 @@ class UnionFind:
 
     # Uses path compression
     def find(self, x: int) -> int:
+        """Find the root of x with path compression. O(alpha(n)) amortized."""
         if x == self.root[x]:
             return x
         self.root[x] = self.find(self.root[x])
@@ -102,6 +115,7 @@ class UnionFind:
 
     # Uses union by rank
     def union(self, x: int, y: int) -> None:
+        """Merge the sets containing x and y. O(alpha(n)) amortized."""
         rootX = self.find(x)
         rootY = self.find(y)
         if rootX != rootY:
@@ -114,6 +128,7 @@ class UnionFind:
                 self.rank[rootX] += 1
 
     def connected(self, x: int, y: int) -> bool:
+        """Check if x and y are in the same set. O(alpha(n)) amortized."""
         return self.find(x) == self.find(y)
 
 

@@ -2,6 +2,7 @@ from typing import Any
 
 
 def insertion_sort(elements: list[Any]) -> None:
+    """Sort in-place by inserting each element into its correct position. O(n^2) time, O(1) space."""
     for i in range(1, len(elements)):
         anchor = elements[i]
 

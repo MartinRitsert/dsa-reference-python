@@ -17,12 +17,14 @@ class HashTable:
         self.arr = [None for _ in range(self.MAX)]
 
     def get_hash(self, key: str) -> int:
+        """Compute hash index for a given key. O(k) time, where k is key length."""
         h = 0
         for char in key:
             h += ord(char)
         return h % self.MAX
 
     def __setitem__(self, key: str, val: Any) -> None:
+        """Insert or update a key-value pair. O(n) worst case due to probing."""
         h = self.get_hash(key)
         if self.arr[h] is None:
             self.arr[h] = (key, val)
@@ -31,6 +33,7 @@ class HashTable:
             self.arr[new_h] = (key, val)
 
     def __getitem__(self, key: str) -> Optional[Any]:
+        """Retrieve value by key. O(n) worst case due to probing."""
         h = self.get_hash(key)
         if self.arr[h] is None:
             return None
@@ -47,18 +50,21 @@ class HashTable:
 
     # # O(n) space and time - creates full list of MAX elements on every call
     # def get_prob_range(self, index: int) -> list[int]:
+    #     """Return probe indices wrapping around the array. O(n) time and space."""
     #     # The * operator unpacks the elements of the range object and
     #     # the [] brackets create a new list containing these elements
     #     return [*range(index, len(self.arr))] + [*range(0, index)]
 
     # O(1) space - generator yields indices one at a time, allowing early exit
     def get_prob_range(self, index: int):
+        """Yield probe indices wrapping around the array. O(n) worst case."""
         for i in range(index, self.MAX):
             yield i
         for i in range(0, index):
             yield i
 
     def find_slot(self, key: str, index: int) -> int:
+        """Find next available slot via linear probing. O(n) worst case."""
         prob_range = self.get_prob_range(index)
 
         for prob_index in prob_range:
@@ -70,6 +76,7 @@ class HashTable:
         raise OverflowError("Hashmap full")
 
     def __delitem__(self, key: str) -> None:
+        """Delete a key and rehash subsequent probed entries. O(n) worst case."""
         h = self.get_hash(key)
         prob_range = self.get_prob_range(h)
 

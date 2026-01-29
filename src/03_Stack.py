@@ -10,22 +10,27 @@ from collections import deque
 #         self.container = []
 
 #     def push(self, val: Any) -> None:
+#         """Push an element onto the stack. O(1) amortized time."""
 #         self.container.append(val)
 
 #     def pop(self) -> Any:
+#         """Remove and return the top element. O(1) amortized time."""
 #         if not self.is_empty():
 #             return self.container.pop()
 #         raise IndexError("Stack is empty")
 
 #     def peek(self) -> Any:
+#         """Return the top element without removing it. O(1) time."""
 #         if not self.is_empty():
 #             return self.container[-1]
 #         raise IndexError("Stack is empty")
 
 #     def is_empty(self) -> bool:
+#         """Check if the stack is empty. O(1) time."""
 #         return len(self.container) == 0
 
 #     def size(self) -> int:
+#         """Return the number of elements. O(1) time."""
 #         return len(self.container)
 
 
@@ -38,25 +43,30 @@ class Stack:
 
     # Sometimes called add
     def push(self, val: Any) -> None:
+        """Push an element onto the stack. O(1) time."""
         self.container.append(val)
 
     # Sometimes called remove
     def pop(self) -> Any:
+        """Remove and return the top element. O(1) time."""
         if not self.is_empty():
             return self.container.pop()
         raise IndexError("Stack is empty")
 
     def peek(self) -> Any:
+        """Return the top element without removing it. O(1) time."""
         if not self.is_empty():
             return self.container[-1]
         raise IndexError("Stack is empty")
 
     def is_empty(self) -> bool:
+        """Check if the stack is empty. O(1) time."""
         return len(self.container) == 0
         # More pythonic and thus preferred way is:
         # return not self.container
 
     def size(self) -> int:
+        """Return the number of elements. O(1) time."""
         return len(self.container)
 
 

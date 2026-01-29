@@ -17,6 +17,7 @@ class BinarySearchTreeNode:
         self.right = right
 
     def add_child(self, data: Any) -> None:
+        """Insert a value into the BST. O(h) time, where h is tree height."""
         if data == self.data:
             return
 
@@ -33,6 +34,7 @@ class BinarySearchTreeNode:
 
     # # Recursive approach (inefficient for deep trees):
     # def search(self, val: Any) -> bool:
+    #     """Search for a value in the BST. O(h) time, O(h) space (call stack)."""
     #     if self.data == val:
     #         return True
 
@@ -50,6 +52,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def search(self, val: Any) -> bool:
+        """Search for a value in the BST. O(h) time, where h is tree height."""
         current = self
 
         while current:
@@ -64,6 +67,7 @@ class BinarySearchTreeNode:
 
     # # Recursive approach (inefficient for deep trees):
     # def in_order_traversal(self) -> list[Any]:
+    #     """Return elements in sorted order (left, root, right). O(n) time, O(h) space."""
     #     elements = []
 
     #     if self.left:
@@ -78,6 +82,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def in_order_traversal(self) -> list[Any]:
+        """Return elements in sorted order (left, root, right). O(n) time."""
         elements = []
         stack = []
 
@@ -95,6 +100,7 @@ class BinarySearchTreeNode:
 
     # # Recursive approach (inefficient for deep trees):
     # def pre_order_traversal(self) -> list[Any]:
+    #     """Return elements in pre-order (root, left, right). O(n) time, O(h) space."""
     #     elements = [self.data]
 
     #     if self.left:
@@ -107,6 +113,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def pre_order_traversal(self) -> list[Any]:
+        """Return elements in pre-order (root, left, right). O(n) time."""
         elements = []
         stack = [self]
 
@@ -124,6 +131,7 @@ class BinarySearchTreeNode:
 
     # # Recursive approach (inefficient for deep trees):
     # def post_order_traversal(self) -> list[Any]:
+    #     """Return elements in post-order (left, right, root). O(n) time, O(h) space."""
     #     elements = []
 
     #     if self.left:
@@ -138,6 +146,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def post_order_traversal(self) -> list[Any]:
+        """Return elements in post-order (left, right, root). O(n) time."""
         elements = []
         stack = [self]
 
@@ -157,6 +166,7 @@ class BinarySearchTreeNode:
     # # Alternative to previous post_order_traversal that uses a visited
     # # flag and prevents the need to reverse the list at the end:
     # def post_order_traversal(self) -> list[Any]:
+    #     """Return elements in post-order (left, right, root). O(n) time."""
     #     elements = []
     #     stack = [(self, False)]
 
@@ -175,12 +185,14 @@ class BinarySearchTreeNode:
 
     # # Recursive approach (inefficient for deep trees):
     # def find_min(self) -> Any:
+    #     """Return the minimum value. O(h) time, O(h) space (call stack)."""
     #     if self.left is None:
     #         return self.data
     #     return self.left.find_min()
 
     # Iterative approach (efficient for deep trees):
     def find_min(self) -> Any:
+        """Return the minimum value. O(h) time, where h is tree height."""
         current = self
         while current.left:
             current = current.left
@@ -188,12 +200,14 @@ class BinarySearchTreeNode:
 
     # # Recursive approach (inefficient for deep trees):
     # def find_max(self) -> Any:
+    #     """Return the maximum value. O(h) time, O(h) space (call stack)."""
     #     if self.right is None:
     #         return self.data
     #     return self.right.find_max()
 
     # Iterative approach (efficient for deep trees):
     def find_max(self) -> Any:
+        """Return the maximum value. O(h) time, where h is tree height."""
         current = self
         while current.right:
             current = current.right
@@ -203,11 +217,13 @@ class BinarySearchTreeNode:
     # For deep trees, this can be optimized using the iterative
     # [Pre-order/Post-order] traversal patterns documented above.
     def calculate_sum(self) -> Any:
+        """Return the sum of all values. O(n) time."""
         left_sum = self.left.calculate_sum() if self.left else 0
         right_sum = self.right.calculate_sum() if self.right else 0
         return left_sum + right_sum + self.data
 
     def delete(self, val: Any) -> Optional["BinarySearchTreeNode"]:
+        """Delete a value and return the new subtree root. O(h) time."""
         # IMPORTANT: This method does not mutate the caller's reference.
         # Example: root = root.delete(value)
         if val < self.data:

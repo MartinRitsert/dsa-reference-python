@@ -10,22 +10,27 @@ from collections import deque
 #         self.container = []
 
 #     def put(self, val: Any) -> None:
+#         """Add an element to the back of the queue. O(1) amortized time."""
 #         self.container.append(val)
 
 #     def get(self) -> Any:
+#         """Remove and return the front element. O(n) time (list shift)."""
 #         if not self.is_empty():
 #             return self.container.pop(0)
 #         raise IndexError("Queue is empty")
 
 #     def peek(self) -> Any:
+#         """Return the front element without removing it. O(1) time."""
 #         if not self.is_empty():
 #             return self.container[0]
 #         raise IndexError("Queue is empty")
 
 #     def is_empty(self) -> bool:
+#         """Check if the queue is empty. O(1) time."""
 #         return len(self.container) == 0
 
 #     def size(self) -> int:
+#         """Return the number of elements. O(1) time."""
 #         return len(self.container)
 
 
@@ -38,25 +43,30 @@ class Queue:
 
     # Sometimes called enqueue or add
     def put(self, val: Any) -> None:
+        """Add an element to the back of the queue. O(1) time."""
         self.container.append(val)
 
     # Sometimes called dequeue or remove
     def get(self) -> Any:
+        """Remove and return the front element. O(1) time."""
         if not self.is_empty():
             return self.container.popleft()
         raise IndexError("Queue is empty")
 
     def peek(self) -> Any:
+        """Return the front element without removing it. O(1) time."""
         if not self.is_empty():
             return self.container[0]
         raise IndexError("Queue is empty")
 
     def is_empty(self) -> bool:
+        """Check if the queue is empty. O(1) time."""
         return len(self.container) == 0
         # More pythonic and thus preferred way is:
         # return not self.container
 
     def size(self) -> int:
+        """Return the number of elements. O(1) time."""
         return len(self.container)
 
 

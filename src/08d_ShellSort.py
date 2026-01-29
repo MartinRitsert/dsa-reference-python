@@ -2,6 +2,7 @@ from typing import Any
 
 
 def shell_sort(arr: list[Any]) -> None:
+    """Sort in-place using diminishing gap insertion sort. O(n^2) worst case, O(1) space."""
     size = len(arr)
     gap = size // 2
 

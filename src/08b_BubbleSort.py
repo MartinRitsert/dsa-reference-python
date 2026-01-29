@@ -2,6 +2,7 @@ from typing import Any
 
 
 def bubble_sort(elements: list[Any]) -> None:
+    """Sort in-place by swapping adjacent elements. O(n^2) time, O(1) space."""
     size = len(elements)
 
     for i in range(size - 1):

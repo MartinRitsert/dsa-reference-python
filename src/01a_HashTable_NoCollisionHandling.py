@@ -14,34 +14,40 @@ class HashTable:
         self.arr = [None for _ in range(self.MAX)]
 
     def get_hash(self, key: str) -> int:
+        """Compute hash index for a given key. O(k) time, where k is key length."""
         h = 0
         for char in key:
             h += ord(char)
         return h % self.MAX
     
     # def add(self, key: str, val: Any) -> None:
+    #     """Insert or update a key-value pair. O(k) time, O(1) space."""
     #     h = self.get_hash(key)
     #     self.arr[h] = val
 
     # def get(self, key: str) -> Any:
+    #     """Retrieve value by key. O(k) time, O(1) space."""
     #     h = self.get_hash(key)
     #     return self.arr[h]
     
     # To be able to use my_array[key] = value instead of my_array.add(key, value),
     # we can overwrite the __setitem__ operator
     def __setitem__(self, key: str, val: Any) -> None:
+        """Insert or update a key-value pair. O(k) time, O(1) space."""
         h = self.get_hash(key)
         self.arr[h] = val
 
     # To be able to use my_array[key] instead of my_array.get(key),
     # we can overwrite the __getitem__ operator
     def __getitem__(self, key: str) -> Optional[Any]:
+        """Retrieve value by key. O(k) time, O(1) space."""
         h = self.get_hash(key)
         return self.arr[h]
     
     # Can also overwrite the __delitem__ operator to allow us
     # using del my_array[key]
     def __delitem__(self, key: str) -> None:
+        """Delete a key-value pair. O(k) time, O(1) space."""
         h = self.get_hash(key)
         self.arr[h] = None
 

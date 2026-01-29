@@ -3,6 +3,7 @@ from typing import Any
 
 # # Linear search (as reference)
 # def linear_search(numbers_list, number_to_find):
+#     """Search by checking each element sequentially. O(n) time, O(1) space."""
 #     for index, element in enumerate(numbers_list):
 #         if element == number_to_find:
 #             return index
@@ -11,6 +12,7 @@ from typing import Any
 
 # Iterative approach
 def binary_search(numbers_list: list[Any], number_to_find: Any) -> int:
+    """Search a sorted list iteratively. O(log n) time, O(1) space."""
     left_index = 0
     right_index = len(numbers_list) - 1
 
@@ -30,6 +32,7 @@ def binary_search(numbers_list: list[Any], number_to_find: Any) -> int:
 
 # Recursive approach
 def binary_search_recursive(numbers_list: list[Any], number_to_find: Any, left_index: int, right_index: int) -> int:
+    """Search a sorted list recursively. O(log n) time, O(log n) space."""
     if right_index < left_index:
         return -1
     

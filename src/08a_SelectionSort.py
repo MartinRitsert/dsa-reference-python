@@ -2,6 +2,7 @@ from typing import Any
 
 
 def selection_sort(arr: list[Any]) -> None:
+    """Sort in-place by selecting the minimum. O(n^2) time, O(1) space."""
     size = len(arr)
     for i in range(size - 1):
         min_index = i

@@ -11,6 +11,7 @@ class MinHeap:
         self.real_size = 0
 
     def add(self, element: Any) -> None:
+        """Insert an element and heapify up. O(log n) time."""
         self.real_size += 1
 
         if self.real_size > self.heap_size:
@@ -39,11 +40,13 @@ class MinHeap:
             parent = index // 2
 
     def peek(self) -> Any:
+        """Return the minimum element without removing it. O(1) time."""
         if self.real_size < 1:
             raise IndexError("Heap is empty!")
         return self.minheap[1]
 
     def pop(self) -> Any:
+        """Remove and return the minimum element, then heapify down. O(log n) time."""
         if self.real_size < 1:
             raise IndexError("Heap is empty!")
 
@@ -79,6 +82,7 @@ class MinHeap:
         return removed
 
     def size(self) -> int:
+        """Return the number of elements. O(1) time."""
         return self.real_size
 
     def __str__(self) -> str:

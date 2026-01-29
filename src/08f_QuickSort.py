@@ -7,6 +7,7 @@ from typing import Any
 #     quick_sort(elements, 0, n - 1)
     
 def quick_sort(elements: list[Any], start: int, end: int) -> None:
+    """Sort in-place using divide and conquer. O(n log n) avg, O(n^2) worst, O(log n) space."""
     if start < end:
         pi = partition(elements, start, end)
 
@@ -18,6 +19,7 @@ def quick_sort(elements: list[Any], start: int, end: int) -> None:
         
 # # Lomuto partition scheme
 # def partition(elements: list[Any], start: int, end: int) -> int:
+#     """Partition elements around last element using Lomuto scheme. O(n) time."""
 #     pivot = elements[end]
 #     pivot_index = start
 
@@ -31,9 +33,10 @@ def quick_sort(elements: list[Any], start: int, end: int) -> None:
 #     return pivot_index
 
 # Hoare partition scheme
-# In practice, you try to choose a pivot that is close to 
+# In practice, you try to choose a pivot that is close to
 # the median value to achieve O(n log(n))
 def partition(elements: list[Any], initial_start: int, initial_end: int) -> int:
+    """Partition elements around a pivot using Hoare scheme. O(n) time."""
     pivot_index = initial_start
     pivot = elements[pivot_index]
 
