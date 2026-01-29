@@ -6,7 +6,12 @@ from typing import Optional, Any
 
 
 class BinarySearchTreeNode:
-    def __init__(self, data: Any, left: Optional['BinarySearchTreeNode'] = None, right: Optional['BinarySearchTreeNode'] = None) -> None:
+    def __init__(
+        self,
+        data: Any,
+        left: Optional["BinarySearchTreeNode"] = None,
+        right: Optional["BinarySearchTreeNode"] = None,
+    ) -> None:
         self.data = data
         self.left = left
         self.right = right
@@ -26,21 +31,36 @@ class BinarySearchTreeNode:
             else:
                 self.right = BinarySearchTreeNode(data)
 
-    def search(self, val: Any) -> bool:
-        if self.data == val:
-            return True
-        
-        elif val < self.data:
-            if self.left:
-                return self.left.search(val)
-            else:
-                return False
+    # # Recursive approach (inefficient for deep trees):
+    # def search(self, val: Any) -> bool:
+    #     if self.data == val:
+    #         return True
 
-        elif val > self.data:
-            if self.right:
-                return self.right.search(val)
+    #     elif val < self.data:
+    #         if self.left:
+    #             return self.left.search(val)
+    #         else:
+    #             return False
+
+    #     else:
+    #         if self.right:
+    #             return self.right.search(val)
+    #         else:
+    #             return False
+
+    # Iterative approach (efficient for deep trees):
+    def search(self, val: Any) -> bool:
+        current = self
+
+        while current:
+            if val == current.data:
+                return True
+            elif val < current.data:
+                current = current.left
             else:
-                return False
+                current = current.right
+
+        return False
 
     # # Recursive approach (inefficient for deep trees):
     # def in_order_traversal(self) -> list[Any]:
@@ -132,9 +152,9 @@ class BinarySearchTreeNode:
                 stack.append(curr.right)
 
         return elements[::-1]
-    
+
     # # Iterative approach (efficient for deep trees):
-    # # Alternative to previous post_order_traversal that uses a visited 
+    # # Alternative to previous post_order_traversal that uses a visited
     # # flag and prevents the need to reverse the list at the end:
     # def post_order_traversal(self) -> list[Any]:
     #     elements = []
@@ -162,13 +182,13 @@ class BinarySearchTreeNode:
         if self.right is None:
             return self.data
         return self.right.find_max()
-    
+
     def calculate_sum(self) -> Any:
         left_sum = self.left.calculate_sum() if self.left else 0
         right_sum = self.right.calculate_sum() if self.right else 0
         return left_sum + right_sum + self.data
-    
-    def delete(self, val: Any) -> Optional['BinarySearchTreeNode']:
+
+    def delete(self, val: Any) -> Optional["BinarySearchTreeNode"]:
         if val < self.data:
             if self.left:
                 self.left = self.left.delete(val)
@@ -182,13 +202,13 @@ class BinarySearchTreeNode:
                 return self.right
             if self.right is None:
                 return self.left
-            
+
             min_val = self.right.find_min()
             self.data = min_val
             self.right = self.right.delete(min_val)
 
         return self
-        
+
 
 def build_tree(elements: list[Any]) -> BinarySearchTreeNode:
     root = BinarySearchTreeNode(elements[0])
@@ -198,7 +218,8 @@ def build_tree(elements: list[Any]) -> BinarySearchTreeNode:
 
     return root
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     numbers = [17, 4, 1, 20, 9, 23, 18, 24]
     numbers_tree = build_tree(numbers)
 
