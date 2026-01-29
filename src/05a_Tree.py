@@ -7,13 +7,13 @@ class TreeNode:
         self.children = []
         self.parent = None
 
-    def add_child(self, child: 'TreeNode') -> None:
+    def add_child(self, child: "TreeNode") -> None:
         child.parent = self
         self.children.append(child)
 
     def get_level(self) -> int:
-        # Inefficient for deep trees. In these cases, it's more efficient to
-        # store the level in each tree node during construction
+        # Inefficient for deep trees (-> O(n)). In these cases, it's more efficient to
+        # store the level in each tree node during construction (-> O(1)).
         level = 0
         p = self.parent
         while p:
@@ -23,7 +23,7 @@ class TreeNode:
         return level
 
     def print_tree(self) -> None:
-        spaces = 3 * ' ' * self.get_level()
+        spaces = 3 * " " * self.get_level()
         prefix = spaces + "|__" if self.parent else ""
 
         print(prefix + self.data)
@@ -31,7 +31,7 @@ class TreeNode:
             for child in self.children:
                 child.print_tree()
 
-    def find(self, value: Any) -> Optional['TreeNode']:
+    def find(self, value: Any) -> Optional["TreeNode"]:
         if self.data == value:
             return self
         for child in self.children:
@@ -39,9 +39,9 @@ class TreeNode:
             if found:
                 return found
         return None
-    
+
     def insert(self, parent_value: Any, child_value: Any) -> bool:
-        # If you already know the parent_node, you can skip find() and 
+        # If you already know the parent_node, you can skip find() and
         # reduce insert() from O(n) to O(1)
         parent_node = self.find(parent_value)
 
@@ -49,21 +49,23 @@ class TreeNode:
             new_child = TreeNode(child_value)
             parent_node.add_child(new_child)
             return True
-        
+
         return False
-    
+
     def delete(self, value: Any) -> bool:
         node_to_delete = self.find(value)
 
         if node_to_delete and node_to_delete.parent:
             parent = node_to_delete.parent
-            parent.children = [child for child in parent.children if child != node_to_delete]
+            parent.children = [
+                child for child in parent.children if child != node_to_delete
+            ]
             for child in node_to_delete.children:
                 parent.add_child(child)
             return True
-        
+
         return False
-        
+
 
 def build_product_tree() -> TreeNode:
     root = TreeNode("Electronics")
@@ -84,7 +86,7 @@ def build_product_tree() -> TreeNode:
     return root
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     root = build_product_tree()
 
     # Test find
@@ -101,7 +103,9 @@ if __name__ == '__main__':
     assert root.insert("Laptop", "Asus"), "Should insert 'Asus' under 'Laptop'"
     assert root.find("Asus") is not None, "Should find inserted 'Asus'"
     assert root.find("Asus").parent.data == "Laptop", "Asus parent should be Laptop"
-    assert not root.insert("NonExistent", "Test"), "Should fail to insert under non-existent parent"
+    assert not root.insert("NonExistent", "Test"), (
+        "Should fail to insert under non-existent parent"
+    )
 
     # Test delete
     assert root.delete("Surface"), "Should delete 'Surface'"
