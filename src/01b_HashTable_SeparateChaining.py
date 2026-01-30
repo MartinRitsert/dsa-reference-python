@@ -16,9 +16,9 @@ class HashTable:
         for char in key:
             h += ord(char)
         return h % self.MAX
-    
+
     def __setitem__(self, key: str, val: Any) -> None:
-        """Insert or update a key-value pair. O(1) avg, O(n) worst case."""
+        """Insert or update a key-value pair. O(k) avg, O(k + n) worst case."""
         h = self.get_hash(key)
         for idx, element in enumerate(self.arr[h]):
             if len(element) == 2 and element[0] == key:
@@ -27,15 +27,15 @@ class HashTable:
         self.arr[h].append((key, val))
 
     def __getitem__(self, key: str) -> Optional[Any]:
-        """Retrieve value by key. O(1) avg, O(n) worst case."""
+        """Retrieve value by key. O(k) avg, O(k + n) worst case."""
         h = self.get_hash(key)
         for element in self.arr[h]:
             if element[0] == key:
                 return element[1]
         return None
-    
+
     def __delitem__(self, key: str) -> None:
-        """Delete a key-value pair. O(1) avg, O(n) worst case."""
+        """Delete a key-value pair. O(k) avg, O(k + n) worst case."""
         h = self.get_hash(key)
         for idx, element in enumerate(self.arr[h]):
             if element[0] == key:

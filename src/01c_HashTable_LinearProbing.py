@@ -24,7 +24,7 @@ class HashTable:
         return h % self.MAX
 
     def __setitem__(self, key: str, val: Any) -> None:
-        """Insert or update a key-value pair. O(1) avg, O(n) worst case."""
+        """Insert or update a key-value pair. O(k) avg, O(k + n) worst case."""
         h = self.get_hash(key)
         if self.arr[h] is None:
             self.arr[h] = (key, val)
@@ -33,7 +33,7 @@ class HashTable:
             self.arr[new_h] = (key, val)
 
     def __getitem__(self, key: str) -> Optional[Any]:
-        """Retrieve value by key. O(1) avg, O(n) worst case."""
+        """Retrieve value by key. O(k) avg, O(k + n) worst case."""
         h = self.get_hash(key)
         if self.arr[h] is None:
             return None
@@ -76,7 +76,7 @@ class HashTable:
         raise OverflowError("Hashmap full")
 
     def __delitem__(self, key: str) -> None:
-        """Delete a key and rehash subsequent probed entries. O(1) avg, O(n) worst case."""
+        """Delete a key and rehash subsequent probed entries. O(k) avg, O(nk) worst case."""
         h = self.get_hash(key)
         prob_range = self.get_prob_range(h)
 

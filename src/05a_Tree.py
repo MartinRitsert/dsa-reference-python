@@ -14,8 +14,7 @@ class TreeNode:
 
     def get_level(self) -> int:
         """Return the depth of this node. O(d) time, where d is the depth."""
-        # Inefficient for deep trees (-> O(n)). In these cases, it's more efficient to
-        # store the level in each tree node during construction (-> O(1)).
+        # Can be optimized to O(1) by storing the level in each node during construction.
         level = 0
         p = self.parent
         while p:
@@ -25,7 +24,7 @@ class TreeNode:
         return level
 
     def print_tree(self) -> None:
-        """Print the tree with indentation by level. O(n) time."""
+        """Print the tree with indentation by level. O(n * d) time."""
         spaces = 3 * " " * self.get_level()
         prefix = spaces + "|__" if self.parent else ""
 
