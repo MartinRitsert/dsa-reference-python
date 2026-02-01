@@ -1,4 +1,5 @@
 from collections import deque
+# from typing import Optional
 
 
 # Option 1: Using adjacency list
@@ -185,15 +186,14 @@ class Graph_AdjacencyList:
     #     for vertex in self.adjacency_list[start]:
     #         if vertex not in path:
     #             sp = self.get_shortest_path_dfs_rec(vertex, end, path)
-    #             if sp:
-    #                 if shortest_path is None or len(sp) < len(shortest_path):
+    #             if sp and (shortest_path is None or len(sp) < len(shortest_path)):
     #                     shortest_path = sp
 
     #     return shortest_path if shortest_path else []
 
     # Iterative BFS approach
     def get_shortest_path_bfs_it(self, start: int, end: int) -> list[int]:
-        """Find shortest path (fewest edges) via BFS. O(V + E) time."""
+        """Find shortest path via iterative BFS. O(V + E) worst case."""
         if start not in self.adjacency_list or end not in self.adjacency_list:
             return []
 
@@ -241,6 +241,7 @@ class Graph_AdjacencyList:
             return False
 
         visited = set()
+        visited.add(start)
         stack = deque([start])
 
         while stack:
@@ -249,10 +250,9 @@ class Graph_AdjacencyList:
             if vertex == end:
                 return True
 
-            elif vertex not in visited:
-                visited.add(vertex)
-
-                for neighbor in self.adjacency_list[vertex]:
+            for neighbor in self.adjacency_list[vertex]:
+                if neighbor not in visited:
+                    visited.add(neighbor)
                     stack.append(neighbor)
 
         return False
@@ -268,6 +268,7 @@ class Graph_AdjacencyList:
     #         return False
 
     #     visited = set()
+    #     visited.add(start)
     #     queue = deque([start])
 
     #     while queue:
@@ -276,10 +277,9 @@ class Graph_AdjacencyList:
     #         if vertex == end:
     #             return True
 
-    #         elif vertex not in visited:
-    #             visited.add(vertex)
-
-    #             for neighbor in self.adjacency_list[vertex]:
+    #         for neighbor in self.adjacency_list[vertex]:
+    #             if neighbor not in visited:
+    #                 visited.add(neighbor)
     #                 queue.append(neighbor)
 
     #     return False
@@ -479,15 +479,14 @@ class Graph_AdjacencyMatrix:
     #     for vertex in range(self.num_vertices):
     #         if self.adjacency_matrix[start][vertex] == 1 and vertex not in path:
     #             sp = self.get_shortest_path_dfs_rec(vertex, end, path)
-    #             if sp:
-    #                 if shortest_path is None or len(sp) < len(shortest_path):
+    #             if sp and (shortest_path is None or len(sp) < len(shortest_path)):
     #                     shortest_path = sp
 
     #     return shortest_path if shortest_path else []
 
     # Iterative BFS approach
     def get_shortest_path_bfs_it(self, start: int, end: int) -> list[int]:
-        """Find shortest path (fewest edges) via BFS. O(V^2) time."""
+        """Find shortest path via iterative BFS. O(V^2) worst case."""
         if (
             start >= self.num_vertices
             or end >= self.num_vertices
@@ -549,6 +548,7 @@ class Graph_AdjacencyMatrix:
             return False
 
         visited = set()
+        visited.add(start)
         stack = [start]  # Could be implemented with deque for better performance
 
         while stack:
@@ -557,12 +557,13 @@ class Graph_AdjacencyMatrix:
             if vertex == end:
                 return True
 
-            elif vertex not in visited:
-                visited.add(vertex)
-
-                for neighbor in range(self.num_vertices):
-                    if self.adjacency_matrix[vertex][neighbor] == 1:
-                        stack.append(neighbor)
+            for neighbor in range(self.num_vertices):
+                if (
+                    self.adjacency_matrix[vertex][neighbor] == 1
+                    and neighbor not in visited
+                ):
+                    visited.add(neighbor)
+                    stack.append(neighbor)
 
         return False
 
@@ -577,6 +578,7 @@ class Graph_AdjacencyMatrix:
     #         return False
 
     #     visited = set()
+    #     visited.add(start)
     #     queue = deque([start])
 
     #     while queue:
@@ -585,12 +587,10 @@ class Graph_AdjacencyMatrix:
     #         if vertex == end:
     #             return True
 
-    #         elif vertex not in visited:
-    #             visited.add(vertex)
-
-    #             for neighbor in range(self.num_vertices):
-    #                 if self.adjacency_matrix[vertex][neighbor] == 1:
-    #                     queue.append(neighbor)
+    #         for neighbor in range(self.num_vertices):
+    #             if self.adjacency_matrix[vertex][neighbor] == 1 and neighbor not in visited:
+    #                 visited.add(neighbor)
+    #                 queue.append(neighbor)
 
     #     return False
 
