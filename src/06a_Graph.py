@@ -546,7 +546,10 @@ class Graph_AdjacencyMatrix:
     #     visited.add(start)
 
     #     for neighbor in range(self.num_vertices):
-    #         if self.adjacency_matrix[start][neighbor] == 1 and neighbor not in visited:
+    #         if (
+    #             self.adjacency_matrix[start][neighbor] == 1
+    #             and neighbor not in visited
+    #         ):
     #             if self.is_connected_dfs_rec(neighbor, end, visited):
     #                 return True
 
@@ -565,9 +568,7 @@ class Graph_AdjacencyMatrix:
 
         visited = set()
         visited.add(start)
-        stack = [
-            start
-        ]  # list: O(1) amortized; deque: O(1) worst-case but slower in practice
+        stack = [start]
 
         while stack:
             vertex = stack.pop()
@@ -611,7 +612,10 @@ class Graph_AdjacencyMatrix:
     #             return True
 
     #         for neighbor in range(self.num_vertices):
-    #             if self.adjacency_matrix[vertex][neighbor] == 1 and neighbor not in visited:
+    #             if (
+    #                 self.adjacency_matrix[vertex][neighbor] == 1
+    #                 and neighbor not in visited
+    #             ):
     #                 visited.add(neighbor)
     #                 queue.append(neighbor)
 
