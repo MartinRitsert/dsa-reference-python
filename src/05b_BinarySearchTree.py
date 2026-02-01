@@ -21,8 +21,7 @@ class BinarySearchTreeNode:
     #     """Insert a value into the BST. O(h) time, O(h) space (call stack)."""
     #     if data == self.data:
     #         return
-    #
-    #     if data < self.data:
+    #     elif data < self.data:
     #         if self.left:
     #             self.left.add_child(data)
     #         else:
@@ -35,7 +34,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def add_child(self, data: Any) -> None:
-        """Insert a value into the BST. O(h) time, where h is tree height."""
+        """Insert a value into the BST. O(h) time, O(1) space."""
         current = self
 
         while current:
@@ -74,7 +73,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def search(self, val: Any) -> bool:
-        """Search for a value in the BST. O(h) time, where h is tree height."""
+        """Search for a value in the BST. O(h) time, O(1) space."""
         current = self
 
         while current:
@@ -104,7 +103,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def in_order_traversal(self) -> list[Any]:
-        """Return elements in sorted order (left, root, right). O(n) time."""
+        """Return elements in sorted order (left, root, right). O(n) time, O(h) space."""
         elements = []
         stack = []
 
@@ -135,7 +134,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def pre_order_traversal(self) -> list[Any]:
-        """Return elements in pre-order (root, left, right). O(n) time."""
+        """Return elements in pre-order (root, left, right). O(n) time, O(h) space."""
         elements = []
         stack = [self]
 
@@ -168,7 +167,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def post_order_traversal(self) -> list[Any]:
-        """Return elements in post-order (left, right, root). O(n) time."""
+        """Return elements in post-order (left, right, root). O(n) time, O(h) space."""
         elements = []
         stack = [self]
 
@@ -188,7 +187,7 @@ class BinarySearchTreeNode:
     # # Alternative to previous post_order_traversal that uses a visited
     # # flag and prevents the need to reverse the list at the end:
     # def post_order_traversal(self) -> list[Any]:
-    #     """Return elements in post-order (left, right, root). O(n) time."""
+    #     """Return elements in post-order (left, right, root). O(n) time, O(h) space."""
     #     elements = []
     #     stack = [(self, False)]
 
@@ -214,7 +213,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def find_min(self) -> Any:
-        """Return the minimum value. O(h) time, where h is tree height."""
+        """Return the minimum value. O(h) time, O(1) space."""
         current = self
         while current.left:
             current = current.left
@@ -229,7 +228,7 @@ class BinarySearchTreeNode:
 
     # Iterative approach (efficient for deep trees):
     def find_max(self) -> Any:
-        """Return the maximum value. O(h) time, where h is tree height."""
+        """Return the maximum value. O(h) time, O(1) space."""
         current = self
         while current.right:
             current = current.right
@@ -260,6 +259,7 @@ class BinarySearchTreeNode:
             if self.right is None:
                 return self.left
 
+            # Note: use a self-balancing BST (AVL, Red-Black) to guarantee O(log n) height
             min_val = self.right.find_min()
             self.data = min_val
             self.right = self.right.delete(min_val)
