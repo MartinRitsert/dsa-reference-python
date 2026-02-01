@@ -343,6 +343,7 @@ class Graph_AdjacencyMatrix:
 
     def remove_vertex(self, vertex: int) -> None:
         """Remove a vertex and all its edges. O(V^2) time."""
+        # Note: shifts indices of all vertices > vertex, invalidating external references
         if vertex >= self.num_vertices or vertex < 0:
             raise ValueError("Vertex does not exist")
 
@@ -412,7 +413,12 @@ class Graph_AdjacencyMatrix:
     # # Recursive DFS approach
     # def get_paths_dfs_rec(self, start: int, end: int, path: Optional[list[int]] = None) -> list[list[int]]:
     #     """Find all paths from start to end via recursive DFS. O(V! * V) worst case."""
-    #     if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
+    #     if (
+    #         start >= self.num_vertices
+    #         or end >= self.num_vertices
+    #         or start < 0
+    #         or end < 0
+    #     ):
     #         return []
 
     #     if path is None:
@@ -463,8 +469,13 @@ class Graph_AdjacencyMatrix:
 
     # # Recursive DFS approach
     # def get_shortest_path_dfs_rec(self, start: int, end: int, path: Optional[list[int]] = None) -> list[int]:
-    #     """Find shortest path (fewest edges) via recursive DFS. O(V! * V) worst case."""
-    #     if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
+    #     """Find shortest path via recursive DFS. O(V! * V) worst case."""
+    #     if (
+    #         start >= self.num_vertices
+    #         or end >= self.num_vertices
+    #         or start < 0
+    #         or end < 0
+    #     ):
     #         return []
 
     #     if path is None:
@@ -518,7 +529,12 @@ class Graph_AdjacencyMatrix:
     # # Recursive DFS approach
     # def is_connected_dfs_rec(self, start: int, end: int, visited: Optional[set[int]] = None) -> bool:
     #     """Check if a path exists via recursive DFS. O(V^2) time."""
-    #     if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
+    #     if (
+    #         start >= self.num_vertices
+    #         or end >= self.num_vertices
+    #         or start < 0
+    #         or end < 0
+    #     ):
     #         return False
 
     #     if visited is None:
@@ -549,7 +565,9 @@ class Graph_AdjacencyMatrix:
 
         visited = set()
         visited.add(start)
-        stack = [start]  # Could be implemented with deque for better performance
+        stack = [
+            start
+        ]  # list: O(1) amortized; deque: O(1) worst-case but slower in practice
 
         while stack:
             vertex = stack.pop()
@@ -574,7 +592,12 @@ class Graph_AdjacencyMatrix:
     # # Iterative BFS approach
     # def is_connected_bfs_it(self, start: int, end: int) -> bool:
     #     """Check if a path exists via iterative BFS. O(V^2) time."""
-    #     if start >= self.num_vertices or end >= self.num_vertices or start < 0 or end < 0:
+    #     if (
+    #         start >= self.num_vertices
+    #         or end >= self.num_vertices
+    #         or start < 0
+    #         or end < 0
+    #     ):
     #         return False
 
     #     visited = set()
