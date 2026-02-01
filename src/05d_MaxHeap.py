@@ -11,7 +11,7 @@ class MaxHeap:
         self.real_size = 0
 
     def add(self, element: Any) -> None:
-        """Insert an element and heapify up. O(log n) time."""
+        """Insert an element and heapify up. O(log n) time, O(1) space."""
         self.real_size += 1
 
         if self.real_size > self.heap_size:
@@ -40,13 +40,13 @@ class MaxHeap:
             parent = index // 2
 
     def peek(self) -> Any:
-        """Return the maximum element without removing it. O(1) time."""
+        """Return the maximum element without removing it. O(1) time, O(1) space."""
         if self.real_size < 1:
             raise IndexError("Heap is empty!")
         return self.maxheap[1]
 
     def pop(self) -> Any:
-        """Remove and return the maximum element, then heapify down. O(log n) time."""
+        """Remove and return the maximum element, then heapify down. O(log n) time, O(1) space."""
         if self.real_size < 1:
             raise IndexError("Heap is empty!")
 
@@ -82,7 +82,7 @@ class MaxHeap:
         return removed
 
     def size(self) -> int:
-        """Return the number of elements. O(1) time."""
+        """Return the number of elements. O(1) time, O(1) space."""
         return self.real_size
 
     def __str__(self) -> str:

@@ -8,12 +8,12 @@ class TreeNode:
         self.parent = None
 
     def add_child(self, child: "TreeNode") -> None:
-        """Add a child node. O(1) time."""
+        """Add a child node. O(1) time, O(1) space."""
         child.parent = self
         self.children.append(child)
 
     def get_level(self) -> int:
-        """Return the depth of this node. O(d) time, where d is the depth."""
+        """Return the depth of this node. O(d) time, O(1) space."""
         # Can be optimized to O(1) by storing the level in each node during construction.
         level = 0
         p = self.parent
@@ -24,7 +24,7 @@ class TreeNode:
         return level
 
     def print_tree(self) -> None:
-        """Print the tree with indentation by level. O(n * d) time."""
+        """Print the tree with indentation by level. O(n * d) time, O(h) space."""
         spaces = 3 * " " * self.get_level()
         prefix = spaces + "|__" if self.parent else ""
 
@@ -34,7 +34,7 @@ class TreeNode:
                 child.print_tree()
 
     def find(self, value: Any) -> Optional["TreeNode"]:
-        """Search for a value in the tree. O(n) time."""
+        """Search for a value in the tree. O(n) time, O(h) space."""
         if self.data == value:
             return self
         for child in self.children:
@@ -44,7 +44,7 @@ class TreeNode:
         return None
 
     def insert(self, parent_value: Any, child_value: Any) -> bool:
-        """Insert a child under the node with parent_value. O(n) time."""
+        """Insert a child under the node with parent_value. O(n) time, O(1) space."""
         # If you already know the parent_node, you can skip find() and
         # reduce insert() from O(n) to O(1)
         parent_node = self.find(parent_value)
@@ -57,7 +57,7 @@ class TreeNode:
         return False
 
     def delete(self, value: Any) -> bool:
-        """Delete a node and re-parent its children. O(n) time."""
+        """Delete a node and re-parent its children. O(n) time, O(1) space."""
         node_to_delete = self.find(value)
 
         if node_to_delete and node_to_delete.parent:

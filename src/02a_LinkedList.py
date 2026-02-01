@@ -12,7 +12,7 @@ class LinkedList:
         self.head = None
 
     def find(self, data: Any) -> int:
-        """Return index of first occurrence, or -1 if not found. O(n) time."""
+        """Return index of first occurrence, or -1 if not found. O(n) time, O(1) space."""
         itr = self.head
 
         index = 0
@@ -26,16 +26,16 @@ class LinkedList:
         return -1
 
     def is_empty(self) -> bool:
-        """Check if the list is empty. O(1) time."""
+        """Check if the list is empty. O(1) time, O(1) space."""
         return self.head is None
 
     def insert_at_beginning(self, data: Any) -> None:
-        """Insert a node at the head. O(1) time."""
+        """Insert a node at the head. O(1) time, O(1) space."""
         node = Node(data, self.head)
         self.head = node
 
     def insert_at_end(self, data: Any) -> None:
-        """Insert a node at the tail. O(n) time."""
+        """Insert a node at the tail. O(n) time, O(1) space."""
         if self.head is None:
             self.head = Node(data, None)
             return
@@ -47,7 +47,7 @@ class LinkedList:
         itr.next = Node(data, None)
 
     def insert_at(self, index: int, data: Any) -> None:
-        """Insert a node at a given index. O(n) time."""
+        """Insert a node at a given index. O(n) time, O(1) space."""
         if index < 0 or index > self.get_length():
             raise IndexError("Invalid index")
         
@@ -67,7 +67,7 @@ class LinkedList:
             count += 1
 
     def insert_after_value(self, data_after: Any, data_to_insert: Any) -> None:
-        """Insert a node after the first occurrence of a value. O(n) time."""
+        """Insert a node after the first occurrence of a value. O(n) time, O(1) space."""
         if self.head is None:
             raise ValueError(f"Value {data_after} not found in the list")
 
@@ -80,13 +80,13 @@ class LinkedList:
         raise ValueError(f"Value {data_after} not found in the list")
 
     def insert_values(self, data_list: list[Any]) -> None:
-        """Replace the list with elements from data_list. O(m^2) time."""
+        """Replace the list with elements from data_list. O(m^2) time, O(1) space."""
         self.head = None
         for data in data_list:
             self.insert_at_end(data)
 
     def remove_at(self, index: int) -> None:
-        """Remove node at a given index. O(n) time."""
+        """Remove node at a given index. O(n) time, O(1) space."""
         if index < 0 or index >= self.get_length():
             raise IndexError("Invalid index")
 
@@ -105,7 +105,7 @@ class LinkedList:
             count += 1
 
     def remove_by_value(self, data: Any) -> None:
-        """Remove first node with the given value. O(n) time."""
+        """Remove first node with the given value. O(n) time, O(1) space."""
         if self.head is None:
             raise ValueError(f"Value {data} not found in the list")
 
@@ -123,7 +123,7 @@ class LinkedList:
         raise ValueError(f"Value {data} not found in the list")
 
     def get_length(self) -> int:
-        """Return the number of nodes. O(n) time."""
+        """Return the number of nodes. O(n) time, O(1) space."""
         count = 0
         itr = self.head
         while itr:
@@ -133,7 +133,7 @@ class LinkedList:
         return count
 
     def print(self) -> None:
-        """Print all elements as a string. O(n) time."""
+        """Print all elements as a string. O(n) time, O(n) space."""
         if self.head is None:
             print("Linked list is empty")
             return

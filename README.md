@@ -57,7 +57,25 @@ All 23 implementations include unit tests within their `if __name__ == '__main__
 
 **Disclaimer:** These implementations are intended for **educational, illustrative, and personal reference purposes only**. They should not be considered production-ready or used in critical applications without further review.
 
-## 🛠️ Prerequisites 
+## 📐 Complexity Notation
+
+Every method includes a one-line docstring with time and space complexity. The following variables are used:
+
+| Variable | Meaning | Context |
+|----------|---------|---------|
+| `n` | Number of elements | General |
+| `k` | Key length | Hash tables |
+| `m` | Word / prefix length | Tries |
+| `h` | Tree height | BSTs, heaps |
+| `d` | Node depth | General trees |
+| `V` | Number of vertices | Graphs |
+| `E` | Number of edges | Graphs |
+
+**Conventions:**
+* Unlabeled complexity is worst case (Big-O default). Only average/best cases are explicitly labeled (e.g., `O(n log n) avg, O(n^2) time`).
+* Space complexity documents each method's own auxiliary space, not the space of methods it calls.
+
+## 🛠️ Prerequisites
 
 * This collection requires **Python 3.9 or newer** due to the use of modern type hinting features (e.g., `list[int]` instead of `typing.List[int]`).
 

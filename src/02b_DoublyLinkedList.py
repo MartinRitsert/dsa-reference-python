@@ -14,7 +14,7 @@ class DoublyLinkedList:
         self.tail = None
 
     def find(self, data: Any) -> int:
-        """Return index of first occurrence, or -1 if not found. O(n) time."""
+        """Return index of first occurrence, or -1 if not found. O(n) time, O(1) space."""
         itr = self.head
 
         index = 0
@@ -28,11 +28,11 @@ class DoublyLinkedList:
         return -1
 
     def is_empty(self) -> bool:
-        """Check if the list is empty. O(1) time."""
+        """Check if the list is empty. O(1) time, O(1) space."""
         return self.head is None
 
     def insert_at_beginning(self, data: Any) -> None:
-        """Insert a node at the head. O(1) time."""
+        """Insert a node at the head. O(1) time, O(1) space."""
         node = Node(data, self.head, None)
         if self.head is None:
             self.head = node
@@ -42,7 +42,7 @@ class DoublyLinkedList:
             self.head = node
 
     def insert_at_end(self, data: Any) -> None:
-        """Insert a node at the tail. O(1) time (tail pointer)."""
+        """Insert a node at the tail. O(1) time, O(1) space (tail pointer)."""
         if self.head is None:
             self.insert_at_beginning(data)
             return
@@ -52,7 +52,7 @@ class DoublyLinkedList:
         self.tail = node
 
     def insert_at(self, index: int, data: Any) -> None:
-        """Insert a node at a given index. O(n) time."""
+        """Insert a node at a given index. O(n) time, O(1) space."""
         if index < 0 or index > self.get_length():
             raise IndexError("Invalid index")
         
@@ -78,7 +78,7 @@ class DoublyLinkedList:
             count += 1
 
     def insert_after_value(self, data_after: Any, data_to_insert: Any) -> None:
-        """Insert a node after the first occurrence of a value. O(n) time."""
+        """Insert a node after the first occurrence of a value. O(n) time, O(1) space."""
         if self.head is None:
             raise ValueError(f"Value {data_after} not found in the list")
 
@@ -96,14 +96,14 @@ class DoublyLinkedList:
         raise ValueError(f"Value {data_after} not found in the list")
 
     def insert_values(self, data_list: list[Any]) -> None:
-        """Replace the list with elements from data_list. O(m) time."""
+        """Replace the list with elements from data_list. O(m) time, O(1) space."""
         self.head = None
         self.tail = None
         for data in data_list:
             self.insert_at_end(data)
 
     def remove_at(self, index: int) -> None:
-        """Remove node at a given index. O(n) time."""
+        """Remove node at a given index. O(n) time, O(1) space."""
         if index < 0 or index >= self.get_length():
             raise IndexError("Invalid index")
 
@@ -129,7 +129,7 @@ class DoublyLinkedList:
             count += 1
 
     def remove_by_value(self, data: Any) -> None:
-        """Remove first node with the given value. O(n) time."""
+        """Remove first node with the given value. O(n) time, O(1) space."""
         if self.head is None:
             raise ValueError(f"Value {data} not found in the list")
 
@@ -154,7 +154,7 @@ class DoublyLinkedList:
         raise ValueError(f"Value {data} not found in the list")
 
     def get_length(self) -> int:
-        """Return the number of nodes. O(n) time."""
+        """Return the number of nodes. O(n) time, O(1) space."""
         count = 0
         itr = self.head
         while itr:
@@ -164,7 +164,7 @@ class DoublyLinkedList:
         return count
 
     def print_forward(self) -> None:
-        """Print all elements head to tail. O(n) time."""
+        """Print all elements head to tail. O(n) time, O(n) space."""
         if self.head is None:
             print("Linked list is empty")
             return
@@ -179,7 +179,7 @@ class DoublyLinkedList:
         print(llstr)
 
     def print_backward(self) -> None:
-        """Print all elements tail to head. O(n) time."""
+        """Print all elements tail to head. O(n) time, O(n) space."""
         if self.head is None:
             print("Linked list is empty")
             return

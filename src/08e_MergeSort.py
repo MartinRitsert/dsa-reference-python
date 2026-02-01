@@ -17,7 +17,7 @@ def merge_sort(nums: list[Any]) -> None:
     merge(left_list, right_list, nums)
 
 def merge(a: list[Any], b: list[Any], nums: list[Any]) -> None:
-    """Merge two sorted lists into nums. O(n) time."""
+    """Merge two sorted lists into nums. O(n) time, O(n) space."""
     len_a = len(a)
     len_b = len(b)
 
@@ -49,7 +49,7 @@ def merge(a: list[Any], b: list[Any], nums: list[Any]) -> None:
 #     return merge(left_list, right_list)
 
 # def merge(a: list[Any], b: list[Any]) -> list[Any]:
-#     """Merge two sorted lists into a new list. O(n) time."""
+#     """Merge two sorted lists into a new list. O(n) time, O(n) space."""
 #     len_a = len(a)
 #     len_b = len(b)
 

@@ -17,14 +17,14 @@ class HashTable:
         self.arr = [None for _ in range(self.MAX)]
 
     def get_hash(self, key: str) -> int:
-        """Compute hash index for a given key. O(k) time, where k is key length."""
+        """Compute hash index for a given key. O(k) time, O(1) space."""
         h = 0
         for char in key:
             h += ord(char)
         return h % self.MAX
 
     def __setitem__(self, key: str, val: Any) -> None:
-        """Insert or update a key-value pair. O(k) avg, O(k + n) worst case."""
+        """Insert or update a key-value pair. O(k) avg, O(k + n) worst time, O(1) space."""
         h = self.get_hash(key)
         if self.arr[h] is None:
             self.arr[h] = (key, val)
@@ -33,7 +33,7 @@ class HashTable:
             self.arr[new_h] = (key, val)
 
     def __getitem__(self, key: str) -> Optional[Any]:
-        """Retrieve value by key. O(k) avg, O(k + n) worst case."""
+        """Retrieve value by key. O(k) avg, O(k + n) worst time, O(1) space."""
         h = self.get_hash(key)
         if self.arr[h] is None:
             return None
@@ -57,14 +57,14 @@ class HashTable:
 
     # O(1) space - generator yields indices one at a time, allowing early exit
     def get_prob_range(self, index: int):
-        """Yield probe indices wrapping around the array. O(n) worst case."""
+        """Yield probe indices wrapping around the array. O(n) time, O(1) space."""
         for i in range(index, self.MAX):
             yield i
         for i in range(0, index):
             yield i
 
     def find_slot(self, key: str, index: int) -> int:
-        """Find next available slot via linear probing. O(1) avg, O(n) worst case."""
+        """Find next available slot via linear probing. O(1) avg, O(n) worst time, O(1) space."""
         prob_range = self.get_prob_range(index)
 
         for prob_index in prob_range:
@@ -76,7 +76,7 @@ class HashTable:
         raise OverflowError("Hashmap full")
 
     def __delitem__(self, key: str) -> None:
-        """Delete a key and rehash subsequent probed entries. O(k) avg, O(nk) worst case."""
+        """Delete a key and rehash subsequent probed entries. O(k) avg, O(nk) worst time, O(1) space."""
         h = self.get_hash(key)
         prob_range = self.get_prob_range(h)
 

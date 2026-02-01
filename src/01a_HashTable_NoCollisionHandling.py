@@ -14,7 +14,7 @@ class HashTable:
         self.arr = [None for _ in range(self.MAX)]
 
     def get_hash(self, key: str) -> int:
-        """Compute hash index for a given key. O(k) time, where k is key length."""
+        """Compute hash index for a given key. O(k) time, O(1) space."""
         h = 0
         for char in key:
             h += ord(char)

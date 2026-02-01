@@ -10,7 +10,7 @@ class Graph_AdjacencyList:
         self.adjacency_list = {i: [] for i in range(num_vertices)}
 
     def add_edge(self, u: int, v: int, weight: float) -> None:
-        """Add an undirected weighted edge. O(1) time."""
+        """Add an undirected weighted edge. O(1) time, O(1) space."""
         if u >= self.num_vertices or v >= self.num_vertices or u < 0 or v < 0:
             raise ValueError("Vertices are out of bounds")
 
@@ -18,7 +18,7 @@ class Graph_AdjacencyList:
         self.adjacency_list[v].append((u, weight))  # If the graph is undirected
 
     def dijkstra(self, start: int) -> dict[int, float]:
-        """Find shortest distances from start to all vertices. O((V + E) log V) time."""
+        """Find shortest distances from start to all vertices. O((V + E) log V) time, O(V) space."""
         distances = {i: float("inf") for i in range(self.num_vertices)}
         distances[start] = 0
         pq = [(0, start)]  # (distance, vertex)
@@ -46,7 +46,7 @@ class Graph_AdjacencyMatrix:
         self.adjacency_matrix = [[0] * num_vertices for _ in range(num_vertices)]
 
     def add_edge(self, u: int, v: int, weight: float) -> None:
-        """Add an undirected weighted edge. O(1) time."""
+        """Add an undirected weighted edge. O(1) time, O(1) space."""
         if u >= self.num_vertices or v >= self.num_vertices or u < 0 or v < 0:
             raise ValueError("Vertices are out of bounds")
 
@@ -54,7 +54,7 @@ class Graph_AdjacencyMatrix:
         self.adjacency_matrix[v][u] = weight  # If the graph is undirected
 
     def dijkstra(self, start: int) -> list[float]:
-        """Find shortest distances from start to all vertices. O(V^2) time."""
+        """Find shortest distances from start to all vertices. O(V^2) time, O(V) space."""
         distances = [float("inf")] * self.num_vertices
         distances[start] = 0
         visited = set()

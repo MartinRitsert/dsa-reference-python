@@ -18,7 +18,7 @@ class BinarySearchTreeNode:
 
     # # Recursive approach (inefficient for deep trees):
     # def add_child(self, data: Any) -> None:
-    #     """Insert a value into the BST. O(h) time, O(h) space (call stack)."""
+    #     """Insert a value into the BST. O(h) time, O(h) space."""
     #     if data == self.data:
     #         return
     #     elif data < self.data:
@@ -55,7 +55,7 @@ class BinarySearchTreeNode:
 
     # # Recursive approach (inefficient for deep trees):
     # def search(self, val: Any) -> bool:
-    #     """Search for a value in the BST. O(h) time, O(h) space (call stack)."""
+    #     """Search for a value in the BST. O(h) time, O(h) space."""
     #     if self.data == val:
     #         return True
 
@@ -206,7 +206,7 @@ class BinarySearchTreeNode:
 
     # # Recursive approach (inefficient for deep trees):
     # def find_min(self) -> Any:
-    #     """Return the minimum value. O(h) time, O(h) space (call stack)."""
+    #     """Return the minimum value. O(h) time, O(h) space."""
     #     if self.left is None:
     #         return self.data
     #     return self.left.find_min()
@@ -221,7 +221,7 @@ class BinarySearchTreeNode:
 
     # # Recursive approach (inefficient for deep trees):
     # def find_max(self) -> Any:
-    #     """Return the maximum value. O(h) time, O(h) space (call stack)."""
+    #     """Return the maximum value. O(h) time, O(h) space."""
     #     if self.right is None:
     #         return self.data
     #     return self.right.find_max()
@@ -238,13 +238,13 @@ class BinarySearchTreeNode:
     # For deep trees, this can be optimized using the iterative
     # [Pre-order/Post-order] traversal patterns documented above.
     def calculate_sum(self) -> Any:
-        """Return the sum of all values. O(n) time."""
+        """Return the sum of all values. O(n) time, O(h) space."""
         left_sum = self.left.calculate_sum() if self.left else 0
         right_sum = self.right.calculate_sum() if self.right else 0
         return left_sum + right_sum + self.data
 
     def delete(self, val: Any) -> Optional["BinarySearchTreeNode"]:
-        """Delete a value and return the new subtree root. O(h) time."""
+        """Delete a value and return the new subtree root. O(h) time, O(h) space."""
         # IMPORTANT: This method does not mutate the caller's reference.
         # Example: root = root.delete(value)
         if val < self.data:

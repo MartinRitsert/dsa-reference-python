@@ -11,14 +11,14 @@ class HashTable:
         self.arr = [[] for _ in range(self.MAX)]
 
     def get_hash(self, key: str) -> int:
-        """Compute hash index for a given key. O(k) time, where k is key length."""
+        """Compute hash index for a given key. O(k) time, O(1) space."""
         h = 0
         for char in key:
             h += ord(char)
         return h % self.MAX
 
     def __setitem__(self, key: str, val: Any) -> None:
-        """Insert or update a key-value pair. O(k) avg, O(k + n) worst case."""
+        """Insert or update a key-value pair. O(k) avg, O(k + n) worst time, O(1) space."""
         h = self.get_hash(key)
         for idx, element in enumerate(self.arr[h]):
             if len(element) == 2 and element[0] == key:
@@ -27,7 +27,7 @@ class HashTable:
         self.arr[h].append((key, val))
 
     def __getitem__(self, key: str) -> Optional[Any]:
-        """Retrieve value by key. O(k) avg, O(k + n) worst case."""
+        """Retrieve value by key. O(k) avg, O(k + n) worst time, O(1) space."""
         h = self.get_hash(key)
         for element in self.arr[h]:
             if element[0] == key:
@@ -35,7 +35,7 @@ class HashTable:
         return None
 
     def __delitem__(self, key: str) -> None:
-        """Delete a key-value pair. O(k) avg, O(k + n) worst case."""
+        """Delete a key-value pair. O(k) avg, O(k + n) worst time, O(1) space."""
         h = self.get_hash(key)
         for idx, element in enumerate(self.arr[h]):
             if element[0] == key:

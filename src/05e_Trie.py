@@ -9,7 +9,7 @@ class Trie:
         self.root = TrieNode()
 
     def insert(self, word: str) -> None:
-        """Insert a word into the trie. O(m) time, where m is word length."""
+        """Insert a word into the trie. O(m) time, O(m) space."""
         node = self.root
         for char in word:
             if char not in node.children:
@@ -18,7 +18,7 @@ class Trie:
         node.is_end_of_word = True
 
     def search(self, word: str) -> bool:
-        """Check if an exact word exists in the trie. O(m) time."""
+        """Check if an exact word exists in the trie. O(m) time, O(1) space."""
         node = self.root
         for char in word:
             if char not in node.children:
@@ -27,7 +27,7 @@ class Trie:
         return node.is_end_of_word
 
     def starts_with(self, prefix: str) -> bool:
-        """Check if any word starts with the given prefix. O(m) time."""
+        """Check if any word starts with the given prefix. O(m) time, O(1) space."""
         node = self.root
         for char in prefix:
             if char not in node.children:

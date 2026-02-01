@@ -19,7 +19,7 @@ def quick_sort(elements: list[Any], start: int, end: int) -> None:
         
 # # Lomuto partition scheme
 # def partition(elements: list[Any], start: int, end: int) -> int:
-#     """Partition elements around last element using Lomuto scheme. O(n) time."""
+#     """Partition elements around last element using Lomuto scheme. O(n) time, O(1) space."""
 #     pivot = elements[end]
 #     pivot_index = start
 
@@ -36,7 +36,7 @@ def quick_sort(elements: list[Any], start: int, end: int) -> None:
 # In practice, you try to choose a pivot that is close to
 # the median value to achieve O(n log(n))
 def partition(elements: list[Any], initial_start: int, initial_end: int) -> int:
-    """Partition elements around a pivot using Hoare scheme. O(n) time."""
+    """Partition elements around a pivot using Hoare scheme. O(n) time, O(1) space."""
     pivot_index = initial_start
     pivot = elements[pivot_index]
 
