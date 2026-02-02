@@ -50,6 +50,7 @@ The implementations in this collection reflect an ongoing effort to:
 * Solidify understanding of the core logic and intricacies of each data structure and algorithm.
 * Explore and document different implementation strategies and their trade-offs (e.g., various hash table collision resolution techniques, different backends for stacks/queues)
 * Maintain clear, understandable, and well-commented Python code that serves as a reliable personal reference.
+* Each file contains one active implementation per method; alternative approaches (e.g., recursive vs. iterative, different partition schemes) are kept as commented-out code with explanatory notes.
 
 ## ✅ Testing Status
 
