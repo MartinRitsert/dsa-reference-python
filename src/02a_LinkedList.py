@@ -10,6 +10,7 @@ class Node:
 class LinkedList:
     def __init__(self) -> None:
         self.head = None
+        self.length = 0
 
     def find(self, data: Any) -> int:
         """Return index of first occurrence, or -1 if not found. O(n) time, O(1) space."""
@@ -33,24 +34,27 @@ class LinkedList:
         """Insert a node at the head. O(1) time, O(1) space."""
         node = Node(data, self.head)
         self.head = node
+        self.length += 1
 
     def insert_at_end(self, data: Any) -> None:
         """Insert a node at the tail. O(n) time, O(1) space."""
         if self.head is None:
             self.head = Node(data, None)
+            self.length += 1
             return
-        
+
         itr = self.head
         while itr.next:
             itr = itr.next
 
         itr.next = Node(data, None)
+        self.length += 1
 
     def insert_at(self, index: int, data: Any) -> None:
         """Insert a node at a given index. O(n) time, O(1) space."""
-        if index < 0 or index > self.get_length():
+        if index < 0 or index > self.length:
             raise IndexError("Invalid index")
-        
+
         if index == 0:
             self.insert_at_beginning(data)
             return
@@ -61,7 +65,8 @@ class LinkedList:
             if count == index - 1:
                 node = Node(data, itr.next)
                 itr.next = node
-                break
+                self.length += 1
+                return
 
             itr = itr.next
             count += 1
@@ -75,13 +80,15 @@ class LinkedList:
         while itr:
             if itr.data == data_after:
                 itr.next = Node(data_to_insert, itr.next)
+                self.length += 1
                 return
             itr = itr.next
         raise ValueError(f"Value {data_after} not found in the list")
 
-    def insert_values(self, data_list: list[Any]) -> None:
+    def replace_with_list(self, data_list: list[Any]) -> None:
         """Replace the list with elements from data_list. O(m) time, O(1) space."""
         self.head = None
+        self.length = 0
         tail = None
         for data in data_list:
             node = Node(data)
@@ -90,22 +97,25 @@ class LinkedList:
             else:
                 tail.next = node
             tail = node
+            self.length += 1
 
     def remove_at(self, index: int) -> None:
         """Remove node at a given index. O(n) time, O(1) space."""
-        if index < 0 or index >= self.get_length():
+        if index < 0 or index >= self.length:
             raise IndexError("Invalid index")
 
         if index == 0:
             self.head = self.head.next
+            self.length -= 1
             return
-        
+
         count = 0
         itr = self.head
         while itr:
             if count == index - 1:
-                itr.next = itr.next.next 
-                break
+                itr.next = itr.next.next
+                self.length -= 1
+                return
 
             itr = itr.next
             count += 1
@@ -117,26 +127,22 @@ class LinkedList:
 
         if self.head.data == data:
             self.head = self.head.next
+            self.length -= 1
             return
 
         itr = self.head
         while itr.next:
             if itr.next.data == data:
                 itr.next = itr.next.next
+                self.length -= 1
                 return
             itr = itr.next
 
         raise ValueError(f"Value {data} not found in the list")
 
     def get_length(self) -> int:
-        """Return the number of nodes. O(n) time, O(1) space."""
-        count = 0
-        itr = self.head
-        while itr:
-            count += 1
-            itr = itr.next
-
-        return count
+        """Return the number of nodes. O(1) time, O(1) space."""
+        return self.length
 
     def print(self) -> None:
         """Print all elements as a string. O(n) time, O(n) space."""
@@ -180,9 +186,9 @@ if __name__ == '__main__':
     ll.insert_after_value(2, 2.5)
     assert ll.find(2.5) == 2, "Should find 2.5 at index 2"
 
-    # Test insert_values
-    ll.insert_values([10, 20, 30])
-    assert ll.get_length() == 3, "Length should be 3 after insert_values"
+    # Test replace_with_list
+    ll.replace_with_list([10, 20, 30])
+    assert ll.get_length() == 3, "Length should be 3 after replace_with_list"
     assert ll.find(20) == 1, "Should find 20 at index 1"
 
     # Test remove_at
