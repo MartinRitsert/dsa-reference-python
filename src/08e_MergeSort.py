@@ -3,7 +3,7 @@ from typing import Any
 
 # Index-based merge sort (standard textbook approach — O(n) auxiliary space):
 def merge_sort(nums: list[Any]) -> None:
-    """Sort in-place by dividing and merging. O(n log n) time, O(n) space."""
+    """Sort by dividing and merging. O(n log n) time, O(n) space."""
     _merge_sort(nums, 0, len(nums))
 
 
@@ -20,7 +20,7 @@ def _merge_sort(nums: list[Any], start: int, end: int) -> None:
 
 
 def _merge(nums: list[Any], start: int, mid: int, end: int) -> None:
-    """Merge two sorted subarrays in-place using a temp array. O(n) time, O(n) space."""
+    """Merge two sorted subarrays using temp arrays. O(n) time, O(n) space."""
     left = nums[start:mid]
     right = nums[mid:end]
 
