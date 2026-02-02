@@ -3,7 +3,7 @@ from typing import Any
 
 # Version 1: Sorting nums list in place and not returning the sorted nums list
 def merge_sort(nums: list[Any]) -> None:
-    """Sort in-place by dividing and merging. O(n log n) time, O(n) space."""
+    """Sort in-place by dividing and merging. O(n log n) time, O(n log n) space."""
     if len(nums) <= 1:
         return
 
@@ -17,7 +17,7 @@ def merge_sort(nums: list[Any]) -> None:
     merge(left_list, right_list, nums)
 
 def merge(a: list[Any], b: list[Any], nums: list[Any]) -> None:
-    """Merge two sorted lists into nums. O(n) time, O(n) space."""
+    """Merge two sorted lists into nums. O(n) time, O(1) space."""
     len_a = len(a)
     len_b = len(b)
 
@@ -32,7 +32,15 @@ def merge(a: list[Any], b: list[Any], nums: list[Any]) -> None:
             j += 1
         k += 1
 
-    nums[k:] = a[i:] + b[j:]
+    while i < len_a:
+        nums[k] = a[i]
+        i += 1
+        k += 1
+
+    while j < len_b:
+        nums[k] = b[j]
+        j += 1
+        k += 1
         
         
 # # Version 2: Not changing the original nums list, and returning a sorted copy of the nums list
@@ -49,7 +57,7 @@ def merge(a: list[Any], b: list[Any], nums: list[Any]) -> None:
 #     return merge(left_list, right_list)
 
 # def merge(a: list[Any], b: list[Any]) -> list[Any]:
-#     """Merge two sorted lists into a new list. O(n) time, O(n) space."""
+#     """Merge two sorted lists into a new list. O(n) time, O(1) space."""
 #     len_a = len(a)
 #     len_b = len(b)
 
@@ -64,9 +72,14 @@ def merge(a: list[Any], b: list[Any], nums: list[Any]) -> None:
 #             result.append(b[j])
 #             j += 1
 
-#     result.extend(a[i:])
-#     result.extend(b[j:])
-    
+#     while i < len_a:
+#         result.append(a[i])
+#         i += 1
+
+#     while j < len_b:
+#         result.append(b[j])
+#         j += 1
+
 #     return result
 
 
