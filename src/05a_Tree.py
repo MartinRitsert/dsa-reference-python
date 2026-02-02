@@ -44,7 +44,7 @@ class TreeNode:
         return None
 
     def insert(self, parent_value: Any, child_value: Any) -> bool:
-        """Insert a child under the node with parent_value. O(n) time, O(1) space."""
+        """Insert a child under the node with parent_value. O(n) time, O(h) space."""
         # If you already know the parent_node, you can skip find() and
         # reduce insert() from O(n) to O(1)
         parent_node = self.find(parent_value)
@@ -57,7 +57,7 @@ class TreeNode:
         return False
 
     def delete(self, value: Any) -> bool:
-        """Delete a node and re-parent its children. O(n) time, O(1) space."""
+        """Delete a node and re-parent its children. O(n) time, O(h) space."""
         node_to_delete = self.find(value)
 
         if node_to_delete and node_to_delete.parent:

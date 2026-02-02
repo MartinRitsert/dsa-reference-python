@@ -18,7 +18,7 @@ class UnionFind:
 
     # Uses union by rank
     def union(self, x: int, y: int) -> None:
-        """Merge the sets containing x and y. O(alpha(n)) amortized, O(1) space."""
+        """Merge the sets containing x and y. O(alpha(n)) amortized, O(alpha(n)) space."""
         rootX = self.find(x)
         rootY = self.find(y)
         if rootX != rootY:
@@ -31,7 +31,7 @@ class UnionFind:
                 self.rank[rootX] += 1
 
     def connected(self, x: int, y: int) -> bool:
-        """Check if x and y are in the same set. O(alpha(n)) amortized, O(1) space."""
+        """Check if x and y are in the same set. O(alpha(n)) amortized, O(alpha(n)) space."""
         return self.find(x) == self.find(y)
 
 
