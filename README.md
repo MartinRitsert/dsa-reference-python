@@ -70,6 +70,7 @@ Every method includes a one-line docstring with time and space complexity. The f
 | `d` | Node depth | General trees |
 | `V` | Number of vertices | Graphs |
 | `E` | Number of edges | Graphs |
+| `α(n)` | Inverse Ackermann function — grows so slowly it is effectively constant for all practical inputs | Union-Find |
 
 **Conventions:**
 * Unlabeled complexity is worst case (Big-O default). Only average/best cases are explicitly labeled (e.g., `O(n log n) avg, O(n^2) time`).
