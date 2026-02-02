@@ -51,6 +51,11 @@ if __name__ == "__main__":
     assert not trie.search("ban"), "Should not find incomplete word 'ban'"
     assert not trie.search("cat"), "Should not find 'cat'"
 
+    # Empty string tests
+    trie.insert("")
+    assert trie.search(""), "Should find empty string after insert"
+    assert trie.starts_with(""), "Empty prefix should match"
+
     # Prefix tests
     assert trie.starts_with("app"), "Should find prefix 'app'"
     assert trie.starts_with("appl"), "Should find prefix 'appl'"

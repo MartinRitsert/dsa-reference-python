@@ -129,6 +129,28 @@ if __name__ == "__main__":
     except IndexError:
         pass
 
+    # Test with negative numbers
+    neg_heap = MaxHeap(5)
+    neg_heap.add(-3)
+    neg_heap.add(1)
+    neg_heap.add(-5)
+    neg_heap.add(2)
+    assert neg_heap.pop() == 2, "Max should be 2"
+    assert neg_heap.pop() == 1, "Next max should be 1"
+    assert neg_heap.pop() == -3, "Next max should be -3"
+    assert neg_heap.pop() == -5, "Next max should be -5"
+
+    # Test with duplicates
+    dup_heap = MaxHeap(5)
+    dup_heap.add(3)
+    dup_heap.add(1)
+    dup_heap.add(3)
+    dup_heap.add(1)
+    assert dup_heap.pop() == 3, "First pop should be 3"
+    assert dup_heap.pop() == 3, "Second pop should be 3"
+    assert dup_heap.pop() == 1, "Third pop should be 1"
+    assert dup_heap.pop() == 1, "Fourth pop should be 1"
+
     # Test overflow
     full_heap = MaxHeap(2)
     full_heap.add(1)

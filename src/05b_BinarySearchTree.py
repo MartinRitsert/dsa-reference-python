@@ -333,6 +333,12 @@ if __name__ == "__main__":
     assert not numbers_tree.search(20), "Should not find deleted 20"
     assert numbers_tree.search(23), "Should still find 23 after deleting 20"
 
+    # Test delete root with two children
+    numbers_tree = numbers_tree.delete(17)
+    assert not numbers_tree.search(17), "Should not find deleted root 17"
+    in_order = numbers_tree.in_order_traversal()
+    assert in_order == sorted(in_order), "Tree should remain a valid BST after root deletion"
+
     # Test delete leaf
     numbers_tree = numbers_tree.delete(1)
     assert not numbers_tree.search(1), "Should not find deleted 1"
