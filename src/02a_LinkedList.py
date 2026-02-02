@@ -80,10 +80,16 @@ class LinkedList:
         raise ValueError(f"Value {data_after} not found in the list")
 
     def insert_values(self, data_list: list[Any]) -> None:
-        """Replace the list with elements from data_list. O(m^2) time, O(1) space."""
+        """Replace the list with elements from data_list. O(m) time, O(1) space."""
         self.head = None
+        tail = None
         for data in data_list:
-            self.insert_at_end(data)
+            node = Node(data)
+            if tail is None:
+                self.head = node
+            else:
+                tail.next = node
+            tail = node
 
     def remove_at(self, index: int) -> None:
         """Remove node at a given index. O(n) time, O(1) space."""
@@ -139,15 +145,13 @@ class LinkedList:
             return
         
         itr = self.head
-        # Could also optimize by making llstr a list and then 
-        # joining the list into a single string in the end
-        llstr = ''
+        parts = []
 
         while itr:
-            llstr += str(itr.data) + '-->'
+            parts.append(str(itr.data))
             itr = itr.next
 
-        print(llstr)
+        print('-->'.join(parts))
 
 
 if __name__ == '__main__':

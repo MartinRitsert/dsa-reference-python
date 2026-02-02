@@ -21,7 +21,7 @@ class HashTable:
         """Insert or update a key-value pair. O(k) avg, O(k + n) worst time, O(1) space."""
         h = self.get_hash(key)
         for idx, element in enumerate(self.arr[h]):
-            if len(element) == 2 and element[0] == key:
+            if element[0] == key:
                 self.arr[h][idx] = (key, val)
                 return
         self.arr[h].append((key, val))

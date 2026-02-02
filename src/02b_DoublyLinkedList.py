@@ -170,28 +170,28 @@ class DoublyLinkedList:
             return
         
         itr = self.head
-        llstr = ''
+        parts = []
 
         while itr:
-            llstr += str(itr.data) + '-->'
+            parts.append(str(itr.data))
             itr = itr.next
 
-        print(llstr)
+        print('-->'.join(parts))
 
     def print_backward(self) -> None:
         """Print all elements tail to head. O(n) time, O(n) space."""
         if self.head is None:
             print("Linked list is empty")
             return
-        
+
         itr = self.tail
-        llstr = ''
+        parts = []
 
         while itr:
-            llstr += str(itr.data) + '-->'
+            parts.append(str(itr.data))
             itr = itr.prev
 
-        print(llstr)
+        print('-->'.join(parts))
 
 
 if __name__ == '__main__':

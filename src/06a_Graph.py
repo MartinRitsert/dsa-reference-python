@@ -9,7 +9,7 @@ class Graph_AdjacencyList:
         self.next_id = num_vertices  # Tracks the highest ID ever issued
         self.free_ids = []
 
-        # Initialize adjacency list
+        # Initialize adjacency list (list over set to preserve insertion order for deterministic traversal)
         # Consider `defaultdict(list)` if node labels are arbitrary
         self.adjacency_list = {i: [] for i in range(num_vertices)}
 

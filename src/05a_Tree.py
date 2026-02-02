@@ -23,15 +23,14 @@ class TreeNode:
 
         return level
 
-    def print_tree(self) -> None:
-        """Print the tree with indentation by level. O(n * d) time, O(h) space."""
-        spaces = 3 * " " * self.get_level()
+    def print_tree(self, level: int = 0) -> None:
+        """Print the tree with indentation by level. O(n) time, O(h) space."""
+        spaces = 3 * " " * level
         prefix = spaces + "|__" if self.parent else ""
 
         print(prefix + self.data)
-        if self.children:
-            for child in self.children:
-                child.print_tree()
+        for child in self.children:
+            child.print_tree(level + 1)
 
     def find(self, value: Any) -> Optional["TreeNode"]:
         """Search for a value in the tree. O(n) time, O(h) space."""
