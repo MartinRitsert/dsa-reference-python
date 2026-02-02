@@ -2,7 +2,12 @@ from typing import Optional, Any
 
 
 class Node:
-    def __init__(self, data: Any = None, next: Optional['Node'] = None, prev: Optional['Node'] = None) -> None:
+    def __init__(
+        self,
+        data: Any = None,
+        next: Optional["Node"] = None,
+        prev: Optional["Node"] = None,
+    ) -> None:
         self.data = data
         self.next = next
         self.prev = prev
@@ -12,6 +17,7 @@ class DoublyLinkedList:
     def __init__(self) -> None:
         self.head = None
         self.tail = None
+        self.length = 0
 
     def find(self, data: Any) -> int:
         """Return index of first occurrence, or -1 if not found. O(n) time, O(1) space."""
@@ -21,7 +27,7 @@ class DoublyLinkedList:
         while itr:
             if itr.data == data:
                 return index
-            
+
             itr = itr.next
             index += 1
 
@@ -40,42 +46,50 @@ class DoublyLinkedList:
         else:
             self.head.prev = node
             self.head = node
+        self.length += 1
 
     def insert_at_end(self, data: Any) -> None:
-        """Insert a node at the tail. O(1) time, O(1) space (tail pointer)."""
+        """Insert a node at the tail. O(1) time, O(1) space."""
         if self.head is None:
             self.insert_at_beginning(data)
             return
-        
+
         node = Node(data, None, self.tail)
         self.tail.next = node
         self.tail = node
+        self.length += 1
+
+    def _get_node_at(self, index: int) -> Node:
+        """Return the node at a given index, traversing from the nearest end. O(n) time, O(1) space."""
+        if index < self.length // 2:
+            itr = self.head
+            for _ in range(index):
+                itr = itr.next
+        else:
+            itr = self.tail
+            for _ in range(self.length - 1 - index):
+                itr = itr.prev
+        return itr
 
     def insert_at(self, index: int, data: Any) -> None:
-        """Insert a node at a given index. O(n) time, O(1) space."""
-        if index < 0 or index > self.get_length():
+        """Insert a node at a given index, traversing from the nearest end. O(n) time, O(1) space."""
+        if index < 0 or index > self.length:
             raise IndexError("Invalid index")
-        
+
         if index == 0:
             self.insert_at_beginning(data)
             return
 
-        if index == self.get_length():
+        if index == self.length:
             self.insert_at_end(data)
             return
 
-        count = 0
-        itr = self.head
-        while itr:
-            if count == index - 1:
-                node = Node(data, itr.next, itr)
-                if itr.next:
-                    itr.next.prev = node
-                itr.next = node
-                return
-
-            itr = itr.next
-            count += 1
+        itr = self._get_node_at(index - 1)
+        node = Node(data, itr.next, itr)
+        if itr.next:
+            itr.next.prev = node
+        itr.next = node
+        self.length += 1
 
     def insert_after_value(self, data_after: Any, data_to_insert: Any) -> None:
         """Insert a node after the first occurrence of a value. O(n) time, O(1) space."""
@@ -91,20 +105,22 @@ class DoublyLinkedList:
                     node.next.prev = node
                 else:
                     self.tail = node
+                self.length += 1
                 return
             itr = itr.next
         raise ValueError(f"Value {data_after} not found in the list")
 
-    def insert_values(self, data_list: list[Any]) -> None:
+    def replace_with_list(self, data_list: list[Any]) -> None:
         """Replace the list with elements from data_list. O(m) time, O(1) space."""
         self.head = None
         self.tail = None
+        self.length = 0
         for data in data_list:
             self.insert_at_end(data)
 
     def remove_at(self, index: int) -> None:
-        """Remove node at a given index. O(n) time, O(1) space."""
-        if index < 0 or index >= self.get_length():
+        """Remove node at a given index, traversing from the nearest end. O(n) time, O(1) space."""
+        if index < 0 or index >= self.length:
             raise IndexError("Invalid index")
 
         if index == 0:
@@ -113,20 +129,16 @@ class DoublyLinkedList:
                 self.head.prev = None
             else:
                 self.tail = None
+            self.length -= 1
             return
-        
-        count = 0
-        itr = self.head
-        while itr:
-            if count == index:
-                itr.prev.next = itr.next
-                if itr.next:
-                    itr.next.prev = itr.prev
-                else:
-                    self.tail = itr.prev
-                return
-            itr = itr.next
-            count += 1
+
+        itr = self._get_node_at(index)
+        itr.prev.next = itr.next
+        if itr.next:
+            itr.next.prev = itr.prev
+        else:
+            self.tail = itr.prev
+        self.length -= 1
 
     def remove_by_value(self, data: Any) -> None:
         """Remove first node with the given value. O(n) time, O(1) space."""
@@ -139,6 +151,7 @@ class DoublyLinkedList:
                 self.head.prev = None
             else:
                 self.tail = None
+            self.length -= 1
             return
 
         itr = self.head
@@ -149,26 +162,21 @@ class DoublyLinkedList:
                     itr.next.prev = itr.prev
                 else:
                     self.tail = itr.prev
+                self.length -= 1
                 return
             itr = itr.next
         raise ValueError(f"Value {data} not found in the list")
 
     def get_length(self) -> int:
-        """Return the number of nodes. O(n) time, O(1) space."""
-        count = 0
-        itr = self.head
-        while itr:
-            count += 1
-            itr = itr.next
-
-        return count
+        """Return the number of nodes. O(1) time, O(1) space."""
+        return self.length
 
     def print_forward(self) -> None:
         """Print all elements head to tail. O(n) time, O(n) space."""
         if self.head is None:
             print("Linked list is empty")
             return
-        
+
         itr = self.head
         parts = []
 
@@ -176,7 +184,7 @@ class DoublyLinkedList:
             parts.append(str(itr.data))
             itr = itr.next
 
-        print('-->'.join(parts))
+        print("-->".join(parts))
 
     def print_backward(self) -> None:
         """Print all elements tail to head. O(n) time, O(n) space."""
@@ -191,10 +199,10 @@ class DoublyLinkedList:
             parts.append(str(itr.data))
             itr = itr.prev
 
-        print('-->'.join(parts))
+        print("-->".join(parts))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ll = DoublyLinkedList()
 
     # Test empty list
@@ -222,9 +230,9 @@ if __name__ == '__main__':
     ll.insert_after_value(2, 2.5)
     assert ll.find(2.5) == 2, "Should find 2.5 at index 2"
 
-    # Test insert_values
-    ll.insert_values([10, 20, 30])
-    assert ll.get_length() == 3, "Length should be 3 after insert_values"
+    # Test replace_with_list
+    ll.replace_with_list([10, 20, 30])
+    assert ll.get_length() == 3, "Length should be 3 after replace_with_list"
     assert ll.find(20) == 1, "Should find 20 at index 1"
     assert ll.head.data == 10, "Head should be 10"
     assert ll.tail.data == 30, "Tail should be 30"
@@ -239,6 +247,15 @@ if __name__ == '__main__':
     ll.remove_by_value(30)
     assert ll.find(30) == -1, "30 should be removed"
     assert ll.tail.data == 40, "Tail should be 40"
+
+    # Test insert_at and remove_at traverse from nearest end
+    ll.replace_with_list([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
+    ll.insert_at(8, 99)
+    assert ll.find(99) == 8, "Should find 99 at index 8"
+    assert ll.get_length() == 11, "Length should be 11"
+    ll.remove_at(9)
+    assert ll.find(8) == -1, "8 should be removed"
+    assert ll.get_length() == 10, "Length should be 10"
 
     # Test error handling
     try:
