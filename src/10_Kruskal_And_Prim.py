@@ -10,7 +10,7 @@ class UnionFind:
 
     # Uses path compression
     def find(self, x: int) -> int:
-        """Find the root of x with path compression. O(alpha(n)) amortized, O(log n) space."""
+        """Find the root of x with path compression. O(alpha(n)) amortized time, O(log n) space."""
         if x == self.root[x]:
             return x
         self.root[x] = self.find(self.root[x])
@@ -18,7 +18,7 @@ class UnionFind:
 
     # Uses union by rank
     def union(self, x: int, y: int) -> None:
-        """Merge the sets containing x and y. O(alpha(n)) amortized, O(log n) space."""
+        """Merge the sets containing x and y. O(alpha(n)) amortized time, O(log n) space."""
         root_x = self.find(x)
         root_y = self.find(y)
         if root_x != root_y:
@@ -31,7 +31,7 @@ class UnionFind:
                 self.rank[root_x] += 1
 
     def connected(self, x: int, y: int) -> bool:
-        """Check if x and y are in the same set. O(alpha(n)) amortized, O(log n) space."""
+        """Check if x and y are in the same set. O(alpha(n)) amortized time, O(log n) space."""
         return self.find(x) == self.find(y)
 
 
