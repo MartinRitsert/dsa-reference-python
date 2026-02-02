@@ -8,7 +8,7 @@ from typing import Any
 
 
 def quick_sort(elements: list[Any], start: int, end: int) -> None:
-    """Sort in-place using divide and conquer. O(n log n) avg, O(n^2) worst, O(log n) space."""
+    """Sort in-place using divide and conquer. O(n log n) avg, O(n^2) worst time. O(log n) avg, O(n) worst space."""
     if start < end:
         pi = partition(elements, start, end)
 

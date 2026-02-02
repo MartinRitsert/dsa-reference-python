@@ -3,7 +3,7 @@ from collections import deque
 
 
 # Option 1: Using adjacency list
-class Graph_AdjacencyList:
+class GraphAdjacencyList:
     def __init__(self, num_vertices: int) -> None:
         self.num_vertices = num_vertices
         self.next_id = num_vertices  # Tracks the highest ID ever issued
@@ -12,9 +12,6 @@ class Graph_AdjacencyList:
         # Initialize adjacency list (list over set to preserve insertion order for deterministic traversal)
         # Consider `defaultdict(list)` if node labels are arbitrary
         self.adjacency_list = {i: [] for i in range(num_vertices)}
-
-        # Print the graph
-        self.display()
 
     def display(self) -> None:
         """Print the adjacency list. O(V + E) time, O(1) space."""
@@ -27,7 +24,6 @@ class Graph_AdjacencyList:
             raise ValueError("Vertices are out of bounds")
 
         if end not in self.adjacency_list[start]:
-            # For weighted graphs, store each edge as a tuple: (neighbor, weight)
             self.adjacency_list[start].append(end)
 
         # Uncomment for undirected graph (but be aware that methods like topological_sort will not work)
@@ -293,17 +289,12 @@ class Graph_AdjacencyList:
 
 
 # Option 2: Using adjacency matrix
-class Graph_AdjacencyMatrix:
+class GraphAdjacencyMatrix:
     def __init__(self, num_vertices: int) -> None:
         self.num_vertices = num_vertices
 
         # Initialize adjacency matrix
-        # `self.adjacency_matrix[i][j]`: Stores weight of edge from node `i` to node `j`
-        # No Edge: Use `float('inf')`, `-1`, or `0` (select based on your use case)
         self.adjacency_matrix = [[0] * num_vertices for _ in range(num_vertices)]
-
-        # Print the graph
-        self.display()
 
     def display(self) -> None:
         """Print the adjacency matrix. O(V^2) time, O(1) space."""
@@ -638,7 +629,7 @@ class Graph_AdjacencyMatrix:
 
 if __name__ == "__main__":
     # Test Adjacency List implementation
-    graph_1 = Graph_AdjacencyList(5)
+    graph_1 = GraphAdjacencyList(5)
     graph_1.add_edge(0, 1)
     graph_1.add_edge(1, 2)
     graph_1.add_edge(2, 3)
@@ -671,7 +662,7 @@ if __name__ == "__main__":
         pass
 
     # Test Adjacency Matrix implementation
-    graph_2 = Graph_AdjacencyMatrix(5)
+    graph_2 = GraphAdjacencyMatrix(5)
     graph_2.add_edge(0, 1)
     graph_2.add_edge(1, 2)
     graph_2.add_edge(2, 3)

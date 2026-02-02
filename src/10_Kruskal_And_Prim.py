@@ -19,16 +19,16 @@ class UnionFind:
     # Uses union by rank
     def union(self, x: int, y: int) -> None:
         """Merge the sets containing x and y. O(alpha(n)) amortized, O(alpha(n)) space."""
-        rootX = self.find(x)
-        rootY = self.find(y)
-        if rootX != rootY:
-            if self.rank[rootX] > self.rank[rootY]:
-                self.root[rootY] = rootX
-            elif self.rank[rootX] < self.rank[rootY]:
-                self.root[rootX] = rootY
+        root_x = self.find(x)
+        root_y = self.find(y)
+        if root_x != root_y:
+            if self.rank[root_x] > self.rank[root_y]:
+                self.root[root_y] = root_x
+            elif self.rank[root_x] < self.rank[root_y]:
+                self.root[root_x] = root_y
             else:
-                self.root[rootY] = rootX
-                self.rank[rootX] += 1
+                self.root[root_y] = root_x
+                self.rank[root_x] += 1
 
     def connected(self, x: int, y: int) -> bool:
         """Check if x and y are in the same set. O(alpha(n)) amortized, O(alpha(n)) space."""
@@ -47,7 +47,7 @@ def kruskal(n: int, edges: list[tuple[int, int, float]]) -> list[tuple[int, int,
     mst = []
     
     # Sort edges by weight
-    edges.sort(key=lambda x: x[2])
+    edges = sorted(edges, key=lambda x: x[2])
     
     # Iterate over sorted edges
     for u, v, weight in edges:
@@ -116,6 +116,8 @@ def prim_adj_mat(n: int, edges: list[tuple[int, int, float]], start_vertex: int 
 
     # Initialize adjacency matrix
     adj_matrix = [[float('inf')] * n for _ in range(n)]
+    for i in range(n):
+        adj_matrix[i][i] = 0
 
     for u, v, weight in edges:
         if 0 <= u < n and 0 <= v < n:

@@ -283,7 +283,10 @@ class BinarySearchTreeNode:
         return self
 
 
-def build_tree(elements: list[Any]) -> BinarySearchTreeNode:
+def build_tree(elements: list[Any]) -> Optional[BinarySearchTreeNode]:
+    if not elements:
+        return None
+
     root = BinarySearchTreeNode(elements[0])
 
     for i in range(1, len(elements)):

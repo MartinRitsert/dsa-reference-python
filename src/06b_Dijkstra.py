@@ -4,7 +4,7 @@ import heapq
 # Using adjacency list
 # Assuming static vertices
 # Dynamic vertices would require tracking "self.free_ids"
-class Graph_AdjacencyList:
+class GraphAdjacencyList:
     def __init__(self, num_vertices: int) -> None:
         self.num_vertices = num_vertices
         self.adjacency_list = {i: [] for i in range(num_vertices)}
@@ -40,10 +40,12 @@ class Graph_AdjacencyList:
 
 
 # Using adjacency matrix
-class Graph_AdjacencyMatrix:
+class GraphAdjacencyMatrix:
     def __init__(self, num_vertices: int) -> None:
         self.num_vertices = num_vertices
-        self.adjacency_matrix = [[0] * num_vertices for _ in range(num_vertices)]
+        self.adjacency_matrix = [[float('inf')] * num_vertices for _ in range(num_vertices)]
+        for i in range(num_vertices):
+            self.adjacency_matrix[i][i] = 0
 
     def add_edge(self, u: int, v: int, weight: float) -> None:
         """Add an undirected weighted edge. O(1) time, O(1) space."""
@@ -77,7 +79,7 @@ class Graph_AdjacencyMatrix:
             # Update distances to neighboring vertices
             for neighbor in range(self.num_vertices):
                 weight = self.adjacency_matrix[min_vertex][neighbor]
-                if weight > 0 and neighbor not in visited:
+                if weight != float('inf') and neighbor not in visited:
                     new_distance = distances[min_vertex] + weight
                     if new_distance < distances[neighbor]:
                         distances[neighbor] = new_distance
@@ -95,7 +97,7 @@ if __name__ == "__main__":
     #   +-----3-----+
 
     # Adjacency List
-    g1 = Graph_AdjacencyList(4)
+    g1 = GraphAdjacencyList(4)
     g1.add_edge(0, 1, 4)
     g1.add_edge(0, 3, 5)
     g1.add_edge(1, 2, 2)
@@ -109,7 +111,7 @@ if __name__ == "__main__":
     assert dist1[3] == 5, "Shortest path 0->3 should be 5"
 
     # Adjacency Matrix
-    g2 = Graph_AdjacencyMatrix(4)
+    g2 = GraphAdjacencyMatrix(4)
     g2.add_edge(0, 1, 4)
     g2.add_edge(0, 3, 5)
     g2.add_edge(1, 2, 2)

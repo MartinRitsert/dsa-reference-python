@@ -90,51 +90,51 @@ class MinHeap:
 
 
 if __name__ == "__main__":
-    minHeap = MinHeap(5)
+    min_heap = MinHeap(5)
 
     # Test empty heap
-    assert minHeap.size() == 0, "New heap should have size 0"
+    assert min_heap.size() == 0, "New heap should have size 0"
 
     # Test add and peek
-    minHeap.add(3)
-    minHeap.add(1)
-    minHeap.add(2)
-    assert minHeap.size() == 3, "Heap should have size 3"
-    assert minHeap.peek() == 1, "Min element should be 1"
+    min_heap.add(3)
+    min_heap.add(1)
+    min_heap.add(2)
+    assert min_heap.size() == 3, "Heap should have size 3"
+    assert min_heap.peek() == 1, "Min element should be 1"
 
     # Test pop returns elements in ascending order
-    assert minHeap.pop() == 1, "First pop should return 1"
-    assert minHeap.pop() == 2, "Second pop should return 2"
-    assert minHeap.pop() == 3, "Third pop should return 3"
-    assert minHeap.size() == 0, "Heap should be empty after popping all"
+    assert min_heap.pop() == 1, "First pop should return 1"
+    assert min_heap.pop() == 2, "Second pop should return 2"
+    assert min_heap.pop() == 3, "Third pop should return 3"
+    assert min_heap.size() == 0, "Heap should be empty after popping all"
 
     # Test add after empty
-    minHeap.add(4)
-    minHeap.add(5)
-    assert minHeap.peek() == 4, "Min should be 4"
-    assert minHeap.size() == 2, "Heap should have size 2"
+    min_heap.add(4)
+    min_heap.add(5)
+    assert min_heap.peek() == 4, "Min should be 4"
+    assert min_heap.size() == 2, "Heap should have size 2"
 
     # Test error on empty pop/peek
-    minHeap.pop()
-    minHeap.pop()
+    min_heap.pop()
+    min_heap.pop()
     try:
-        minHeap.pop()
+        min_heap.pop()
         assert False, "Should raise IndexError on empty pop"
     except IndexError:
         pass
 
     try:
-        minHeap.peek()
+        min_heap.peek()
         assert False, "Should raise IndexError on empty peek"
     except IndexError:
         pass
 
     # Test overflow
-    fullHeap = MinHeap(2)
-    fullHeap.add(1)
-    fullHeap.add(2)
+    full_heap = MinHeap(2)
+    full_heap.add(1)
+    full_heap.add(2)
     try:
-        fullHeap.add(3)
+        full_heap.add(3)
         assert False, "Should raise OverflowError when heap is full"
     except OverflowError:
         pass

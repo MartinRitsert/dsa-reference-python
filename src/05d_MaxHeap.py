@@ -90,51 +90,51 @@ class MaxHeap:
 
 
 if __name__ == "__main__":
-    maxHeap = MaxHeap(5)
+    max_heap = MaxHeap(5)
 
     # Test empty heap
-    assert maxHeap.size() == 0, "New heap should have size 0"
+    assert max_heap.size() == 0, "New heap should have size 0"
 
     # Test add and peek
-    maxHeap.add(3)
-    maxHeap.add(1)
-    maxHeap.add(2)
-    assert maxHeap.size() == 3, "Heap should have size 3"
-    assert maxHeap.peek() == 3, "Max element should be 3"
+    max_heap.add(3)
+    max_heap.add(1)
+    max_heap.add(2)
+    assert max_heap.size() == 3, "Heap should have size 3"
+    assert max_heap.peek() == 3, "Max element should be 3"
 
     # Test pop returns elements in descending order
-    assert maxHeap.pop() == 3, "First pop should return 3"
-    assert maxHeap.pop() == 2, "Second pop should return 2"
-    assert maxHeap.pop() == 1, "Third pop should return 1"
-    assert maxHeap.size() == 0, "Heap should be empty after popping all"
+    assert max_heap.pop() == 3, "First pop should return 3"
+    assert max_heap.pop() == 2, "Second pop should return 2"
+    assert max_heap.pop() == 1, "Third pop should return 1"
+    assert max_heap.size() == 0, "Heap should be empty after popping all"
 
     # Test add after empty
-    maxHeap.add(4)
-    maxHeap.add(5)
-    assert maxHeap.peek() == 5, "Max should be 5"
-    assert maxHeap.size() == 2, "Heap should have size 2"
+    max_heap.add(4)
+    max_heap.add(5)
+    assert max_heap.peek() == 5, "Max should be 5"
+    assert max_heap.size() == 2, "Heap should have size 2"
 
     # Test error on empty pop/peek
-    maxHeap.pop()
-    maxHeap.pop()
+    max_heap.pop()
+    max_heap.pop()
     try:
-        maxHeap.pop()
+        max_heap.pop()
         assert False, "Should raise IndexError on empty pop"
     except IndexError:
         pass
 
     try:
-        maxHeap.peek()
+        max_heap.peek()
         assert False, "Should raise IndexError on empty peek"
     except IndexError:
         pass
 
     # Test overflow
-    fullHeap = MaxHeap(2)
-    fullHeap.add(1)
-    fullHeap.add(2)
+    full_heap = MaxHeap(2)
+    full_heap.add(1)
+    full_heap.add(2)
     try:
-        fullHeap.add(3)
+        full_heap.add(3)
         assert False, "Should raise OverflowError when heap is full"
     except OverflowError:
         pass
