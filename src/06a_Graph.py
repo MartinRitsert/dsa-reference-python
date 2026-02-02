@@ -245,7 +245,7 @@ class GraphAdjacencyList:
 
         visited = set()
         visited.add(start)
-        stack = deque([start])
+        stack = [start]
 
         while stack:
             vertex = stack.pop()

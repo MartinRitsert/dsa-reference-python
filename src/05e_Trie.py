@@ -9,7 +9,7 @@ class Trie:
         self.root = TrieNode()
 
     def insert(self, word: str) -> None:
-        """Insert a word into the trie. O(m) time, O(m) space."""
+        """Insert a word into the trie. O(m) time, O(1) space."""
         node = self.root
         for char in word:
             if char not in node.children:

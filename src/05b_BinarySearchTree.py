@@ -259,6 +259,7 @@ class BinarySearchTreeNode:
 
         return total
 
+    # Recursive approach (no simple iterative alternative for BST deletion):
     def delete(self, val: Any) -> Optional["BinarySearchTreeNode"]:
         """Delete a value and return the new subtree root. O(h) time, O(h) space."""
         # IMPORTANT: This method does not mutate the caller's reference.
@@ -284,6 +285,7 @@ class BinarySearchTreeNode:
 
 
 def build_tree(elements: list[Any]) -> Optional[BinarySearchTreeNode]:
+    """Build a BST from a list of elements. O(n*h) time, O(1) space."""
     if not elements:
         return None
 
