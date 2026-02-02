@@ -74,7 +74,7 @@ Every method includes a one-line docstring with time and space complexity. The f
 
 **Conventions:**
 * Unlabeled complexity is worst case (Big-O default). Only average/best cases are explicitly labeled (e.g., `O(n log n) avg, O(n^2) time`).
-* Space complexity documents each method's own auxiliary space, not the space of methods it calls.
+* Space complexity is auxiliary (excluding inputs/outputs) and includes the cost of called methods (e.g., a method calling a recursive `find()` inherits its stack usage).
 
 ## 🛠️ Prerequisites
 
