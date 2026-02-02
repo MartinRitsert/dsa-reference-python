@@ -105,13 +105,25 @@ class UnionFind:
         self.root = [i for i in range(size)]
         self.rank = [1] * size
 
-    # Uses path compression
+    # Recursive path compression (standard textbook approach — simple and concise):
     def find(self, x: int) -> int:
         """Find the root of x with path compression. O(alpha(n)) amortized, O(alpha(n)) space."""
         if x == self.root[x]:
             return x
         self.root[x] = self.find(self.root[x])
         return self.root[x]
+
+    # # Iterative path compression (two-pass: find root, then compress):
+    # def find(self, x: int) -> int:
+    #     """Find the root of x with path compression. O(alpha(n)) amortized, O(1) space."""
+    #     root = x
+    #     while root != self.root[root]:
+    #         root = self.root[root]
+    #     while x != root:
+    #         next_x = self.root[x]
+    #         self.root[x] = root
+    #         x = next_x
+    #     return root
 
     # Uses union by rank
     def union(self, x: int, y: int) -> None:

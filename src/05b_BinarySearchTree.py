@@ -235,13 +235,29 @@ class BinarySearchTreeNode:
         return current.data
 
     # # Recursive approach (inefficient for deep trees):
-    # For deep trees, this can be optimized using the iterative
-    # [Pre-order/Post-order] traversal patterns documented above.
+    # def calculate_sum(self) -> Any:
+    #     """Return the sum of all values. O(n) time, O(h) space."""
+    #     left_sum = self.left.calculate_sum() if self.left else 0
+    #     right_sum = self.right.calculate_sum() if self.right else 0
+    #     return left_sum + right_sum + self.data
+
+    # Iterative approach (efficient for deep trees):
     def calculate_sum(self) -> Any:
         """Return the sum of all values. O(n) time, O(h) space."""
-        left_sum = self.left.calculate_sum() if self.left else 0
-        right_sum = self.right.calculate_sum() if self.right else 0
-        return left_sum + right_sum + self.data
+        total = 0
+        stack = [self]
+
+        while stack:
+            curr = stack.pop()
+            total += curr.data
+
+            if curr.right:
+                stack.append(curr.right)
+
+            if curr.left:
+                stack.append(curr.left)
+
+        return total
 
     def delete(self, val: Any) -> Optional["BinarySearchTreeNode"]:
         """Delete a value and return the new subtree root. O(h) time, O(h) space."""
