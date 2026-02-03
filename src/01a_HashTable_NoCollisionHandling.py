@@ -1,4 +1,6 @@
-from typing import Optional, Any
+from __future__ import annotations
+
+from typing import Any
 
 # IMPORTANT: Does not handle hash collisions
 
@@ -39,16 +41,27 @@ class HashTable:
 
     # To be able to use my_array[key] instead of my_array.get(key),
     # we can overwrite the __getitem__ operator
-    def __getitem__(self, key: str) -> Optional[Any]:
+    def __getitem__(self, key: str) -> Any:
         """Retrieve value by key. O(k) time, O(1) space."""
         h = self.get_hash(key)
+        if self.arr[h] is None:
+            raise KeyError(key)
         return self.arr[h]
+
+    def get(self, key: str, default: Any = None) -> Any:
+        """Retrieve value by key, returning default if missing. O(k) time, O(1) space."""
+        try:
+            return self[key]
+        except KeyError:
+            return default
     
     # Can also overwrite the __delitem__ operator to allow us
     # using del my_array[key]
     def __delitem__(self, key: str) -> None:
         """Delete a key-value pair. O(k) time, O(1) space."""
         h = self.get_hash(key)
+        if self.arr[h] is None:
+            raise KeyError(key)
         self.arr[h] = None
 
 
@@ -63,7 +76,18 @@ if __name__ == "__main__":
     assert ht["apple"] == 100, "Should retrieve apple"
     assert ht["banana"] == 200, "Should retrieve banana"
     assert ht["orange"] == 300, "Should retrieve orange"
-    assert ht["grape"] is None, "Non-existent key should return None"
+
+    # Test KeyError for missing key
+    try:
+        _ = ht["grape"]
+        assert False, "Should raise KeyError for non-existent key"
+    except KeyError:
+        pass  # Expected
+
+    # Test get() method
+    assert ht.get("grape") is None, "get() should return None for missing key"
+    assert ht.get("grape", "default") == "default", "get() should return default value"
+    assert ht.get("apple") == 100, "get() should return value for existing key"
 
     # Test update
     ht["apple"] = 150
@@ -71,7 +95,18 @@ if __name__ == "__main__":
 
     # Test delete
     del ht["banana"]
-    assert ht["banana"] is None, "Deleted key should return None"
+    try:
+        _ = ht["banana"]
+        assert False, "Should raise KeyError for deleted key"
+    except KeyError:
+        pass  # Expected
+
+    # Test KeyError when deleting non-existent key
+    try:
+        del ht["nonexistent"]
+        assert False, "Should raise KeyError when deleting non-existent key"
+    except KeyError:
+        pass  # Expected
 
     # Demonstrate collision problem (WARNING: this is expected to fail!)
     # "ab" and "ba" have same hash (ord('a') + ord('b') = ord('b') + ord('a'))

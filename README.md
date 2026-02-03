@@ -79,7 +79,7 @@ Every method includes a one-line docstring with time and space complexity. The f
 
 ## 🛠️ Prerequisites
 
-* This collection requires **Python 3.9 or newer** due to the use of modern type hinting features (e.g., `list[int]` instead of `typing.List[int]`).
+* This collection requires **Python 3.10 or newer** due to the use of modern type hinting features (PEP 604 union syntax `X | None` and PEP 585 generics like `list[int]`).
 
 ## 🚀 How to Use
 

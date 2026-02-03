@@ -1,4 +1,6 @@
-from typing import Optional, Any
+from __future__ import annotations
+
+from typing import Any
 
 # NOTE: For simplicity in this manual implementation, we assume keys are strings
 # to demonstrate a basic hashing algorithm. In a real-world hash table (like Python's dict),
@@ -32,21 +34,28 @@ class HashTable:
             new_h = self.find_slot(key, h)
             self.arr[new_h] = (key, val)
 
-    def __getitem__(self, key: str) -> Optional[Any]:
+    def __getitem__(self, key: str) -> Any:
         """Retrieve value by key. O(k) avg, O(k + n) worst time, O(1) space."""
         h = self.get_hash(key)
         if self.arr[h] is None:
-            return None
+            raise KeyError(key)
         prob_range = self.get_prob_range(h)
 
         for prob_index in prob_range:
             element = self.arr[prob_index]
             if element is None:
-                return None
+                raise KeyError(key)
             if element[0] == key:
                 return element[1]
 
-        return None
+        raise KeyError(key)
+
+    def get(self, key: str, default: Any = None) -> Any:
+        """Retrieve value by key, returning default if missing. O(k) avg, O(k + n) worst time, O(1) space."""
+        try:
+            return self[key]
+        except KeyError:
+            return default
 
     # # O(n) space and time - creates full list of MAX elements on every call
     # def get_prob_range(self, index: int) -> list[int]:
@@ -110,7 +119,18 @@ if __name__ == "__main__":
     assert ht["apple"] == 100, "Should retrieve apple"
     assert ht["banana"] == 200, "Should retrieve banana"
     assert ht["orange"] == 300, "Should retrieve orange"
-    assert ht["grape"] is None, "Non-existent key should return None"
+
+    # Test KeyError for missing key
+    try:
+        _ = ht["grape"]
+        assert False, "Should raise KeyError for non-existent key"
+    except KeyError:
+        pass  # Expected
+
+    # Test get() method
+    assert ht.get("grape") is None, "get() should return None for missing key"
+    assert ht.get("grape", "default") == "default", "get() should return default value"
+    assert ht.get("apple") == 100, "get() should return value for existing key"
 
     # Test update
     ht["apple"] = 150
@@ -118,7 +138,11 @@ if __name__ == "__main__":
 
     # Test delete
     del ht["banana"]
-    assert ht["banana"] is None, "Deleted key should return None"
+    try:
+        _ = ht["banana"]
+        assert False, "Should raise KeyError for deleted key"
+    except KeyError:
+        pass  # Expected
 
     # Test collision handling with linear probing
     # "ab" and "ba" have same hash but linear probing handles this
@@ -130,7 +154,11 @@ if __name__ == "__main__":
     # Test deleting one colliding key doesn't affect the other
     # (This tests the rehashing logic in __delitem__)
     del ht["ab"]
-    assert ht["ab"] is None, "Deleted 'ab' should return None"
+    try:
+        _ = ht["ab"]
+        assert False, "Should raise KeyError for deleted 'ab'"
+    except KeyError:
+        pass  # Expected
     assert ht["ba"] == "second", "'ba' should still exist after deleting 'ab'"
 
     # Test KeyError on deleting non-existent key

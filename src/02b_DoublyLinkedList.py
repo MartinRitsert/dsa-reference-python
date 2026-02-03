@@ -1,12 +1,14 @@
-from typing import Optional, Any
+from __future__ import annotations
+
+from typing import Any
 
 
 class Node:
     def __init__(
         self,
         data: Any = None,
-        next: Optional["Node"] = None,
-        prev: Optional["Node"] = None,
+        next: Node | None = None,
+        prev: Node | None = None,
     ) -> None:
         self.data = data
         self.next = next

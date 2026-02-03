@@ -1,4 +1,4 @@
-# import heapq
+from __future__ import annotations
 
 
 # Optimized Union Find

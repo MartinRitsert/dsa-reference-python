@@ -23,12 +23,12 @@ for f in src/*.py; do python "$f"; done
 
 ## Requirements
 
-Python 3.9+ (uses modern type hints like `list[int]` instead of `typing.List[int]`).
+Python 3.10+ (uses modern type hints: PEP 604 `X | None` and PEP 585 `list[int]`).
 
 ## Code Conventions
 
 - Files are numbered by topic: `01` hash tables, `02` linked lists, `03` stack, `04` queue, `05` trees/heaps/tries, `06` graphs, `07` search, `08` sorting, `09` union-find, `10` MST. Letter suffixes group variants (e.g., `08a`–`08f` for different sorts).
 - Every method has a one-line docstring stating time/space complexity.
 - Iterative implementations are preferred over recursive where both exist (recursive versions may be commented out).
-- Type hints from `typing` (`Optional`, `Any`) are used throughout.
+- Type hints from `typing` (`Any`) and PEP 604 union syntax (`X | None`) are used throughout.
 - No external dependencies — only Python stdlib.

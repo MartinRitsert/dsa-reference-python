@@ -1,4 +1,6 @@
-from typing import Optional, Any
+from __future__ import annotations
+
+from typing import Any
 
 
 class TreeNode:
@@ -7,7 +9,7 @@ class TreeNode:
         self.children = []
         self.parent = None
 
-    def add_child(self, child: "TreeNode") -> None:
+    def add_child(self, child: TreeNode) -> None:
         """Add a child node. O(1) time, O(1) space."""
         child.parent = self
         self.children.append(child)
@@ -32,7 +34,7 @@ class TreeNode:
         for child in self.children:
             child.print_tree(level + 1)
 
-    def find(self, value: Any) -> Optional["TreeNode"]:
+    def find(self, value: Any) -> TreeNode | None:
         """Search for a value in the tree. O(n) time, O(h) space."""
         if self.data == value:
             return self

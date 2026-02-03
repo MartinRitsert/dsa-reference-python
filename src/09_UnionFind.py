@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+
 # # 1. Quick Find
 # class UnionFind:
 #     def __init__(self, size: int) -> None:

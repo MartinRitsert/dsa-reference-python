@@ -1,4 +1,6 @@
-from typing import Optional, Any
+from __future__ import annotations
+
+from typing import Any
 
 # The pre_order, in_order, and post_order algorithms are
 # valid not only for BSTs but for any binary tree. For BSTs,
@@ -9,8 +11,8 @@ class BinarySearchTreeNode:
     def __init__(
         self,
         data: Any,
-        left: Optional["BinarySearchTreeNode"] = None,
-        right: Optional["BinarySearchTreeNode"] = None,
+        left: BinarySearchTreeNode | None = None,
+        right: BinarySearchTreeNode | None = None,
     ) -> None:
         self.data = data
         self.left = left
@@ -260,7 +262,7 @@ class BinarySearchTreeNode:
         return total
 
     # Recursive approach (no simple iterative alternative for BST deletion):
-    def delete(self, val: Any) -> Optional["BinarySearchTreeNode"]:
+    def delete(self, val: Any) -> BinarySearchTreeNode | None:
         """Delete a value and return the new subtree root. O(h) time, O(h) space."""
         # IMPORTANT: This method does not mutate the caller's reference.
         # Example: root = root.delete(value)
@@ -284,7 +286,7 @@ class BinarySearchTreeNode:
         return self
 
 
-def build_tree(elements: list[Any]) -> Optional[BinarySearchTreeNode]:
+def build_tree(elements: list[Any]) -> BinarySearchTreeNode | None:
     """Build a BST from a list of elements. O(n*h) time, O(1) space."""
     if not elements:
         return None
