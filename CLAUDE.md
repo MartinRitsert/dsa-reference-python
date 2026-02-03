@@ -31,4 +31,15 @@ Python 3.10+ (uses modern type hints: PEP 604 `X | None` and PEP 585 `list[int]`
 - Every method has a one-line docstring stating time/space complexity.
 - Iterative implementations are preferred over recursive where both exist (recursive versions may be commented out).
 - Type hints from `typing` (`Any`) and PEP 604 union syntax (`X | None`) are used throughout.
+- All files include `from __future__ import annotations` for consistent forward reference handling.
 - No external dependencies — only Python stdlib.
+
+## Commented Code
+
+**IMPORTANT:** Commented-out code sections are educational and show alternative implementations (e.g., recursive vs iterative approaches). They must be maintained with the same standards as active code:
+
+- Apply the same type hint conventions (PEP 604 `X | None`, no `Optional`, no quoted forward references)
+- Keep docstrings and complexity annotations accurate
+- Update commented code when refactoring affects it
+
+When making changes to the codebase, always check if similar changes are needed in commented sections.

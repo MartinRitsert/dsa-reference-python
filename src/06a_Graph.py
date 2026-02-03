@@ -122,7 +122,7 @@ class GraphAdjacencyList:
         return stack
 
     # # Recursive DFS approach
-    # def get_paths_dfs_rec(self, start: int, end: int, path: Optional[list[int]] = None) -> list[list[int]]:
+    # def get_paths_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[list[int]]:
     #     """Find all paths from start to end via recursive DFS. O(V! * V) time and space."""
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return []
@@ -166,7 +166,7 @@ class GraphAdjacencyList:
         return paths
 
     # # Recursive DFS approach
-    # def get_shortest_path_dfs_rec(self, start: int, end: int, path: Optional[list[int]] = None) -> list[int]:
+    # def get_shortest_path_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[int]:
     #     """Find shortest path via recursive DFS. O(V! * V) time, O(V) space."""
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return []
@@ -219,7 +219,7 @@ class GraphAdjacencyList:
         return []
 
     # # Recursive DFS approach
-    # def is_connected_dfs_rec(self, start: int, end: int, visited: Optional[set[int]] = None) -> bool:
+    # def is_connected_dfs_rec(self, start: int, end: int, visited: set[int] | None = None) -> bool:
     #     """Check if a path exists via recursive DFS. O(V + E) time, O(V) space."""
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return False
@@ -410,7 +410,7 @@ class GraphAdjacencyMatrix:
         return stack
 
     # # Recursive DFS approach
-    # def get_paths_dfs_rec(self, start: int, end: int, path: Optional[list[int]] = None) -> list[list[int]]:
+    # def get_paths_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[list[int]]:
     #     """Find all paths from start to end via recursive DFS. O(V! * V) time and space."""
     #     if (
     #         start >= self.num_vertices
@@ -467,7 +467,7 @@ class GraphAdjacencyMatrix:
         return paths
 
     # # Recursive DFS approach
-    # def get_shortest_path_dfs_rec(self, start: int, end: int, path: Optional[list[int]] = None) -> list[int]:
+    # def get_shortest_path_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[int]:
     #     """Find shortest path via recursive DFS. O(V! * V) time, O(V) space."""
     #     if (
     #         start >= self.num_vertices
@@ -533,7 +533,7 @@ class GraphAdjacencyMatrix:
         return []
 
     # # Recursive DFS approach
-    # def is_connected_dfs_rec(self, start: int, end: int, visited: Optional[set[int]] = None) -> bool:
+    # def is_connected_dfs_rec(self, start: int, end: int, visited: set[int] | None = None) -> bool:
     #     """Check if a path exists via recursive DFS. O(V^2) time, O(V) space."""
     #     if (
     #         start >= self.num_vertices
