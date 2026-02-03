@@ -8,6 +8,9 @@ from typing import Optional, Any
 class HashTable:
     def __init__(self) -> None:
         self.MAX = 100
+        # Using lists for chains is the classic textbook approach. An alternative is to use
+        # dicts for O(1) chain lookups, but that defeats the educational purpose since
+        # Python's dict is itself a hash table. Lists also use less memory per bucket.
         self.arr = [[] for _ in range(self.MAX)]
 
     def get_hash(self, key: str) -> int:
