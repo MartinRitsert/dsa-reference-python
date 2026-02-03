@@ -183,27 +183,29 @@ class BinarySearchTreeNode:
             if curr.right:
                 stack.append(curr.right)
 
-        return elements[::-1]
+        # Use .reverse() instead of [::-1] to avoid O(n) temporary copy
+        elements.reverse()
+        return elements
 
-    # # Iterative approach (efficient for deep trees):
-    # # Alternative to previous post_order_traversal that uses a visited
-    # # flag and prevents the need to reverse the list at the end:
+    # # Iterative approach using visited flag (no reversal needed):
+    # # Visits nodes in correct post-order. More complex but can be adapted
+    # # to a generator for true O(h) space (reverse approach cannot).
     # def post_order_traversal(self) -> list[Any]:
     #     """Return elements in post-order (left, right, root). O(n) time, O(h) space."""
     #     elements = []
     #     stack = [(self, False)]
-
+    #
     #     while stack:
     #         curr, visited = stack.pop()
-    #         if not curr:
-    #             continue
     #         if visited:
     #             elements.append(curr.data)
     #         else:
     #             stack.append((curr, True))
-    #             stack.append((curr.right, False))
-    #             stack.append((curr.left, False))
-
+    #             if curr.right:
+    #                 stack.append((curr.right, False))
+    #             if curr.left:
+    #                 stack.append((curr.left, False))
+    #
     #     return elements
 
     # # Recursive approach (inefficient for deep trees):
