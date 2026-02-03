@@ -38,6 +38,29 @@ class Trie:
             node = node.children[char]
         return True
 
+    def delete(self, word: str) -> bool:
+        """Delete a word from the trie. O(m) time, O(m) space for recursion stack."""
+        if not self.search(word):
+            return False
+
+        def _delete(node: TrieNode, word: str, depth: int) -> bool:
+            """Return True if parent should delete this node."""
+            if depth == len(word):
+                node.is_end_of_word = False
+                return len(node.children) == 0
+
+            char = word[depth]
+            should_delete_child = _delete(node.children[char], word, depth + 1)
+
+            if should_delete_child:
+                del node.children[char]
+                return len(node.children) == 0 and not node.is_end_of_word
+
+            return False
+
+        _delete(self.root, word, 0)
+        return True
+
 
 if __name__ == "__main__":
     trie = Trie()
@@ -64,5 +87,18 @@ if __name__ == "__main__":
     assert trie.starts_with("appl"), "Should find prefix 'appl'"
     assert trie.starts_with("ban"), "Should find prefix 'ban'"
     assert not trie.starts_with("cat"), "Should not find prefix 'cat'"
+
+    # Delete tests
+    trie2 = Trie()
+    trie2.insert("apple")
+    trie2.insert("app")
+
+    assert trie2.delete("apple"), "Should delete 'apple'"
+    assert not trie2.search("apple"), "'apple' should not exist after delete"
+    assert trie2.search("app"), "'app' should still exist"
+
+    assert not trie2.delete("banana"), "Should return False for non-existent word"
+    assert trie2.delete("app"), "Should delete 'app'"
+    assert not trie2.search("app"), "'app' should not exist after delete"
 
     print("All tests passed!")

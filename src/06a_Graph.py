@@ -293,9 +293,17 @@ class GraphAdjacencyList:
 class GraphAdjacencyMatrix:
     def __init__(self, num_vertices: int) -> None:
         self.num_vertices = num_vertices
+        self.matrix_size = num_vertices  # Physical size of matrix
+        self.deleted_vertices: set[int] = set()  # Track deleted vertices
 
         # Initialize adjacency matrix
-        self.adjacency_matrix = [[0] * num_vertices for _ in range(num_vertices)]
+        self.adjacency_matrix: list[list[int | None]] = [
+            [0] * num_vertices for _ in range(num_vertices)
+        ]
+
+    def _vertex_exists(self, vertex: int) -> bool:
+        """Check if vertex exists and is not deleted. O(1) time, O(1) space."""
+        return 0 <= vertex < self.matrix_size and vertex not in self.deleted_vertices
 
     def display(self) -> None:
         """Print the adjacency matrix. O(V^2) time, O(1) space."""
@@ -304,13 +312,8 @@ class GraphAdjacencyMatrix:
 
     def add_edge(self, start: int, end: int) -> None:
         """Add a directed edge. O(1) time, O(1) space."""
-        if (
-            start >= self.num_vertices
-            or end >= self.num_vertices
-            or start < 0
-            or end < 0
-        ):
-            raise ValueError("Vertices are out of bounds")
+        if not self._vertex_exists(start) or not self._vertex_exists(end):
+            raise ValueError("Vertex does not exist")
 
         self.adjacency_matrix[start][end] = 1
 
@@ -319,13 +322,8 @@ class GraphAdjacencyMatrix:
 
     def remove_edge(self, start: int, end: int) -> None:
         """Remove a directed edge. O(1) time, O(1) space."""
-        if (
-            start >= self.num_vertices
-            or end >= self.num_vertices
-            or start < 0
-            or end < 0
-        ):
-            raise ValueError("Vertices are out of bounds")
+        if not self._vertex_exists(start) or not self._vertex_exists(end):
+            raise ValueError("Vertex does not exist")
 
         self.adjacency_matrix[start][end] = 0
 
@@ -333,23 +331,32 @@ class GraphAdjacencyMatrix:
         # self.adjacency_matrix[end][start] = 0
 
     def add_vertex(self) -> None:
-        """Add a new vertex. O(V) time, O(V) space (extends each row)."""
+        """Add a new vertex. O(V) time, O(V) space."""
+        if self.deleted_vertices:
+            # Reuse a deleted vertex ID
+            reused_id = self.deleted_vertices.pop()
+            for i in range(self.matrix_size):
+                self.adjacency_matrix[reused_id][i] = 0
+                self.adjacency_matrix[i][reused_id] = 0
+        else:
+            # Expand matrix
+            self.matrix_size += 1
+            for row in self.adjacency_matrix:
+                row.append(0)
+            self.adjacency_matrix.append([0] * self.matrix_size)
         self.num_vertices += 1
 
-        for row in self.adjacency_matrix:
-            row.append(0)
-        self.adjacency_matrix.append([0] * self.num_vertices)
-
     def remove_vertex(self, vertex: int) -> None:
-        """Remove a vertex and all its edges. O(V^2) time, O(1) space."""
-        # Note: shifts indices of all vertices > vertex, invalidating external references
-        if vertex >= self.num_vertices or vertex < 0:
+        """Remove a vertex and all its edges. O(V) time, O(1) space."""
+        if not self._vertex_exists(vertex):
             raise ValueError("Vertex does not exist")
 
-        for row in self.adjacency_matrix:
-            row.pop(vertex)
-        self.adjacency_matrix.pop(vertex)
+        # Mark row and column as deleted with None
+        for i in range(self.matrix_size):
+            self.adjacency_matrix[vertex][i] = None
+            self.adjacency_matrix[i][vertex] = None
 
+        self.deleted_vertices.add(vertex)
         self.num_vertices -= 1
 
     # # Recursive DFS approach
@@ -366,13 +373,17 @@ class GraphAdjacencyMatrix:
 
     #         visited.add(vertex)
     #         rec_stack.add(vertex)   # Only needed if we want to detect cycles
-    #         for neighbor in range(self.num_vertices):
+    #         for neighbor in range(self.matrix_size):
+    #             if neighbor in self.deleted_vertices:
+    #                 continue
     #             if self.adjacency_matrix[vertex][neighbor] == 1 and neighbor not in visited:
     #                 dfs(neighbor)
     #         rec_stack.remove(vertex)    # Only needed if we want to detect cycles
     #         stack.append(vertex)
 
-    #     for vertex in range(self.num_vertices):
+    #     for vertex in range(self.matrix_size):
+    #         if vertex in self.deleted_vertices:
+    #             continue
     #         if vertex not in visited:
     #             dfs(vertex)
 
@@ -381,11 +392,17 @@ class GraphAdjacencyMatrix:
     # Iterative BFS approach -> Kahn's Algorithm
     def topological_sort_bfs_it(self) -> list[int]:
         """Return topological ordering using Kahn's algorithm. O(V^2) time, O(V) space."""
-        in_degree = {i: 0 for i in range(self.num_vertices)}
+        in_degree = {
+            i: 0 for i in range(self.matrix_size) if i not in self.deleted_vertices
+        }
 
         # Calculate in-degree of each vertex
-        for vertex in range(self.num_vertices):
-            for neighbor in range(self.num_vertices):
+        for vertex in range(self.matrix_size):
+            if vertex in self.deleted_vertices:
+                continue
+            for neighbor in range(self.matrix_size):
+                if neighbor in self.deleted_vertices:
+                    continue
                 if self.adjacency_matrix[vertex][neighbor] == 1:
                     in_degree[neighbor] += 1
 
@@ -398,7 +415,9 @@ class GraphAdjacencyMatrix:
             stack.append(vertex)
 
             # Update in-degree of neighbors
-            for neighbor in range(self.num_vertices):
+            for neighbor in range(self.matrix_size):
+                if neighbor in self.deleted_vertices:
+                    continue
                 if self.adjacency_matrix[vertex][neighbor] == 1:
                     in_degree[neighbor] -= 1
                     if in_degree[neighbor] == 0:
@@ -412,12 +431,7 @@ class GraphAdjacencyMatrix:
     # # Recursive DFS approach
     # def get_paths_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[list[int]]:
     #     """Find all paths from start to end via recursive DFS. O(V! * V) time and space."""
-    #     if (
-    #         start >= self.num_vertices
-    #         or end >= self.num_vertices
-    #         or start < 0
-    #         or end < 0
-    #     ):
+    #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return []
 
     #     if path is None:
@@ -429,7 +443,9 @@ class GraphAdjacencyMatrix:
     #         return [path]
 
     #     paths = []
-    #     for vertex in range(self.num_vertices):
+    #     for vertex in range(self.matrix_size):
+    #         if vertex in self.deleted_vertices:
+    #             continue
     #         if self.adjacency_matrix[start][vertex] == 1 and vertex not in path:
     #             new_paths = self.get_paths_dfs_rec(vertex, end, path)
     #             for p in new_paths:
@@ -440,12 +456,7 @@ class GraphAdjacencyMatrix:
     # Iterative BFS approach
     def get_paths_bfs_it(self, start: int, end: int) -> list[list[int]]:
         """Find all paths from start to end via BFS. O(V! * V) time and space."""
-        if (
-            start >= self.num_vertices
-            or end >= self.num_vertices
-            or start < 0
-            or end < 0
-        ):
+        if not self._vertex_exists(start) or not self._vertex_exists(end):
             return []
 
         paths = []
@@ -457,7 +468,9 @@ class GraphAdjacencyMatrix:
             if vertex == end:
                 paths.append(path)
             else:
-                for neighbor in range(self.num_vertices):
+                for neighbor in range(self.matrix_size):
+                    if neighbor in self.deleted_vertices:
+                        continue
                     if (
                         self.adjacency_matrix[vertex][neighbor] == 1
                         and neighbor not in path
@@ -469,12 +482,7 @@ class GraphAdjacencyMatrix:
     # # Recursive DFS approach
     # def get_shortest_path_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[int]:
     #     """Find shortest path via recursive DFS. O(V! * V) time, O(V) space."""
-    #     if (
-    #         start >= self.num_vertices
-    #         or end >= self.num_vertices
-    #         or start < 0
-    #         or end < 0
-    #     ):
+    #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return []
 
     #     if path is None:
@@ -486,7 +494,9 @@ class GraphAdjacencyMatrix:
     #         return path
 
     #     shortest_path = None
-    #     for vertex in range(self.num_vertices):
+    #     for vertex in range(self.matrix_size):
+    #         if vertex in self.deleted_vertices:
+    #             continue
     #         if self.adjacency_matrix[start][vertex] == 1 and vertex not in path:
     #             sp = self.get_shortest_path_dfs_rec(vertex, end, path)
     #             if sp and (shortest_path is None or len(sp) < len(shortest_path)):
@@ -497,12 +507,7 @@ class GraphAdjacencyMatrix:
     # Iterative BFS approach
     def get_shortest_path_bfs_it(self, start: int, end: int) -> list[int]:
         """Find shortest path via iterative BFS. O(V^2) time, O(V) space."""
-        if (
-            start >= self.num_vertices
-            or end >= self.num_vertices
-            or start < 0
-            or end < 0
-        ):
+        if not self._vertex_exists(start) or not self._vertex_exists(end):
             return []
 
         queue = deque([start])
@@ -521,7 +526,9 @@ class GraphAdjacencyMatrix:
                     curr = parent[curr]
                 return path[::-1]
 
-            for neighbor in range(self.num_vertices):
+            for neighbor in range(self.matrix_size):
+                if neighbor in self.deleted_vertices:
+                    continue
                 if (
                     self.adjacency_matrix[vertex][neighbor] == 1
                     and neighbor not in visited
@@ -535,12 +542,7 @@ class GraphAdjacencyMatrix:
     # # Recursive DFS approach
     # def is_connected_dfs_rec(self, start: int, end: int, visited: set[int] | None = None) -> bool:
     #     """Check if a path exists via recursive DFS. O(V^2) time, O(V) space."""
-    #     if (
-    #         start >= self.num_vertices
-    #         or end >= self.num_vertices
-    #         or start < 0
-    #         or end < 0
-    #     ):
+    #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return False
 
     #     if visited is None:
@@ -551,7 +553,9 @@ class GraphAdjacencyMatrix:
 
     #     visited.add(start)
 
-    #     for neighbor in range(self.num_vertices):
+    #     for neighbor in range(self.matrix_size):
+    #         if neighbor in self.deleted_vertices:
+    #             continue
     #         if (
     #             self.adjacency_matrix[start][neighbor] == 1
     #             and neighbor not in visited
@@ -564,12 +568,7 @@ class GraphAdjacencyMatrix:
     # Iterative DFS approach (preferred)
     def is_connected_dfs_it(self, start: int, end: int) -> bool:
         """Check if a path exists from start to end via DFS. O(V^2) time, O(V) space."""
-        if (
-            start >= self.num_vertices
-            or end >= self.num_vertices
-            or start < 0
-            or end < 0
-        ):
+        if not self._vertex_exists(start) or not self._vertex_exists(end):
             return False
 
         visited = set()
@@ -582,7 +581,9 @@ class GraphAdjacencyMatrix:
             if vertex == end:
                 return True
 
-            for neighbor in range(self.num_vertices):
+            for neighbor in range(self.matrix_size):
+                if neighbor in self.deleted_vertices:
+                    continue
                 if (
                     self.adjacency_matrix[vertex][neighbor] == 1
                     and neighbor not in visited
@@ -599,12 +600,7 @@ class GraphAdjacencyMatrix:
     # # Iterative BFS approach
     # def is_connected_bfs_it(self, start: int, end: int) -> bool:
     #     """Check if a path exists via iterative BFS. O(V^2) time, O(V) space."""
-    #     if (
-    #         start >= self.num_vertices
-    #         or end >= self.num_vertices
-    #         or start < 0
-    #         or end < 0
-    #     ):
+    #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return False
 
     #     visited = set()
@@ -617,7 +613,9 @@ class GraphAdjacencyMatrix:
     #         if vertex == end:
     #             return True
 
-    #         for neighbor in range(self.num_vertices):
+    #         for neighbor in range(self.matrix_size):
+    #             if neighbor in self.deleted_vertices:
+    #                 continue
     #             if (
     #                 self.adjacency_matrix[vertex][neighbor] == 1
     #                 and neighbor not in visited
@@ -686,5 +684,31 @@ if __name__ == "__main__":
     # Test topological_sort_bfs_it
     topo2 = graph_2.topological_sort_bfs_it()
     assert topo2 == [0, 1, 2, 3, 4], "Topological order should be 0,1,2,3,4"
+
+    # Test vertex index stability after removal
+    graph_3 = GraphAdjacencyMatrix(5)
+    graph_3.add_edge(4, 3)  # Edge from vertex 4 to vertex 3
+    graph_3.remove_vertex(2)  # Remove vertex 2
+
+    # Verify vertex 4 still has edge to vertex 3 (indices preserved)
+    assert graph_3.adjacency_matrix[4][3] == 1, (
+        "Vertex 4 should still have edge to vertex 3 after removing vertex 2"
+    )
+    assert graph_3.num_vertices == 4, "Should have 4 vertices after removal"
+    assert 2 in graph_3.deleted_vertices, "Vertex 2 should be in deleted set"
+
+    # Verify deleted vertex cannot be used
+    try:
+        graph_3.add_edge(2, 0)
+        assert False, "Should raise ValueError for deleted vertex"
+    except ValueError:
+        pass
+
+    # Test vertex reuse
+    graph_3.add_vertex()  # Should reuse ID 2
+    assert 2 not in graph_3.deleted_vertices, "Vertex 2 should be reused"
+    assert graph_3.num_vertices == 5, "Should have 5 vertices after adding one back"
+    # Verify vertex 2 can now be used
+    graph_3.add_edge(2, 0)  # Should work now
 
     print("All tests passed!")
