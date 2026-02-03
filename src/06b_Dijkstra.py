@@ -126,4 +126,39 @@ if __name__ == "__main__":
     assert dist2[2] == 6, "Shortest path 0->1->2 should be 6"
     assert dist2[3] == 5, "Shortest path 0->3 should be 5"
 
+    # Single vertex graph
+    g3 = GraphAdjacencyList(1)
+    assert g3.dijkstra(0) == {0: 0}, "Single vertex: distance to self is 0"
+
+    g4 = GraphAdjacencyMatrix(1)
+    assert g4.dijkstra(0) == [0], "Single vertex: distance to self is 0"
+
+    # Unreachable vertex (disconnected component)
+    g5 = GraphAdjacencyList(3)
+    g5.add_edge(0, 1, 2)
+    dist5 = g5.dijkstra(0)
+    assert dist5[0] == 0, "Distance to self should be 0"
+    assert dist5[1] == 2, "Distance 0->1 should be 2"
+    assert dist5[2] == float("inf"), "Unreachable vertex should stay inf"
+
+    g6 = GraphAdjacencyMatrix(3)
+    g6.add_edge(0, 1, 2)
+    dist6 = g6.dijkstra(0)
+    assert dist6[0] == 0, "Distance to self should be 0"
+    assert dist6[1] == 2, "Distance 0->1 should be 2"
+    assert dist6[2] == float("inf"), "Unreachable vertex should stay inf"
+
+    # Dijkstra from a non-zero start vertex
+    dist7 = g1.dijkstra(2)
+    assert dist7[2] == 0, "Distance to self should be 0"
+    assert dist7[3] == 1, "Shortest path 2->3 should be 1"
+    assert dist7[1] == 2, "Shortest path 2->1 should be 2"
+    assert dist7[0] == 6, "Shortest path 2->1->0 or 2->3->0 should be 6"
+
+    dist8 = g2.dijkstra(2)
+    assert dist8[2] == 0, "Distance to self should be 0"
+    assert dist8[3] == 1, "Shortest path 2->3 should be 1"
+    assert dist8[1] == 2, "Shortest path 2->1 should be 2"
+    assert dist8[0] == 6, "Shortest path 2->1->0 or 2->3->0 should be 6"
+
     print("All tests passed!")

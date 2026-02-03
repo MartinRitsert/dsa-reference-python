@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+# import heapq
+
 
 # Optimized Union Find
 # Combines Union by Rank and Path Compression
@@ -37,7 +39,9 @@ class UnionFind:
 
 # Kruskal's Algorithm (Minimum Spanning Tree) using the provided UnionFind class
 # Optimal for sparse graphs
-def kruskal(n: int, edges: list[tuple[int, int, float]]) -> list[tuple[int, int, float]]:
+def kruskal(
+    n: int, edges: list[tuple[int, int, float]]
+) -> list[tuple[int, int, float]]:
     """Find MST using sorted edges and union-find. O(E log E) time, O(V + E) space."""
     if n == 0:
         return []
@@ -45,16 +49,16 @@ def kruskal(n: int, edges: list[tuple[int, int, float]]) -> list[tuple[int, int,
     # Initialize the UnionFind structure
     uf = UnionFind(n)
     mst = []
-    
+
     # Sort edges by weight
     edges = sorted(edges, key=lambda x: x[2])
-    
+
     # Iterate over sorted edges
     for u, v, weight in edges:
         if not uf.connected(u, v):  # Check if u and v are in different components
             uf.union(u, v)  # Union the two components
             mst.append((u, v, weight))  # Add the edge to the MST
-    
+
     return mst
 
 
@@ -81,7 +85,7 @@ def kruskal(n: int, edges: list[tuple[int, int, float]]) -> list[tuple[int, int,
 
 #     # visited[i] will be true if vertex i is included in MST
 #     visited = [False] * n
-    
+
 #     mst = []
 #     vertices_in_mst_count = 0
 
@@ -103,19 +107,21 @@ def kruskal(n: int, edges: list[tuple[int, int, float]]) -> list[tuple[int, int,
 #             for neighbor_v, weight_uv in adjacency_list[u]:
 #                 if not visited[neighbor_v]:
 #                     heapq.heappush(min_heap, (weight_uv, neighbor_v, u))
-                
+
 #     return mst
 
 
 # Prim's Algorithm (Minimum Spanning Tree) using adjacency matrix
 # Optimal for dense graphs
-def prim_adj_mat(n: int, edges: list[tuple[int, int, float]], start_vertex: int = 0) -> list[tuple[int, int, float]]:
+def prim_adj_mat(
+    n: int, edges: list[tuple[int, int, float]], start_vertex: int = 0
+) -> list[tuple[int, int, float]]:
     """Find MST using adjacency matrix and greedy selection. O(V^2) time, O(V^2) space."""
     if n == 0:
         return []
 
     # Initialize adjacency matrix
-    adj_matrix = [[float('inf')] * n for _ in range(n)]
+    adj_matrix = [[float("inf")] * n for _ in range(n)]
     for i in range(n):
         adj_matrix[i][i] = 0
 
@@ -125,14 +131,14 @@ def prim_adj_mat(n: int, edges: list[tuple[int, int, float]], start_vertex: int 
             adj_matrix[v][u] = weight  # Undirected graph
 
     # min_cost[i] will hold the minimum weight edge to connect vertex i to the MST
-    min_cost = [float('inf')] * n
+    min_cost = [float("inf")] * n
 
     # parent[i] will store the parent of vertex i in the MST
     parent = [-1] * n
 
     # visited[i] will be true if vertex i is included in MST
     visited = [False] * n
-    
+
     mst = []
 
     # Start with the initial start_vertex
@@ -140,14 +146,14 @@ def prim_adj_mat(n: int, edges: list[tuple[int, int, float]], start_vertex: int 
 
     for _ in range(n):
         # Find the unvisited vertex with the minimum cost
-        min_val = float('inf')
+        min_val = float("inf")
         u = -1  # Current vertex to add to MST
 
         for v_idx in range(n):
             if not visited[v_idx] and min_cost[v_idx] < min_val:
                 min_val = min_cost[v_idx]
                 u = v_idx
-        
+
         # No more reachable vertices
         if u == -1:
             break
@@ -160,11 +166,11 @@ def prim_adj_mat(n: int, edges: list[tuple[int, int, float]], start_vertex: int 
 
         # Update costs for adjacent vertices
         for v_neighbor in range(n):
-            if not visited[v_neighbor] and adj_matrix[u][v_neighbor] != float('inf'):
+            if not visited[v_neighbor] and adj_matrix[u][v_neighbor] != float("inf"):
                 if adj_matrix[u][v_neighbor] < min_cost[v_neighbor]:
                     min_cost[v_neighbor] = adj_matrix[u][v_neighbor]
                     parent[v_neighbor] = u
-    
+
     return mst
 
 
@@ -187,7 +193,26 @@ if __name__ == "__main__":
     # Both should produce MST with same total weight
     assert len(mst_kruskal) == n - 1, "Kruskal MST should have n-1 edges"
     assert len(mst_prim) == n - 1, "Prim MST should have n-1 edges"
-    assert kruskal_weight == prim_weight, "Both algorithms should produce same total weight"
+    assert kruskal_weight == prim_weight, (
+        "Both algorithms should produce same total weight"
+    )
     assert kruskal_weight == 19, "Expected MST weight is 19"
+
+    # Empty graph
+    assert kruskal(0, []) == [], "Empty graph should return empty MST"
+    assert prim_adj_mat(0, []) == [], "Empty graph should return empty MST"
+
+    # Single vertex (no edges needed)
+    assert kruskal(1, []) == [], "Single vertex MST should be empty"
+    assert prim_adj_mat(1, []) == [], "Single vertex MST should be empty"
+
+    # Disconnected graph (MST cannot span all vertices)
+    disconnected_edges = [(0, 1, 3)]
+    mst_disc_k = kruskal(3, disconnected_edges)
+    mst_disc_p = prim_adj_mat(3, disconnected_edges)
+    assert len(mst_disc_k) == 1, (
+        "Disconnected graph: Kruskal finds only reachable edges"
+    )
+    assert len(mst_disc_p) == 1, "Disconnected graph: Prim finds only reachable edges"
 
     print("All tests passed!")
