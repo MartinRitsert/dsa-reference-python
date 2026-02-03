@@ -3,33 +3,20 @@ from __future__ import annotations
 from typing import Any
 
 
-def shell_sort(arr: list[Any]) -> None:
+def shell_sort(elements: list[Any]) -> None:
     """Sort in-place using diminishing gap insertion sort. O(n^2) time, O(1) space."""
-    size = len(arr)
+    size = len(elements)
     gap = size // 2
 
     while gap > 0:
         for i in range(gap, size):
-            anchor = arr[i]
+            anchor = elements[i]
             j = i
-            while j >= gap and arr[j - gap] > anchor:
-                arr[j] = arr[j - gap]
+            while j >= gap and elements[j - gap] > anchor:
+                elements[j] = elements[j - gap]
                 j -= gap
-            arr[j] = anchor
+            elements[j] = anchor
         gap = gap // 2
-
-# def foo(arr: list[Any]) -> None:
-#     """Sort in-place using fixed gap insertion sort. O(n^2) time, O(1) space."""
-#     size = len(arr)
-#     gap = size // 2
-#     gap = 3
-#     for i in range(gap, size):
-#         anchor = arr[i]
-#         j = i
-#         while j >= gap and arr[j - gap] > anchor:
-#             arr[j] = arr[j - gap]
-#             j -= gap
-#         arr[j] = anchor
 
 
 if __name__ == '__main__':

@@ -3,16 +3,16 @@ from __future__ import annotations
 from typing import Any
 
 
-def selection_sort(arr: list[Any]) -> None:
+def selection_sort(elements: list[Any]) -> None:
     """Sort in-place by selecting the minimum. O(n^2) time, O(1) space."""
-    size = len(arr)
+    size = len(elements)
     for i in range(size - 1):
         min_index = i
         for j in range(min_index + 1, size):
-            if arr[j] < arr[min_index]:
+            if elements[j] < elements[min_index]:
                 min_index = j
         if i != min_index:
-            arr[i], arr[min_index] = arr[min_index], arr[i]
+            elements[i], elements[min_index] = elements[min_index], elements[i]
 
 
 if __name__ == '__main__':

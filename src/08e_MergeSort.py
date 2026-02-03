@@ -4,69 +4,69 @@ from typing import Any
 
 
 # Index-based merge sort (standard textbook approach — O(n) auxiliary space):
-def merge_sort(nums: list[Any]) -> None:
+def merge_sort(elements: list[Any]) -> None:
     """Sort by dividing and merging. O(n log n) time, O(n) space."""
-    _merge_sort(nums, 0, len(nums))
+    _merge_sort(elements, 0, len(elements))
 
 
-def _merge_sort(nums: list[Any], start: int, end: int) -> None:
+def _merge_sort(elements: list[Any], start: int, end: int) -> None:
     """Recursively divide and merge a subarray. O(n log n) time, O(n) space."""
     if end - start <= 1:
         return
 
     mid = (start + end) // 2
-    _merge_sort(nums, start, mid)
-    _merge_sort(nums, mid, end)
+    _merge_sort(elements, start, mid)
+    _merge_sort(elements, mid, end)
 
-    _merge(nums, start, mid, end)
+    _merge(elements, start, mid, end)
 
 
-def _merge(nums: list[Any], start: int, mid: int, end: int) -> None:
+def _merge(elements: list[Any], start: int, mid: int, end: int) -> None:
     """Merge two sorted subarrays using temp arrays. O(n) time, O(n) space."""
-    left = nums[start:mid]
-    right = nums[mid:end]
+    left = elements[start:mid]
+    right = elements[mid:end]
 
     i = j = 0
     k = start
 
     while i < len(left) and j < len(right):
         if left[i] <= right[j]:
-            nums[k] = left[i]
+            elements[k] = left[i]
             i += 1
         else:
-            nums[k] = right[j]
+            elements[k] = right[j]
             j += 1
         k += 1
 
     while i < len(left):
-        nums[k] = left[i]
+        elements[k] = left[i]
         i += 1
         k += 1
 
     while j < len(right):
-        nums[k] = right[j]
+        elements[k] = right[j]
         j += 1
         k += 1
 
 
 # # Slice-based merge sort (simpler to read but O(n log n) space due to slicing):
-# # Version 1: Sorting nums list in place and not returning the sorted nums list
-# def merge_sort(nums: list[Any]) -> None:
+# # Version 1: Sorting elements list in place and not returning the sorted elements list
+# def merge_sort(elements: list[Any]) -> None:
 #     """Sort in-place by dividing and merging. O(n log n) time, O(n log n) space."""
-#     if len(nums) <= 1:
+#     if len(elements) <= 1:
 #         return
 
-#     mid = len(nums) // 2
+#     mid = len(elements) // 2
 
-#     left_list = nums[:mid]
-#     right_list = nums[mid:]
+#     left_list = elements[:mid]
+#     right_list = elements[mid:]
 #     merge_sort(left_list)
 #     merge_sort(right_list)
 
-#     merge(left_list, right_list, nums)
+#     merge(left_list, right_list, elements)
 
-# def merge(a: list[Any], b: list[Any], nums: list[Any]) -> None:
-#     """Merge two sorted lists into nums. O(n) time, O(1) space."""
+# def merge(a: list[Any], b: list[Any], elements: list[Any]) -> None:
+#     """Merge two sorted lists into elements. O(n) time, O(1) space."""
 #     len_a = len(a)
 #     len_b = len(b)
 
@@ -74,35 +74,35 @@ def _merge(nums: list[Any], start: int, mid: int, end: int) -> None:
 
 #     while i < len_a and j < len_b:
 #         if a[i] <= b[j]:
-#             nums[k] = a[i]
+#             elements[k] = a[i]
 #             i += 1
 #         else:
-#             nums[k] = b[j]
+#             elements[k] = b[j]
 #             j += 1
 #         k += 1
 
 #     while i < len_a:
-#         nums[k] = a[i]
+#         elements[k] = a[i]
 #         i += 1
 #         k += 1
 
 #     while j < len_b:
-#         nums[k] = b[j]
+#         elements[k] = b[j]
 #         j += 1
 #         k += 1
 
 
 # # Slice-based merge sort (simpler to read but O(n log n) space due to slicing):
-# # Version 2: Not changing the original nums list, and returning a sorted copy of the nums list
-# def merge_sort(nums: list[Any]) -> list[Any]:
+# # Version 2: Not changing the original elements list, and returning a sorted copy of the elements list
+# def merge_sort(elements: list[Any]) -> list[Any]:
 #     """Sort by dividing and merging into a new list. O(n log n) time, O(n log n) space."""
-#     if len(nums) <= 1:
-#         return nums
+#     if len(elements) <= 1:
+#         return elements
 
-#     mid = len(nums) // 2
+#     mid = len(elements) // 2
 
-#     left_list = merge_sort(nums[:mid])
-#     right_list = merge_sort(nums[mid:])
+#     left_list = merge_sort(elements[:mid])
+#     right_list = merge_sort(elements[mid:])
 
 #     return merge(left_list, right_list)
 
