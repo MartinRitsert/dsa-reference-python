@@ -36,7 +36,7 @@ class MaxHeap:
         # If the newly added element is larger than its parent node,
         # its value will be exchanged with that of the parent node
         # This is called "heapify up"
-        while (self.maxheap[index] > self.maxheap[parent] and index > 1):
+        while self.maxheap[index] > self.maxheap[parent] and index > 1:
             self.maxheap[parent], self.maxheap[index] = self.maxheap[index], self.maxheap[parent]
             index = parent
             parent = index // 2

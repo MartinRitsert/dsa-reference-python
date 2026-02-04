@@ -341,7 +341,9 @@ if __name__ == "__main__":
     numbers_tree = numbers_tree.delete(17)
     assert not numbers_tree.search(17), "Should not find deleted root 17"
     in_order = numbers_tree.in_order_traversal()
-    assert in_order == sorted(in_order), "Tree should remain a valid BST after root deletion"
+    assert in_order == sorted(in_order), (
+        "Tree should remain a valid BST after root deletion"
+    )
 
     # Test delete leaf
     numbers_tree = numbers_tree.delete(1)
