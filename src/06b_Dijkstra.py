@@ -20,7 +20,7 @@ class GraphAdjacencyList:
         self.adjacency_list[v].append((u, weight))  # If the graph is undirected
 
     def dijkstra(self, start: int) -> dict[int, float]:
-        """Find shortest distances from start to all vertices. O((V + E) log V) time, O(V) space."""
+        """Find shortest distances from start to all vertices. O((V + E) log V) time, O(V + E) space."""
         distances = {i: float("inf") for i in range(self.num_vertices)}
         distances[start] = 0
         pq = [(0, start)]  # (distance, vertex)
