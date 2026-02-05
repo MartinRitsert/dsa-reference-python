@@ -192,6 +192,7 @@ class GraphAdjacencyList:
     #     """Find shortest path via recursive DFS with backtracking/pruning. O(V! * V^2) time, O(V) space."""
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return []
+    #
     #     shortest_path = []
     #     path = []
     #
@@ -417,16 +418,14 @@ class GraphAdjacencyMatrix:
     def topological_sort_bfs_it(self) -> list[int]:
         """Return topological ordering using Kahn's algorithm. O(V^2) time, O(V) space."""
         in_degree = {
-            i: 0 for i in range(self.matrix_size) if i not in self.deleted_vertices
+            vertex: 0
+            for vertex in range(self.matrix_size)
+            if vertex not in self.deleted_vertices
         }
 
         # Calculate in-degree of each vertex
-        for vertex in range(self.matrix_size):
-            if vertex in self.deleted_vertices:
-                continue
-            for neighbor in range(self.matrix_size):
-                if neighbor in self.deleted_vertices:
-                    continue
+        for vertex in in_degree:
+            for neighbor in in_degree:
                 if self.adjacency_matrix[vertex][neighbor] == 1:
                     in_degree[neighbor] += 1
 
@@ -439,9 +438,7 @@ class GraphAdjacencyMatrix:
             stack.append(vertex)
 
             # Update in-degree of neighbors
-            for neighbor in range(self.matrix_size):
-                if neighbor in self.deleted_vertices:
-                    continue
+            for neighbor in in_degree:
                 if self.adjacency_matrix[vertex][neighbor] == 1:
                     in_degree[neighbor] -= 1
                     if in_degree[neighbor] == 0:
@@ -532,6 +529,7 @@ class GraphAdjacencyMatrix:
     #     """Find shortest path via recursive DFS with backtracking/pruning. O(V! * V^2) time, O(V) space."""
     #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return []
+    #
     #     shortest_path = []
     #     path = []
     #
