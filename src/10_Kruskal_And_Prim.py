@@ -46,18 +46,14 @@ def kruskal(
     if n == 0:
         return []
 
-    # Initialize the UnionFind structure
     uf = UnionFind(n)
     mst = []
-
-    # Sort edges by weight
     edges = sorted(edges, key=lambda x: x[2])
 
-    # Iterate over sorted edges
     for u, v, weight in edges:
-        if not uf.connected(u, v):  # Check if u and v are in different components
-            uf.union(u, v)  # Union the two components
-            mst.append((u, v, weight))  # Add the edge to the MST
+        if not uf.connected(u, v):
+            uf.union(u, v)
+            mst.append((u, v, weight))
 
     return mst
 
@@ -120,7 +116,6 @@ def prim_adj_mat(
     if n == 0:
         return []
 
-    # Initialize adjacency matrix
     adj_matrix = [[float("inf")] * n for _ in range(n)]
     for i in range(n):
         adj_matrix[i][i] = 0
@@ -141,7 +136,6 @@ def prim_adj_mat(
 
     mst = []
 
-    # Start with the initial start_vertex
     min_cost[start_vertex] = 0
 
     for _ in range(n):
