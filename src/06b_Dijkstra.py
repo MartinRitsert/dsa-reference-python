@@ -19,9 +19,9 @@ class GraphAdjacencyList:
         self.adjacency_list[u].append((v, weight))
         self.adjacency_list[v].append((u, weight))  # If the graph is undirected
 
-    def dijkstra(self, start: int) -> dict[int, float]:
+    def dijkstra(self, start: int) -> list[float]:
         """Find shortest distances from start to all vertices. O((V + E) log V) time, O(V + E) space."""
-        distances = {i: float("inf") for i in range(self.num_vertices)}
+        distances = [float("inf")] * self.num_vertices
         distances[start] = 0
         pq = [(0, start)]  # (distance, vertex)
 
@@ -128,7 +128,7 @@ if __name__ == "__main__":
 
     # Single vertex graph
     g3 = GraphAdjacencyList(1)
-    assert g3.dijkstra(0) == {0: 0}, "Single vertex: distance to self is 0"
+    assert g3.dijkstra(0) == [0], "Single vertex: distance to self is 0"
 
     g4 = GraphAdjacencyMatrix(1)
     assert g4.dijkstra(0) == [0], "Single vertex: distance to self is 0"
