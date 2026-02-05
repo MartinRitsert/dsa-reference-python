@@ -22,7 +22,7 @@ from __future__ import annotations
 #     def connected(self, x: int, y: int) -> bool:
 #         """Check if x and y are in the same set. O(1) time, O(1) space."""
 #         return self.find(x) == self.find(y)
- 
+
 # # 2. Quick Union
 # # Preferable to Quick Find
 # class UnionFind:
@@ -45,7 +45,7 @@ from __future__ import annotations
 #     def connected(self, x: int, y: int) -> bool:
 #         """Check if x and y are in the same set. O(n) time, O(1) space."""
 #         return self.find(x) == self.find(y)
-    
+
 # # 3. Union by Rank
 # # Is an optimization of the Quick Union algorithm
 # class UnionFind:
@@ -147,7 +147,7 @@ class UnionFind:
         return self.find(x) == self.find(y)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     uf = UnionFind(10)
 
     # Build component: 1-2-5-6-7
@@ -173,7 +173,9 @@ if __name__ == '__main__':
     # Test solo element 4 is not connected to anyone
     assert not uf.connected(4, 9), "4 (solo) should not be connected to 9"
     assert not uf.connected(4, 1), "4 (solo) should not be connected to 1"
-    assert not uf.connected(1, 3), "Components 1-2-5-6-7 and 3-8-9 should not be connected"
+    assert not uf.connected(1, 3), (
+        "Components 1-2-5-6-7 and 3-8-9 should not be connected"
+    )
 
     # Test union: connect solo element 4 to component 3-8-9
     uf.union(9, 4)

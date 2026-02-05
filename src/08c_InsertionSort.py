@@ -12,11 +12,11 @@ def insertion_sort(elements: list[Any]) -> None:
         while j >= 0 and anchor < elements[j]:
             elements[j + 1] = elements[j]
             j -= 1
-        
+
         elements[j + 1] = anchor
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     tests = [
         [11, 9, 29, 7, 2, 15, 28],
         [3, 7, 9, 11],

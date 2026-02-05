@@ -22,7 +22,7 @@ class LinkedList:
         while itr:
             if itr.data == data:
                 return index
-            
+
             itr = itr.next
             index += 1
 
@@ -151,7 +151,7 @@ class LinkedList:
         if self.head is None:
             print("Linked list is empty")
             return
-        
+
         itr = self.head
         parts = []
 
@@ -159,10 +159,10 @@ class LinkedList:
             parts.append(str(itr.data))
             itr = itr.next
 
-        print('-->'.join(parts))
+        print("-->".join(parts))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     ll = LinkedList()
 
     # Test empty list

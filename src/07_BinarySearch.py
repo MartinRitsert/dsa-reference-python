@@ -34,6 +34,7 @@ from typing import Any
 #
 #     return binary_search(numbers_list, number_to_find, left_index, right_index)
 
+
 # Iterative approach:
 def binary_search(numbers_list: list[Any], number_to_find: Any) -> int:
     """Search a sorted list iteratively. O(log n) time, O(1) space."""
@@ -55,23 +56,25 @@ def binary_search(numbers_list: list[Any], number_to_find: Any) -> int:
     return -1
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Test cases: (array, target, expected_result)
     test_cases = [
-        ([12, 15, 17, 19, 21, 24, 45, 67], 21, 4),   # Found in middle
-        ([12, 15, 17, 19, 21, 24, 45, 67], 12, 0),   # Found at first
-        ([12, 15, 17, 19, 21, 24, 45, 67], 67, 7),   # Found at last
+        ([12, 15, 17, 19, 21, 24, 45, 67], 21, 4),  # Found in middle
+        ([12, 15, 17, 19, 21, 24, 45, 67], 12, 0),  # Found at first
+        ([12, 15, 17, 19, 21, 24, 45, 67], 67, 7),  # Found at last
         ([12, 15, 17, 19, 21, 24, 45, 67], 10, -1),  # Not found (before all)
         ([12, 15, 17, 19, 21, 24, 45, 67], 70, -1),  # Not found (after all)
         ([12, 15, 17, 19, 21, 24, 45, 67], 20, -1),  # Not found (between)
-        ([], 5, -1),                                  # Empty array
-        ([5], 5, 0),                                  # Single element (found)
-        ([5], 3, -1),                                 # Single element (not found)
+        ([], 5, -1),  # Empty array
+        ([5], 5, 0),  # Single element (found)
+        ([5], 3, -1),  # Single element (not found)
     ]
 
     # Test iterative binary search
     for arr, target, expected in test_cases:
         result = binary_search(arr, target)
-        assert result == expected, f"Iterative: search {target} in {arr}, got {result}, expected {expected}"
+        assert result == expected, (
+            f"Iterative: search {target} in {arr}, got {result}, expected {expected}"
+        )
 
     print("All tests passed!")

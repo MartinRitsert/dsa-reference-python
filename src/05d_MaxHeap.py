@@ -37,7 +37,10 @@ class MaxHeap:
         # its value will be exchanged with that of the parent node
         # This is called "heapify up"
         while self.maxheap[index] > self.maxheap[parent] and index > 1:
-            self.maxheap[parent], self.maxheap[index] = self.maxheap[index], self.maxheap[parent]
+            self.maxheap[parent], self.maxheap[index] = (
+                self.maxheap[index],
+                self.maxheap[parent],
+            )
             index = parent
             parent = index // 2
 
@@ -56,7 +59,7 @@ class MaxHeap:
 
         # Put the last element in the Heap to the top of Heap
         self.maxheap[1] = self.maxheap[self.real_size]
-        
+
         # Remove element implicitly by decreasing real_size
         self.real_size -= 1
 
@@ -65,20 +68,23 @@ class MaxHeap:
         while index <= self.real_size // 2:
             left = index * 2
             right = index * 2 + 1
-            largest = index 
+            largest = index
 
             if left <= self.real_size and self.maxheap[left] > self.maxheap[largest]:
                 largest = left
-            
+
             if right <= self.real_size and self.maxheap[right] > self.maxheap[largest]:
                 largest = right
-            
+
             # Heap property is satisfied for this subtree, no more swaps needed
             if largest == index:
                 break
 
             # Swap the current node with the largest child
-            self.maxheap[index], self.maxheap[largest] = self.maxheap[largest], self.maxheap[index]
+            self.maxheap[index], self.maxheap[largest] = (
+                self.maxheap[largest],
+                self.maxheap[index],
+            )
             index = largest
 
         return removed
@@ -88,7 +94,7 @@ class MaxHeap:
         return self.real_size
 
     def __str__(self) -> str:
-        return str(self.maxheap[1:self.real_size+1])
+        return str(self.maxheap[1 : self.real_size + 1])
 
 
 if __name__ == "__main__":

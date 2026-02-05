@@ -15,7 +15,7 @@ def selection_sort(elements: list[Any]) -> None:
             elements[i], elements[min_index] = elements[min_index], elements[i]
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     tests = [
         [89, 78, 61, 53, 23, 21, 17, 12, 9, 7, 6, 2, 1],
         [],
@@ -24,7 +24,7 @@ if __name__ == '__main__':
         [78, 12, 15, 8, 61, 53, 23, 27],
         [5],
         [3, 3, 3],  # All equal
-        [2, 1],     # Two elements
+        [2, 1],  # Two elements
     ]
 
     for elements in tests:

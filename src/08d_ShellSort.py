@@ -19,7 +19,7 @@ def shell_sort(elements: list[Any]) -> None:
         gap = gap // 2
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     tests = [
         [89, 78, 61, 53, 23, 21, 17, 12, 9, 7, 6, 2, 1],
         [],

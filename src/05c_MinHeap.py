@@ -37,7 +37,10 @@ class MinHeap:
         # its value will be exchanged with that of the parent node
         # This is called "heapify up"
         while self.minheap[index] < self.minheap[parent] and index > 1:
-            self.minheap[parent], self.minheap[index] = self.minheap[index], self.minheap[parent]
+            self.minheap[parent], self.minheap[index] = (
+                self.minheap[index],
+                self.minheap[parent],
+            )
             index = parent
             parent = index // 2
 
@@ -56,7 +59,7 @@ class MinHeap:
 
         # Put the last element in the Heap to the top of Heap
         self.minheap[1] = self.minheap[self.real_size]
-        
+
         # Remove element implicitly by decreasing real_size
         self.real_size -= 1
 
@@ -65,20 +68,23 @@ class MinHeap:
         while index <= self.real_size // 2:
             left = index * 2
             right = index * 2 + 1
-            smallest = index 
+            smallest = index
 
             if left <= self.real_size and self.minheap[left] < self.minheap[smallest]:
                 smallest = left
-            
+
             if right <= self.real_size and self.minheap[right] < self.minheap[smallest]:
                 smallest = right
-            
+
             # Heap property is satisfied for this subtree, no more swaps needed
             if smallest == index:
                 break
 
             # Swap the current node with the smallest child
-            self.minheap[index], self.minheap[smallest] = self.minheap[smallest], self.minheap[index]
+            self.minheap[index], self.minheap[smallest] = (
+                self.minheap[smallest],
+                self.minheap[index],
+            )
             index = smallest
 
         return removed
@@ -88,7 +94,7 @@ class MinHeap:
         return self.real_size
 
     def __str__(self) -> str:
-        return str(self.minheap[1:self.real_size+1])
+        return str(self.minheap[1 : self.real_size + 1])
 
 
 if __name__ == "__main__":

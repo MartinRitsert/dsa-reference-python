@@ -21,7 +21,7 @@ class HashTable:
         for char in key:
             h += ord(char)
         return h % self.MAX
-    
+
     # def add(self, key: str, val: Any) -> None:
     #     """Insert or update a key-value pair. O(k) time, O(1) space."""
     #     h = self.get_hash(key)
@@ -31,7 +31,7 @@ class HashTable:
     #     """Retrieve value by key. O(k) time, O(1) space."""
     #     h = self.get_hash(key)
     #     return self.arr[h]
-    
+
     # To be able to use my_array[key] = value instead of my_array.add(key, value),
     # we can overwrite the __setitem__ operator
     def __setitem__(self, key: str, val: Any) -> None:
@@ -54,7 +54,7 @@ class HashTable:
             return self[key]
         except KeyError:
             return default
-    
+
     # Can also overwrite the __delitem__ operator to allow us
     # using del my_array[key]
     def __delitem__(self, key: str) -> None:

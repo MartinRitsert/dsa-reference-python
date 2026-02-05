@@ -45,7 +45,9 @@ class GraphAdjacencyList:
 class GraphAdjacencyMatrix:
     def __init__(self, num_vertices: int) -> None:
         self.num_vertices = num_vertices
-        self.adjacency_matrix = [[float('inf')] * num_vertices for _ in range(num_vertices)]
+        self.adjacency_matrix = [
+            [float("inf")] * num_vertices for _ in range(num_vertices)
+        ]
         for i in range(num_vertices):
             self.adjacency_matrix[i][i] = 0
 
@@ -80,7 +82,7 @@ class GraphAdjacencyMatrix:
 
             # Update distances to neighboring vertices
             for neighbor, weight in enumerate(self.adjacency_matrix[min_vertex]):
-                if weight != float('inf') and neighbor not in visited:
+                if weight != float("inf") and neighbor not in visited:
                     new_distance = distances[min_vertex] + weight
                     if new_distance < distances[neighbor]:
                         distances[neighbor] = new_distance
