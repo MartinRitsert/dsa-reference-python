@@ -123,7 +123,7 @@ class GraphAdjacencyList:
 
     # # Recursive DFS approach
     # def get_paths_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[list[int]]:
-    #     """Find all paths from start to end via recursive DFS. O(V! * V) time and space."""
+    #     """Find all paths from start to end via recursive DFS. O(V! * V^2) time, O(V! * V) space."""
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return []
 
@@ -146,7 +146,7 @@ class GraphAdjacencyList:
 
     # Iterative BFS approach
     def get_paths_bfs_it(self, start: int, end: int) -> list[list[int]]:
-        """Find all paths from start to end via BFS. O(V! * V) time and space."""
+        """Find all paths from start to end via BFS. O(V! * V^2) time, O(V! * V) space."""
         if start not in self.adjacency_list or end not in self.adjacency_list:
             return []
 
@@ -167,7 +167,7 @@ class GraphAdjacencyList:
 
     # # Recursive DFS approach
     # def get_shortest_path_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[int]:
-    #     """Find shortest path via recursive DFS. O(V! * V) time, O(V) space."""
+    #     """Find shortest path via recursive DFS. O(V! * V^2) time, O(V^2) space."""
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return []
 
@@ -187,6 +187,37 @@ class GraphAdjacencyList:
     #                     shortest_path = sp
 
     #     return shortest_path if shortest_path else []
+
+    # # Recursive DFS approach with backtracking and pruning
+    # # Improves on the above by using in-place path mutation (append/pop) instead
+    # # of list copies, reducing space from O(V^2) to O(V), and by pruning branches
+    # # that cannot yield a shorter path than the current best.
+    # # Note: a parallel visited set would reduce `not in path` from O(V) to O(1),
+    # # bringing time from O(V! * V^2) to O(V! * V) without affecting space.
+    # def get_shortest_path_dfs_rec(self, start: int, end: int) -> list[int]:
+    #     """Find shortest path via recursive DFS with backtracking/pruning. O(V! * V^2) time, O(V) space."""
+    #     if start not in self.adjacency_list or end not in self.adjacency_list:
+    #         return []
+    #     best_path = []
+    #     path = []
+    #
+    #     def dfs(vertex):
+    #         nonlocal best_path
+    #         if vertex == end:
+    #             if not best_path or len(path) < len(best_path):
+    #                 best_path = path[:]
+    #             return
+    #         for neighbor in self.adjacency_list[vertex]:
+    #             if neighbor not in path:
+    #                 if best_path and len(path) + 1 >= len(best_path):
+    #                     continue
+    #                 path.append(neighbor)
+    #                 dfs(neighbor)
+    #                 path.pop()
+    #
+    #     path.append(start)
+    #     dfs(start)
+    #     return best_path
 
     # Iterative BFS approach
     def get_shortest_path_bfs_it(self, start: int, end: int) -> list[int]:
@@ -430,7 +461,7 @@ class GraphAdjacencyMatrix:
 
     # # Recursive DFS approach
     # def get_paths_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[list[int]]:
-    #     """Find all paths from start to end via recursive DFS. O(V! * V) time and space."""
+    #     """Find all paths from start to end via recursive DFS. O(V! * V^2) time, O(V! * V) space."""
     #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return []
 
@@ -455,7 +486,7 @@ class GraphAdjacencyMatrix:
 
     # Iterative BFS approach
     def get_paths_bfs_it(self, start: int, end: int) -> list[list[int]]:
-        """Find all paths from start to end via BFS. O(V! * V) time and space."""
+        """Find all paths from start to end via BFS. O(V! * V^2) time, O(V! * V) space."""
         if not self._vertex_exists(start) or not self._vertex_exists(end):
             return []
 
@@ -481,7 +512,7 @@ class GraphAdjacencyMatrix:
 
     # # Recursive DFS approach
     # def get_shortest_path_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[int]:
-    #     """Find shortest path via recursive DFS. O(V! * V) time, O(V) space."""
+    #     """Find shortest path via recursive DFS. O(V! * V^2) time, O(V^2) space."""
     #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return []
 
@@ -503,6 +534,39 @@ class GraphAdjacencyMatrix:
     #                     shortest_path = sp
 
     #     return shortest_path if shortest_path else []
+
+    # # Recursive DFS approach with backtracking and pruning
+    # # Improves on the above by using in-place path mutation (append/pop) instead
+    # # of list copies, reducing space from O(V^2) to O(V), and by pruning branches
+    # # that cannot yield a shorter path than the current best.
+    # # Note: a parallel visited set would reduce `not in path` from O(V) to O(1),
+    # # bringing time from O(V! * V^2) to O(V! * V) without affecting space.
+    # def get_shortest_path_dfs_rec(self, start: int, end: int) -> list[int]:
+    #     """Find shortest path via recursive DFS with backtracking/pruning. O(V! * V^2) time, O(V) space."""
+    #     if not self._vertex_exists(start) or not self._vertex_exists(end):
+    #         return []
+    #     best_path = []
+    #     path = []
+    #
+    #     def dfs(vertex):
+    #         nonlocal best_path
+    #         if vertex == end:
+    #             if not best_path or len(path) < len(best_path):
+    #                 best_path = path[:]
+    #             return
+    #         for neighbor in range(self.matrix_size):
+    #             if neighbor in self.deleted_vertices:
+    #                 continue
+    #             if self.adjacency_matrix[vertex][neighbor] == 1 and neighbor not in path:
+    #                 if best_path and len(path) + 1 >= len(best_path):
+    #                     continue
+    #                 path.append(neighbor)
+    #                 dfs(neighbor)
+    #                 path.pop()
+    #
+    #     path.append(start)
+    #     dfs(start)
+    #     return best_path
 
     # Iterative BFS approach
     def get_shortest_path_bfs_it(self, start: int, end: int) -> list[int]:
