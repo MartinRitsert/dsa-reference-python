@@ -122,26 +122,23 @@ class GraphAdjacencyList:
         return stack
 
     # # Recursive DFS approach
-    # def get_paths_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[list[int]]:
+    # def get_paths_dfs_rec(self, start: int, end: int) -> list[list[int]]:
     #     """Find all paths from start to end via recursive DFS. O(V! * V^2) time, O(V! * V) space."""
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return []
-
-    #     if path is None:
-    #         path = []
-
-    #     path = path + [start]
-
-    #     if start == end:
-    #         return [path]
-
+    #
     #     paths = []
-    #     for vertex in self.adjacency_list[start]:
-    #         if vertex not in path:
-    #             new_paths = self.get_paths_dfs_rec(vertex, end, path)
-    #             for p in new_paths:
-    #                 paths.append(p)
-
+    #
+    #     def dfs(vertex, path):
+    #         path = path + [vertex]
+    #         if vertex == end:
+    #             paths.append(path)
+    #             return
+    #         for neighbor in self.adjacency_list[vertex]:
+    #             if neighbor not in path:
+    #                 dfs(neighbor, path)
+    #
+    #     dfs(start, [])
     #     return paths
 
     # Iterative BFS approach
@@ -166,27 +163,24 @@ class GraphAdjacencyList:
         return paths
 
     # # Recursive DFS approach
-    # def get_shortest_path_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[int]:
+    # def get_shortest_path_dfs_rec(self, start: int, end: int) -> list[int]:
     #     """Find shortest path via recursive DFS. O(V! * V^2) time, O(V^2) space."""
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return []
-
-    #     if path is None:
-    #         path = []
-
-    #     path = path + [start]
-
-    #     if start == end:
-    #         return path
-
-    #     shortest_path = None
-    #     for vertex in self.adjacency_list[start]:
-    #         if vertex not in path:
-    #             sp = self.get_shortest_path_dfs_rec(vertex, end, path)
-    #             if sp and (shortest_path is None or len(sp) < len(shortest_path)):
+    #
+    #     def dfs(vertex, path):
+    #         path = path + [vertex]
+    #         if vertex == end:
+    #             return path
+    #         shortest_path = None
+    #         for neighbor in self.adjacency_list[vertex]:
+    #             if neighbor not in path:
+    #                 sp = dfs(neighbor, path)
+    #                 if sp and (shortest_path is None or len(sp) < len(shortest_path)):
     #                     shortest_path = sp
-
-    #     return shortest_path if shortest_path else []
+    #         return shortest_path
+    #
+    #     return dfs(start, []) or []
 
     # # Recursive DFS approach with backtracking and pruning
     # # Improves on the above by using in-place path mutation (append/pop) instead
@@ -198,18 +192,18 @@ class GraphAdjacencyList:
     #     """Find shortest path via recursive DFS with backtracking/pruning. O(V! * V^2) time, O(V) space."""
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return []
-    #     best_path = []
+    #     shortest_path = []
     #     path = []
     #
     #     def dfs(vertex):
-    #         nonlocal best_path
+    #         nonlocal shortest_path
     #         if vertex == end:
-    #             if not best_path or len(path) < len(best_path):
-    #                 best_path = path[:]
+    #             if not shortest_path or len(path) < len(shortest_path):
+    #                 shortest_path = path[:]
     #             return
     #         for neighbor in self.adjacency_list[vertex]:
     #             if neighbor not in path:
-    #                 if best_path and len(path) + 1 >= len(best_path):
+    #                 if shortest_path and len(path) + 1 >= len(shortest_path):
     #                     continue
     #                 path.append(neighbor)
     #                 dfs(neighbor)
@@ -217,7 +211,7 @@ class GraphAdjacencyList:
     #
     #     path.append(start)
     #     dfs(start)
-    #     return best_path
+    #     return shortest_path
 
     # Iterative BFS approach
     def get_shortest_path_bfs_it(self, start: int, end: int) -> list[int]:
@@ -250,24 +244,23 @@ class GraphAdjacencyList:
         return []
 
     # # Recursive DFS approach
-    # def is_connected_dfs_rec(self, start: int, end: int, visited: set[int] | None = None) -> bool:
+    # def is_connected_dfs_rec(self, start: int, end: int) -> bool:
     #     """Check if a path exists via recursive DFS. O(V + E) time, O(V) space."""
     #     if start not in self.adjacency_list or end not in self.adjacency_list:
     #         return False
-
-    #     if visited is None:
-    #         visited = set()
-
-    #     if start == end:
-    #         return True
-
-    #     visited.add(start)
-
-    #     for neighbor in self.adjacency_list[start]:
-    #         if neighbor not in visited and self.is_connected_dfs_rec(neighbor, end, visited):
+    #
+    #     visited = set()
+    #
+    #     def dfs(vertex):
+    #         if vertex == end:
     #             return True
-
-    #     return False
+    #         visited.add(vertex)
+    #         for neighbor in self.adjacency_list[vertex]:
+    #             if neighbor not in visited and dfs(neighbor):
+    #                 return True
+    #         return False
+    #
+    #     return dfs(start)
 
     # Iterative DFS approach (preferred)
     def is_connected_dfs_it(self, start: int, end: int) -> bool:
@@ -460,28 +453,25 @@ class GraphAdjacencyMatrix:
         return stack
 
     # # Recursive DFS approach
-    # def get_paths_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[list[int]]:
+    # def get_paths_dfs_rec(self, start: int, end: int) -> list[list[int]]:
     #     """Find all paths from start to end via recursive DFS. O(V! * V^2) time, O(V! * V) space."""
     #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return []
-
-    #     if path is None:
-    #         path = []
-
-    #     path = path + [start]
-
-    #     if start == end:
-    #         return [path]
-
+    #
     #     paths = []
-    #     for vertex in range(self.matrix_size):
-    #         if vertex in self.deleted_vertices:
-    #             continue
-    #         if self.adjacency_matrix[start][vertex] == 1 and vertex not in path:
-    #             new_paths = self.get_paths_dfs_rec(vertex, end, path)
-    #             for p in new_paths:
-    #                 paths.append(p)
-
+    #
+    #     def dfs(vertex, path):
+    #         path = path + [vertex]
+    #         if vertex == end:
+    #             paths.append(path)
+    #             return
+    #         for neighbor in range(self.matrix_size):
+    #             if neighbor in self.deleted_vertices:
+    #                 continue
+    #             if self.adjacency_matrix[vertex][neighbor] == 1 and neighbor not in path:
+    #                 dfs(neighbor, path)
+    #
+    #     dfs(start, [])
     #     return paths
 
     # Iterative BFS approach
@@ -511,29 +501,26 @@ class GraphAdjacencyMatrix:
         return paths
 
     # # Recursive DFS approach
-    # def get_shortest_path_dfs_rec(self, start: int, end: int, path: list[int] | None = None) -> list[int]:
+    # def get_shortest_path_dfs_rec(self, start: int, end: int) -> list[int]:
     #     """Find shortest path via recursive DFS. O(V! * V^2) time, O(V^2) space."""
     #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return []
-
-    #     if path is None:
-    #         path = []
-
-    #     path = path + [start]
-
-    #     if start == end:
-    #         return path
-
-    #     shortest_path = None
-    #     for vertex in range(self.matrix_size):
-    #         if vertex in self.deleted_vertices:
-    #             continue
-    #         if self.adjacency_matrix[start][vertex] == 1 and vertex not in path:
-    #             sp = self.get_shortest_path_dfs_rec(vertex, end, path)
-    #             if sp and (shortest_path is None or len(sp) < len(shortest_path)):
+    #
+    #     def dfs(vertex, path):
+    #         path = path + [vertex]
+    #         if vertex == end:
+    #             return path
+    #         shortest_path = None
+    #         for neighbor in range(self.matrix_size):
+    #             if neighbor in self.deleted_vertices:
+    #                 continue
+    #             if self.adjacency_matrix[vertex][neighbor] == 1 and neighbor not in path:
+    #                 sp = dfs(neighbor, path)
+    #                 if sp and (shortest_path is None or len(sp) < len(shortest_path)):
     #                     shortest_path = sp
-
-    #     return shortest_path if shortest_path else []
+    #         return shortest_path
+    #
+    #     return dfs(start, []) or []
 
     # # Recursive DFS approach with backtracking and pruning
     # # Improves on the above by using in-place path mutation (append/pop) instead
@@ -545,20 +532,20 @@ class GraphAdjacencyMatrix:
     #     """Find shortest path via recursive DFS with backtracking/pruning. O(V! * V^2) time, O(V) space."""
     #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return []
-    #     best_path = []
+    #     shortest_path = []
     #     path = []
     #
     #     def dfs(vertex):
-    #         nonlocal best_path
+    #         nonlocal shortest_path
     #         if vertex == end:
-    #             if not best_path or len(path) < len(best_path):
-    #                 best_path = path[:]
+    #             if not shortest_path or len(path) < len(shortest_path):
+    #                 shortest_path = path[:]
     #             return
     #         for neighbor in range(self.matrix_size):
     #             if neighbor in self.deleted_vertices:
     #                 continue
     #             if self.adjacency_matrix[vertex][neighbor] == 1 and neighbor not in path:
-    #                 if best_path and len(path) + 1 >= len(best_path):
+    #                 if shortest_path and len(path) + 1 >= len(shortest_path):
     #                     continue
     #                 path.append(neighbor)
     #                 dfs(neighbor)
@@ -566,7 +553,7 @@ class GraphAdjacencyMatrix:
     #
     #     path.append(start)
     #     dfs(start)
-    #     return best_path
+    #     return shortest_path
 
     # Iterative BFS approach
     def get_shortest_path_bfs_it(self, start: int, end: int) -> list[int]:
@@ -604,30 +591,29 @@ class GraphAdjacencyMatrix:
         return []
 
     # # Recursive DFS approach
-    # def is_connected_dfs_rec(self, start: int, end: int, visited: set[int] | None = None) -> bool:
+    # def is_connected_dfs_rec(self, start: int, end: int) -> bool:
     #     """Check if a path exists via recursive DFS. O(V^2) time, O(V) space."""
     #     if not self._vertex_exists(start) or not self._vertex_exists(end):
     #         return False
-
-    #     if visited is None:
-    #         visited = set()
-
-    #     if start == end:
-    #         return True
-
-    #     visited.add(start)
-
-    #     for neighbor in range(self.matrix_size):
-    #         if neighbor in self.deleted_vertices:
-    #             continue
-    #         if (
-    #             self.adjacency_matrix[start][neighbor] == 1
-    #             and neighbor not in visited
-    #         ):
-    #             if self.is_connected_dfs_rec(neighbor, end, visited):
+    #
+    #     visited = set()
+    #
+    #     def dfs(vertex):
+    #         if vertex == end:
+    #             return True
+    #         visited.add(vertex)
+    #         for neighbor in range(self.matrix_size):
+    #             if neighbor in self.deleted_vertices:
+    #                 continue
+    #             if (
+    #                 self.adjacency_matrix[vertex][neighbor] == 1
+    #                 and neighbor not in visited
+    #                 and dfs(neighbor)
+    #             ):
     #                 return True
-
-    #     return False
+    #         return False
+    #
+    #     return dfs(start)
 
     # Iterative DFS approach (preferred)
     def is_connected_dfs_it(self, start: int, end: int) -> bool:
