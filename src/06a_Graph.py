@@ -318,7 +318,7 @@ class GraphAdjacencyMatrix:
     def __init__(self, num_vertices: int) -> None:
         self.num_vertices = num_vertices
         self.matrix_size = num_vertices  # Physical size of matrix
-        self.deleted_vertices: set[int] = set()  # Track deleted vertices
+        self.deleted_vertices = set()  # Track deleted vertices
 
         # Initialize adjacency matrix
         self.adjacency_matrix: list[list[int | None]] = [
