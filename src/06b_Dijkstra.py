@@ -79,8 +79,7 @@ class GraphAdjacencyMatrix:
             visited.add(min_vertex)
 
             # Update distances to neighboring vertices
-            for neighbor in range(self.num_vertices):
-                weight = self.adjacency_matrix[min_vertex][neighbor]
+            for neighbor, weight in enumerate(self.adjacency_matrix[min_vertex]):
                 if weight != float('inf') and neighbor not in visited:
                     new_distance = distances[min_vertex] + weight
                     if new_distance < distances[neighbor]:
