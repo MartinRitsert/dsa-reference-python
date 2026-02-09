@@ -3,15 +3,6 @@ from __future__ import annotations
 from typing import Any
 
 
-# # Linear search (as reference)
-# def linear_search(numbers_list, number_to_find):
-#     """Search by checking each element sequentially. O(n) time, O(1) space."""
-#     for index, element in enumerate(numbers_list):
-#         if element == number_to_find:
-#             return index
-#     return -1
-
-
 # # Recursive approach:
 # def binary_search(numbers_list: list[Any], number_to_find: Any, left_index: int, right_index: int) -> int:
 #     """Search a sorted list recursively. O(log n) time, O(log n) space."""
