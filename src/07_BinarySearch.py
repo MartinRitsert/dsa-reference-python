@@ -4,42 +4,42 @@ from typing import Any
 
 
 # # Recursive approach:
-# def binary_search(numbers_list: list[Any], number_to_find: Any, left_index: int, right_index: int) -> int:
+# def binary_search(elements: list[Any], target: Any, left_index: int, right_index: int) -> int:
 #     """Search a sorted list recursively. O(log n) time, O(log n) space."""
 #     if right_index < left_index:
 #         return -1
 #
 #     mid_index = left_index + (right_index - left_index) // 2
-#     if mid_index >= len(numbers_list) or mid_index < 0:
+#     if mid_index >= len(elements) or mid_index < 0:
 #         return -1
 #
-#     mid_number = numbers_list[mid_index]
+#     mid_value = elements[mid_index]
 #
-#     if mid_number == number_to_find:
+#     if mid_value == target:
 #         return mid_index
 #
-#     elif mid_number < number_to_find:
+#     elif mid_value < target:
 #         left_index = mid_index + 1
 #     else:
 #         right_index = mid_index - 1
 #
-#     return binary_search(numbers_list, number_to_find, left_index, right_index)
+#     return binary_search(elements, target, left_index, right_index)
 
 
 # Iterative approach:
-def binary_search(numbers_list: list[Any], number_to_find: Any) -> int:
+def binary_search(elements: list[Any], target: Any) -> int:
     """Search a sorted list iteratively. O(log n) time, O(1) space."""
     left_index = 0
-    right_index = len(numbers_list) - 1
+    right_index = len(elements) - 1
 
     while left_index <= right_index:
         mid_index = left_index + (right_index - left_index) // 2
-        mid_number = numbers_list[mid_index]
+        mid_value = elements[mid_index]
 
-        if mid_number == number_to_find:
+        if mid_value == target:
             return mid_index
 
-        elif mid_number < number_to_find:
+        elif mid_value < target:
             left_index = mid_index + 1
         else:
             right_index = mid_index - 1
