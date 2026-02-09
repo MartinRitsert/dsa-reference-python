@@ -42,22 +42,6 @@ This collection currently includes implementations for:
 * **10. Minimum Spanning Tree (MST) Algorithms** 🌳✨
     * `10_Kruskal_And_Prim.py`: Implementations of Kruskal's algorithm (typically for sparse graphs), Prim's algorithm using an adjacency matrix (suitable for dense graphs), and Prim's algorithm using an adjacency list (suitable for sparse graphs).
 
-*(The file naming convention `01a, 01b, ...` is used to group related concepts or show a progression of implementations, though some names have been made more descriptive.)*
-
-## 💡 My Approach
-
-The implementations in this collection reflect an ongoing effort to:
-* Solidify understanding of the core logic and intricacies of each data structure and algorithm.
-* Explore and document different implementation strategies and their trade-offs (e.g., various hash table collision resolution techniques, different backends for stacks/queues)
-* Maintain clear, understandable, and well-commented Python code that serves as a reliable personal reference.
-* Each file contains one active implementation per method; alternative approaches (e.g., recursive vs. iterative, different partition schemes) are kept as commented-out code with explanatory notes.
-
-## ✅ Testing Status
-
-All 23 implementations include unit tests within their `if __name__ == '__main__':` blocks using `assert` statements. Each file can be run directly to verify correctness - successful execution prints "All tests passed!".
-
-**Disclaimer:** These implementations are intended for **educational, illustrative, and personal reference purposes only**. They should not be considered production-ready or used in critical applications without further review.
-
 ## 📐 Complexity Notation
 
 Every method includes a one-line docstring with time and space complexity. The following variables are used:
@@ -77,13 +61,9 @@ Every method includes a one-line docstring with time and space complexity. The f
 * Unlabeled complexity is worst case (Big-O default). Only average/best cases are explicitly labeled (e.g., `O(n log n) avg, O(n^2) time`).
 * Space complexity is auxiliary (excluding inputs/outputs) and includes the cost of called methods (e.g., a method calling a recursive `find()` inherits its stack usage).
 
-## 🛠️ Prerequisites
-
-* This collection requires **Python 3.10 or newer** due to the use of modern type hinting features (PEP 604 union syntax `X | None` and PEP 585 generics like `list[int]`).
-
 ## 🚀 How to Use
 
-Each file contains an `if __name__ == '__main__':` block with unit tests. Run any file directly to verify the implementation:
+Requires **Python 3.10+** (PEP 604 `X | None`, PEP 585 `list[int]`). Each file includes inline tests via `assert` statements. Run any file directly — successful execution prints "All tests passed!":
 
 ```bash
 python src/01a_HashTable_NoCollisionHandling.py
