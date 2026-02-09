@@ -4,23 +4,26 @@ from typing import Any
 
 
 # # Recursive approach:
-# def binary_search(elements: list[Any], target: Any, left_index: int, right_index: int) -> int:
+# def binary_search(elements: list[Any], target: Any) -> int:
 #     """Search a sorted list recursively. O(log n) time, O(log n) space."""
-#     if right_index < left_index:
-#         return -1
+#     def _binary_search(left_index: int, right_index: int) -> int:
+#         if right_index < left_index:
+#             return -1
 #
-#     mid_index = (left_index + right_index) // 2
-#     mid_value = elements[mid_index]
+#         mid_index = (left_index + right_index) // 2
+#         mid_value = elements[mid_index]
 #
-#     if mid_value == target:
-#         return mid_index
+#         if mid_value == target:
+#             return mid_index
 #
-#     elif mid_value < target:
-#         left_index = mid_index + 1
-#     else:
-#         right_index = mid_index - 1
+#         elif mid_value < target:
+#             left_index = mid_index + 1
+#         else:
+#             right_index = mid_index - 1
 #
-#     return binary_search(elements, target, left_index, right_index)
+#         return _binary_search(left_index, right_index)
+#
+#     return _binary_search(0, len(elements) - 1)
 
 
 # Iterative approach:
