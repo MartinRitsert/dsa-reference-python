@@ -8,7 +8,7 @@ def selection_sort(elements: list[Any]) -> None:
     size = len(elements)
     for i in range(size - 1):
         min_index = i
-        for j in range(min_index + 1, size):
+        for j in range(i + 1, size):
             if elements[j] < elements[min_index]:
                 min_index = j
         if i != min_index:
