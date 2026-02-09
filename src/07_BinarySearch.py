@@ -9,7 +9,7 @@ from typing import Any
 #     if right_index < left_index:
 #         return -1
 #
-#     mid_index = left_index + (right_index - left_index) // 2
+#     mid_index = (left_index + right_index) // 2
 #     if mid_index >= len(elements) or mid_index < 0:
 #         return -1
 #
@@ -33,7 +33,7 @@ def binary_search(elements: list[Any], target: Any) -> int:
     right_index = len(elements) - 1
 
     while left_index <= right_index:
-        mid_index = left_index + (right_index - left_index) // 2
+        mid_index = (left_index + right_index) // 2
         mid_value = elements[mid_index]
 
         if mid_value == target:
