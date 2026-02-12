@@ -18,18 +18,29 @@ def quick_sort(elements: list[Any], start: int, end: int) -> None:
 
 
 # # Lomuto partition scheme
+# # Using Median-of-three pivot selection to avoid O(n^2) on sorted/reverse-sorted input
 # def partition(elements: list[Any], start: int, end: int) -> int:
-#     """Partition elements around last element using Lomuto scheme. O(n) time, O(1) space."""
+#     """Partition elements around a pivot using Lomuto scheme. O(n) time, O(1) space."""
+#     mid = (start + end) // 2
+#     if elements[start] > elements[mid]:
+#         elements[start], elements[mid] = elements[mid], elements[start]
+#     if elements[start] > elements[end]:
+#         elements[start], elements[end] = elements[end], elements[start]
+#     if elements[mid] > elements[end]:
+#         elements[mid], elements[end] = elements[end], elements[mid]
+#     # Median is now at mid; move it to end as the pivot
+#     elements[mid], elements[end] = elements[end], elements[mid]
+#
 #     pivot = elements[end]
 #     pivot_index = start
-
+#
 #     for i in range(start, end):
 #         if elements[i] < pivot:
 #             elements[i], elements[pivot_index] = elements[pivot_index], elements[i]
 #             pivot_index += 1
-
+#
 #     elements[pivot_index], elements[end] = elements[end], elements[pivot_index]
-
+#
 #     return pivot_index
 
 
