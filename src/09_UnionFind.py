@@ -83,21 +83,21 @@ from __future__ import annotations
 #         self.root = [i for i in range(size)]
 
 #     def find(self, x: int) -> int:
-#         """Find the root of x with path compression. O(log n) amortized time, O(log n) space."""
+#         """Find the root of x with path compression. O(log n) amortized time, O(n) space."""
 #         if x == self.root[x]:
 #             return x
 #         self.root[x] = self.find(self.root[x])
 #         return self.root[x]
 
 #     def union(self, x: int, y: int) -> None:
-#         """Merge the sets containing x and y. O(log n) amortized time, O(log n) space."""
+#         """Merge the sets containing x and y. O(log n) amortized time, O(n) space."""
 #         root_x = self.find(x)
 #         root_y = self.find(y)
 #         if root_x != root_y:
 #             self.root[root_y] = root_x
 
 #     def connected(self, x: int, y: int) -> bool:
-#         """Check if x and y are in the same set. O(log n) amortized time, O(log n) space."""
+#         """Check if x and y are in the same set. O(log n) amortized time, O(n) space."""
 #         return self.find(x) == self.find(y)
 
 
